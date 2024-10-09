@@ -108,5 +108,11 @@ public class Game {
 		// TODO Auto-generated method stub
 		return "";
 	}
+	
+	public boolean isFinished() {
+	
+		
+		return false;
+	}
 
 }
