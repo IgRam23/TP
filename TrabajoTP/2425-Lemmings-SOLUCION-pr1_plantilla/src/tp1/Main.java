@@ -10,6 +10,7 @@ import tp1.view.GameView;
 import tp1.view.Messages;
 
 public class Main {
+	
 
 	/**
 	 * Lemmings entry point
@@ -25,7 +26,7 @@ public class Main {
 			int nLevel = 1;
 			if (args.length != 0) nLevel = Integer.parseInt(args[0]);
 
-			Game game = new Game(nLevel);
+			Game game = new Game();
 			GameView view = new ConsoleView(game);
 			Controller controller = new Controller(game, view);
 					

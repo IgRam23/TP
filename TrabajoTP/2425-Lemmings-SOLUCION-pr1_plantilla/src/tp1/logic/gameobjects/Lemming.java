@@ -1,11 +1,12 @@
 package tp1.logic.gameobjects;
 
 import tp1.logic.*; //con el asterisco me mete las carpetas enteras
-import tp1.logic.lemmingRoles.WalkerRole;
+
+import tp1.view.Messages;
+
+import tp1.logic.lemmingRoles.*;
 
 public class Lemming {
-	
-	//TODO fill your code
 	
 	private Position pos; 
 	private Direction dir;
@@ -16,15 +17,14 @@ public class Lemming {
     public Lemming(Game game, Position pos){
     	this.game = game;
         this.pos = pos;
-        this.dir = Direction.NONE; // Inicialmente, no se mueve
+        this.dir = Direction.RIGHT; // Inicialmente, no se mueve
         this.isAlive = true; // Inicialmente, el lemming está vivo
         this.rol = new WalkerRole();
 	}
-	/**
-	 *  Implements the automatic update	
-	 */
+	
 	public void update() {
-		//TODO fill your code
+		
+		
 		
 		
 	}
@@ -43,11 +43,13 @@ public class Lemming {
 	}
 	public boolean isInPosition(Position pos) {
 		
-		return this.pos == pos;
+		return this.pos.equals(pos);
 	}
 	public String getIcon() {
-		//TODO fill your code
-		return " ";
+		if (this.dir == Direction.RIGHT)
+			return Messages.LEMMING_RIGHT; 
+		
+		return Messages.LEMMING_LEFT;
 	}
 	public String toString() {
 		//TODO fill your code

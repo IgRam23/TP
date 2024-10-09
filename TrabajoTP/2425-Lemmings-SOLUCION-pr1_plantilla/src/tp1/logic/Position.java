@@ -23,6 +23,10 @@ public class Position {
     public int getRow() {
         return row;
     }
+    
+    public boolean equals(Position pos) {
+    	return pos.row == row && pos.col == col;
+    }
 
 }
 //holalalalallalalalal
