@@ -5,7 +5,6 @@ import tp1.logic.gameobjects.Wall;
 import tp1.logic.gameobjects.ExitDoor;
 
 
-
 public class Game {
 
 	public static final int DIM_X = 10;
@@ -16,6 +15,7 @@ public class Game {
 	private int numLemmings;
 	private int remaining;
 	private boolean doExit;
+	private boolean finished;
 
 	public Game() {
 
@@ -62,14 +62,25 @@ public class Game {
 		
 	}
 
+	public void Update() {
+		nextCycle();
+		container.update();
+		
+	}
+	
+	//Devuelve el ciclo actual
 	public int getCycle() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.currentCycle;
+	}
+	
+	//Incrementa el ciclo 
+	public void nextCycle() {
+		this.currentCycle++;
 	}
 
+	//Devuelve el num de lemmings
 	public int numLemmingsInBoard() {
-		
-		return 0;
+		return this.numLemmings;
 	}
 
 	public int numLemmingsDead() {
@@ -110,9 +121,11 @@ public class Game {
 	}
 	
 	public boolean isFinished() {
-	
-		
-		return false;
+		return this.finished;
 	}
+	// Método para indicar que el juego ha terminado (usado por exit)
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
 
 }

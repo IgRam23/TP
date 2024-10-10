@@ -23,11 +23,19 @@ public class Lemming {
 	}
 	
 	public void update() {
+		paso();
+	}
+	public void paso() {
 		
-		
-		
+		if(dir == Direction.RIGHT) {
+			pos.andaDerch();
+		}
+		else if(dir == Direction.LEFT) {
+			pos.andaIzq();
+		}
 		
 	}
+	
 	public void dead() {
 		isAlive = false;
 	}
@@ -52,7 +60,12 @@ public class Lemming {
 		return Messages.LEMMING_LEFT;
 	}
 	public String toString() {
-		//TODO fill your code
+		pos.getRow();
+		pos.getCol();
+		
+		
+		
+		
 		return " ";
 	}
 	

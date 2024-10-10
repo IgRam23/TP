@@ -27,6 +27,16 @@ public class Position {
     public boolean equals(Position pos) {
     	return pos.row == row && pos.col == col;
     }
+    public Position andaDerch() {
+        return new Position(this.col + 1, this.row);
+    }
+
+    // Retorna una nueva posición movida a la izquierda
+    public Position andaIzq() {
+        return new Position(this.col - 1, this.row);
+    }
+    
+    
 
 }
-//holalalalallalalalal
+

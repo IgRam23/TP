@@ -37,9 +37,9 @@ public class Controller {
 			 // pedir línea al usuario
 			
 			String[] res =  view.getPrompt();
-			String res2 = String.join(System.lineSeparator(), res);
-			mensajesToString (res2);
-			//System.out.print(res2);
+			String command = String.join(" ", res).toLowerCase();
+			mensajesToString (command);
+			
 			
 			
 			
@@ -55,38 +55,35 @@ public class Controller {
 	}
 
 	
-	public void mensajesToString (String s) {
-		
-		String mensaje;
-		s.toLowerCase();   
+	public void mensajesToString (String s) {  
 		 
 		switch(s) {
 		
 			case Messages.COMMAND_HELP_NAME:
 			case Messages.COMMAND_HELP_SHORTCUT:
-				mensaje = Messages.HELP;
+				view.showMessage(Messages.HELP);
 				break;
 				
 			case "reset":
-				mensaje ="";
+				
 				break;
 				
 			case Messages.COMMAND_EXIT_NAME:
 			case Messages.COMMAND_EXIT_SHORTCUT:
-				mensaje = Messages.COMMAND_EXIT_HELP;
+				view.showMessage(Messages.COMMAND_EXIT_HELP);
+				game.setFinished(true);
 				break;
 				
 			case Messages.COMMAND_NONE_NAME:
 			case Messages.COMMAND_NONE_SHORTCUT:
 			case Messages.EMPTY: 
-				mensaje = Messages.COMMAND_NONE_HELP;
+				view.showMessage(Messages.COMMAND_NONE_HELP);
+				game.Update();
 				break;
 			
 			default:
-		        mensaje = "Comando no válido";
+				view.showMessage("Comando no válido");
 		        break;
 		}
-		
-		view.showMessage(mensaje);
 	}
 }
