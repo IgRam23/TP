@@ -7,7 +7,6 @@ import tp1.logic.gameobjects.*;
 
 import java.util.ArrayList; 
 
-
 public class GameObjectContainer {
 
 	private ArrayList<Lemming> lemmings;
@@ -26,11 +25,11 @@ public class GameObjectContainer {
 		lemmings.add(l);
 		numLemmings ++;
 	}
-	public void add(Wall w) { //ns si esta bien
+	public void add(Wall w) { 
 		walls.add(w);
 		numWalls++;
 	}
-	public void add(ExitDoor d) { //ns si esta bien
+	public void add(ExitDoor d) { 
 		doors.add(d);
 		numDoors++;
 	}
@@ -70,7 +69,6 @@ public class GameObjectContainer {
     			return true;
     	}
     	return false;
-
     }
     
     //Verificamos si hay una ExitDoor en la pos p
@@ -85,14 +83,12 @@ public class GameObjectContainer {
     
     //Verificamos si hay un lemming en la pos p
     public int isLemming(Position p) {
-
     	for(int i = 0; i < lemmings.size(); i++) {
     		if(lemmings.get(i).isInPosition(p)) {
     			return i;
     		}
     	}
     	return -1;
- 
     }
     //Devuelve el lemming de la pos p
     public Lemming Lem(Position p,int i) {

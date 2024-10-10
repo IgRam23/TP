@@ -14,6 +14,7 @@ public class Game {
 	private int currentCycle;					
 	private int numLemmings;
 	private int remaining;
+	private int lemmingsDead;
 	private boolean doExit;
 	private boolean finished;
 
@@ -62,10 +63,11 @@ public class Game {
 		
 	}
 
+	
+	//Actualiza el juego
 	public void Update() {
 		nextCycle();
 		container.update();
-		
 	}
 	
 	//Devuelve el ciclo actual
@@ -84,18 +86,16 @@ public class Game {
 	}
 
 	public int numLemmingsDead() {
-		// TODO Auto-generated method stub
-		return 0;
+		return  lemmingsDead;
 	}
 
 	public int numLemmingsExit() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	public int numLemmingsToWin() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return 5;
 	}
 
 	public String positionToString(int col, int row) {

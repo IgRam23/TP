@@ -19,51 +19,61 @@ public class Lemming {
         this.pos = pos;
         this.dir = Direction.RIGHT; // Inicialmente, no se mueve
         this.isAlive = true; // Inicialmente, el lemming está vivo
-        this.rol = new WalkerRole();
+        this.rol = new WalkerRole(pos);
 	}
 	
 	public void update() {
-		paso();
-	}
-	public void paso() {
-		
-		if(dir == Direction.RIGHT) {
-			pos.andaDerch();
-		}
-		else if(dir == Direction.LEFT) {
-			pos.andaIzq();
-		}
-		
+		walkOrFall();
 	}
 	
+	//Muere el lemming :(
 	public void dead() {
 		isAlive = false;
 	}
+	
+	// Verifica si el lemming esta vivo
 	public boolean isAlive() {
 		return isAlive;
 	}
+	
+	// Verifica si el lemming esta en el aire
 	public boolean isInAir() {
 		//TODO fill your code
+		Position pos_abajo = new Position(pos.getCol(), pos.getRow() + 1);
+		//hay q verificar que debajo esta vacio
+		
+		
 		return false;
 	}
+	
 	public void walkOrFall() {
-		//TODO fill your code
-	}
-	public boolean isInPosition(Position pos) {
 		
+		if (dir == Direction.RIGHT) {
+            // Actualiza la posición llamando a andaDerch() de WalkerRole
+            pos = rol.andaDerch();
+        } else if (dir == Direction.LEFT) {
+            // Actualiza la posición llamando a andaIzq() de WalkerRole
+            pos = rol.andaIzq();
+        } else if (dir == Direction.DOWN) {
+        	// Actualiza la posicion llamando a seCae() de WalkerRole
+        	pos = rol.seCae();
+        }
+	}
+	
+	//Verifica si el lemming esta en pos 
+	public boolean isInPosition(Position pos) {
 		return this.pos.equals(pos);
 	}
+	
+	//Dibuja el lemming
 	public String getIcon() {
 		if (this.dir == Direction.RIGHT)
 			return Messages.LEMMING_RIGHT; 
 		
 		return Messages.LEMMING_LEFT;
 	}
+	
 	public String toString() {
-		pos.getRow();
-		pos.getCol();
-		
-		
 		
 		
 		return " ";

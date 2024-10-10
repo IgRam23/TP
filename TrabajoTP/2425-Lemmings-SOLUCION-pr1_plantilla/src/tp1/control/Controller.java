@@ -28,28 +28,17 @@ public class Controller {
 		//TODO fill your code: The main loop that displays the game, asks the user for input, and executes the action.
 		
 		
-		
-		
 		while (!game.isFinished()) {
 			
 			view.showGame();
 			
-			 // pedir línea al usuario
-			
 			String[] res =  view.getPrompt();
 			String command = String.join(" ", res).toLowerCase();
 			mensajesToString (command);
-			
-			
-			
-			
-			 // distinción de casos (mejor en método
-			 // privado auxiliary
 		
 		}
 		
-		
-	
+	    //El juego termina
 		view.showEndMessage();
 		
 	}
