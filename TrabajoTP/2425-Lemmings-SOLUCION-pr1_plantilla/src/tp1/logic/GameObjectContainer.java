@@ -13,7 +13,7 @@ public class GameObjectContainer {
 	private int numLemmings;
 	private ArrayList<Wall> walls;
 	private int numWalls;
-	private ArrayList<ExitDoor> doors;;
+	private ArrayList<ExitDoor> doors;; 
 	private int numDoors;
 	 
 	public GameObjectContainer() {

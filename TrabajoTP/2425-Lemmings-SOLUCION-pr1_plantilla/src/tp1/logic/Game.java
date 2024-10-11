@@ -3,6 +3,7 @@ package tp1.logic;
 import tp1.logic.gameobjects.Lemming;
 import tp1.logic.gameobjects.Wall;
 import tp1.logic.gameobjects.ExitDoor;
+import tp1.logic.*;
 
 
 public class Game {
@@ -58,16 +59,31 @@ public class Game {
 
         
 	public Game(int nLevel) {
-		// TODO Auto-generated constructor stu
 		
 		
 	}
+	
+	
+	//resetea el juego
+	public void reset() {
+		container = new GameObjectContainer();
+	    currentCycle = 0;
+	    lemmingsDead = 0;
+	    numLemmings = 0;
+	    finished = false;
+	    initGame2();  
+    }
 
 	
 	//Actualiza el juego
 	public void Update() {
-		nextCycle();
-		container.update();
+		if (!isFinished()) {
+	        nextCycle(); 
+	        container.update(); 
+	        if (playerWins() || playerLooses()) {
+	            finished = true; 
+	        }
+	    }
 	}
 	
 	//Devuelve el ciclo actual
@@ -77,7 +93,7 @@ public class Game {
 	
 	//Incrementa el ciclo 
 	public void nextCycle() {
-		this.currentCycle++;
+		this.currentCycle++; 
 	}
 
 	//Devuelve el num de lemmings
@@ -86,11 +102,17 @@ public class Game {
 	}
 
 	public int numLemmingsDead() {
-		return  lemmingsDead;
+		return this.lemmingsDead; 
 	}
 
 	public int numLemmingsExit() {
-		return 0;
+		int lemmingsExit = 0;
+		/*for(int i = 0; i < numLemmings; i++) {
+			if(container.isExit(i)) { 
+				lemmingsExit++;
+			}
+		}*/
+		return lemmingsExit; 
 	}
 
 	public int numLemmingsToWin() {
@@ -106,13 +128,11 @@ public class Game {
 	}
 
 	public boolean playerWins() {
-		// TODO Auto-generated method stub
-		return false;
+		return numLemmingsExit() >= numLemmingsToWin(); 
 	}
 
 	public boolean playerLooses() {
-		// TODO Auto-generated method stub
-		return false;
+		return numLemmingsDead() == numLemmings; 
 	}
 
 	public String help() {
@@ -123,6 +143,7 @@ public class Game {
 	public boolean isFinished() {
 		return this.finished;
 	}
+	
 	// Método para indicar que el juego ha terminado (usado por exit)
     public void setFinished(boolean finished) {
         this.finished = finished;

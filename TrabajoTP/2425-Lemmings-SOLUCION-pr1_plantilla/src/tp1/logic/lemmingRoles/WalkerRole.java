@@ -2,6 +2,7 @@ package tp1.logic.lemmingRoles;
 
 import tp1.logic.Direction;
 import tp1.logic.Position;
+import tp1.logic.gameobjects.*; 
 
 public class WalkerRole {
 
@@ -12,8 +13,15 @@ public class WalkerRole {
 	        this.position = initialPosition;
 	   }
 	
-	public void play() {
-		// lemming.walkOrFall();
+	public void play(Lemming lemming) { 
+		/*if (lemming.isFalling()) {
+	        lemming.handleFall(); // Método para manejar la caída
+	    } else if (lemming.isInAir()) {
+	        lemming.fall(); // Método para caer
+	    } else {
+	        lemming.step(); // Método para avanzar o cambiar dirección
+	    }*/ 
+		lemming.walkOrFall();          
 	}
 	
 	

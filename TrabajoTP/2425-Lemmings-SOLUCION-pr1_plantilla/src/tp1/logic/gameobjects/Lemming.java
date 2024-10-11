@@ -23,7 +23,16 @@ public class Lemming {
 	}
 	
 	public void update() {
-		walkOrFall();
+		//walkOrFall(); he comentado esto porque nse si esta bien
+		
+		//esto tmpoco se si esta bien pero bueno aqui lo dejo
+	    if (!isAlive) {
+	        return; // Si el lemming está muerto, no se actualiza
+	    }
+	    
+		// Delegar al rol para que ejecute la acción correspondiente
+	    rol.play(this);       
+		
 	}
 	
 	//Muere el lemming :(

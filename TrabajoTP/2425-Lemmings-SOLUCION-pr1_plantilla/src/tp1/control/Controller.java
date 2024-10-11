@@ -35,6 +35,10 @@ public class Controller {
 			String[] res =  view.getPrompt();
 			String command = String.join(" ", res).toLowerCase();
 			mensajesToString (command);
+			
+			 if (!game.isFinished() && (!command.equals("reset")) && (!command.equals("r"))) {
+		            game.Update(); //Para actualizar los ciclos a no ser que se haya terminado o reseteado
+		        }
 		
 		}
 		
@@ -54,7 +58,8 @@ public class Controller {
 				break;
 				
 			case "reset":
-				
+			case "r":
+				game.reset();  //hace reset y crea una nueva instancia d Game
 				break;
 				
 			case Messages.COMMAND_EXIT_NAME:
@@ -67,7 +72,6 @@ public class Controller {
 			case Messages.COMMAND_NONE_SHORTCUT:
 			case Messages.EMPTY: 
 				view.showMessage(Messages.COMMAND_NONE_HELP);
-				game.Update();
 				break;
 			
 			default:
