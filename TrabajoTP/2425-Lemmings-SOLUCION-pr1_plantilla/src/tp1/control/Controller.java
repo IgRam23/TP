@@ -25,8 +25,6 @@ public class Controller {
 	 */
 	public void run() {
 		view.showWelcome();
-		//TODO fill your code: The main loop that displays the game, asks the user for input, and executes the action.
-		
 		
 		while (!game.isFinished()) {
 			
@@ -39,15 +37,12 @@ public class Controller {
 			 if (!game.isFinished() && (!command.equals("reset")) && (!command.equals("r"))) {
 		            game.Update(); //Para actualizar los ciclos a no ser que se haya terminado o reseteado
 		        }
-		     
 		}
 		
 	    //El juego termina
 		view.showEndMessage();
-		
 	}
 
-	
 	public void mensajesToString (String s) {  
 		 
 		switch(s) {
@@ -59,7 +54,7 @@ public class Controller {
 				
 			case "reset":
 			case "r":
-				game.reset();  //hace reset y crea una nueva instancia d Game
+				game.reset();  
 				break;
 				
 			case Messages.COMMAND_EXIT_NAME:
@@ -72,7 +67,6 @@ public class Controller {
 			case Messages.COMMAND_NONE_SHORTCUT:
 			case Messages.EMPTY: 
 				view.showMessage(Messages.COMMAND_NONE_HELP);
-				//game.Update();
 				break;
 			
 			default:

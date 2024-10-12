@@ -3,8 +3,6 @@ package tp1.logic;
 import tp1.logic.gameobjects.Lemming;
 import tp1.logic.gameobjects.Wall;
 import tp1.logic.gameobjects.ExitDoor;
-import tp1.logic.*;
-
 
 public class Game {
 
@@ -16,13 +14,13 @@ public class Game {
 	private int numLemmings;
 	private int remaining;
 	private int lemmingsDead;
+	private int lemmingsExit;
 	private boolean doExit;
 	private boolean finished;
 
 	public Game() {
 
 		initGame2();
-
 	}
     
 	private void initGame2() {
@@ -32,7 +30,7 @@ public class Game {
 		container.add(new Lemming(this, new Position(4,1)));
 		//container.add(new Lemming(this, new Position(5,0)));
 		container.add(new Lemming(this, new Position(6,0)));
-		//container.add(new Lemming(this, new Position(7,0)));
+		container.add(new Lemming(this, new Position(4,9)));
 
 		numLemmings = 4;
 
@@ -48,10 +46,12 @@ public class Game {
 		container.add(new Wall(new Position(7,0)));
 		container.add(new Wall(new Position(6,3)));
 		container.add(new Wall(new Position(5,9)));
-		container.add(new Wall(new Position(7,4)));
-		container.add(new Wall(new Position(7,9)));
-		container.add(new Wall(new Position(3,8)));
-		container.add(new ExitDoor(new Position(7,8)));
+		//container.add(new Wall(new Position(9,4)));
+		container.add(new Wall(new Position(7,7)));
+		container.add(new Wall(new Position(7,6)));
+		container.add(new Wall(new Position(7,5)));
+		container.add(new Wall(new Position(7,8)));
+		container.add(new ExitDoor(new Position(6,6)));
 
 		remaining = numLemmings - 1;
 
@@ -93,7 +93,6 @@ public class Game {
 	}
 	
 	
-
 	//Devuelve el ciclo actual
 	public int getCycle() {
 		return this.currentCycle;
@@ -109,22 +108,24 @@ public class Game {
 		return this.numLemmings;
 	}
 
+	//Devuelve el num de lemmings muertos
 	public int numLemmingsDead() {
 		return this.lemmingsDead; 
 	}
-	//ns si esta bien
-
-
-	public int numLemmingsExit() {
-		int lemmingsExit = 0;
-		/*for(int i = 0; i < numLemmings; i++) {
-			if(container.isExit(i)) { 
-				lemmingsExit++;
-			}
-		}*/
-		return lemmingsExit; 
+	//Incrementa el num de lemmings muertos
+	public void incrementDeadLemmings() {
+	    this.lemmingsDead++;  // Incrementa el número de lemmings muertos
 	}
 
+    //
+	public int numLemmingsExit() {
+		return lemmingsExit; 
+	}
+	public void incrementLemmingsExit() {
+		lemmingsExit++;
+	}
+	
+    //Devuelve el num de lemmings necarios para ganar
 	public int numLemmingsToWin() {
 		
 		return 5;
@@ -136,11 +137,13 @@ public class Game {
 		return container.positionToString(pos);
 		
 	}
-
+	
+    //Devuelve true si el jugador ha ganado
 	public boolean playerWins() {
 		return numLemmingsExit() >= numLemmingsToWin(); 
 	}
-
+	
+    //Devuelve true si el jugador ha perdido
 	public boolean playerLooses() {
 		return numLemmingsDead() == numLemmings; 
 	}
@@ -150,10 +153,10 @@ public class Game {
 		return "";
 	}
 	
+	//Devuelve true si el juego ha terminado
 	public boolean isFinished() {
 		return this.finished;
 	}
-	
 	// Método para indicar que el juego ha terminado (usado por exit)
     public void setFinished(boolean finished) {
         this.finished = finished;

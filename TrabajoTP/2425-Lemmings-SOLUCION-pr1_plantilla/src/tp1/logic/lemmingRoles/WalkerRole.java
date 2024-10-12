@@ -16,7 +16,6 @@ public class WalkerRole {
 	 
 	//Realiza el movimiento del lemming
 	public void play(Lemming lemming) { 
-		
 		lemming.walkOrFall();          
 	}
 	

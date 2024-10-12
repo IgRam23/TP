@@ -34,14 +34,15 @@ public class GameObjectContainer {
 		numDoors++;
 	}
     public void update() {
-    	for(int i = 0; i < numLemmings;i++) {
+    	for(int i = 0; i < numLemmings ;i++) {
     	
     		//Actualizamos cada lemming
     		lemmings.get(i).update();
     	}
+    	//Eliminamos a los lemmings muertos
     	removeDead();
-    	
 	}
+    
     public String positionToString(Position p) {
     	if(isSolid(p)) {
     		return Messages.WALL;
@@ -57,9 +58,20 @@ public class GameObjectContainer {
     //Quitamos los lemmings muertos
     private void removeDead() {
     	
-    	if(lemmings.removeIf(lemming -> !lemming.isAlive())){
-    		numLemmings--;
-    	}
+    	 ArrayList<Lemming> lemmingsToRemove = new ArrayList<>();
+    	    
+    	    for (Lemming lemming : lemmings) {
+    	        if (!lemming.isAlive()) {
+    	            lemmingsToRemove.add(lemming);  // Añadimos los lemmings muertos a una lista temporal
+    	        }
+    	    }
+
+    	    // Quitamos los lemmings muertos de la lista original
+    	    for (Lemming lemming : lemmingsToRemove) {
+    	        lemmings.remove(lemming);
+    	        numLemmings--;   // Reduce el número total de lemmings
+    	        lemming.getGame().incrementDeadLemmings();  // Aumenta el contador de lemmings muertos en el juego
+    	    }
     
     }
     
