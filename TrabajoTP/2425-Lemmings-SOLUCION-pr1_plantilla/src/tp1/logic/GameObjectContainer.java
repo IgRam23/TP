@@ -34,14 +34,12 @@ public class GameObjectContainer {
 		numDoors++;
 	}
     public void update() {
-		
     	for(int i = 0; i < numLemmings;i++) {
     	
     		//Actualizamos cada lemming
     		lemmings.get(i).update();
-    		//las paredes no hay q actualizarlas porq no se mueven 
-    		
     	}
+    	removeDead();
     	
 	}
     public String positionToString(Position p) {
@@ -58,8 +56,11 @@ public class GameObjectContainer {
     
     //Quitamos los lemmings muertos
     private void removeDead() {
-    	lemmings.removeIf(lemming -> !lemming.isAlive()); 
-    	numLemmings--;
+    	
+    	if(lemmings.removeIf(lemming -> !lemming.isAlive())){
+    		numLemmings--;
+    	}
+    
     }
     
     //Verificamos si hay una wall en la pos p

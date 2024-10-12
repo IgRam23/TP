@@ -29,26 +29,26 @@ public class Game {
 
 		container = new GameObjectContainer();
 		numLemmings=0;
-		container.add(new Lemming(this, new Position(4,0)));
-		container.add(new Lemming(this, new Position(5,0)));
+		container.add(new Lemming(this, new Position(4,1)));
+		//container.add(new Lemming(this, new Position(5,0)));
 		container.add(new Lemming(this, new Position(6,0)));
-		container.add(new Lemming(this, new Position(7,0)));
+		//container.add(new Lemming(this, new Position(7,0)));
 
 		numLemmings = 4;
 
-		container.add(new Wall(new Position(2,1)));
-		container.add(new Wall(new Position(3,1)));
-		container.add(new Wall(new Position(4,1)));
+		//container.add(new Wall(new Position(2,1)));
+		//container.add(new Wall(new Position(3,1)));
+		//container.add(new Wall(new Position(4,1)));
 		container.add(new Wall(new Position(5,1)));
-		container.add(new Wall(new Position(6,1)));
+		container.add(new Wall(new Position(5,2)));
 		container.add(new Wall(new Position(7,1)));
 		container.add(new Wall(new Position(5,3)));
-		container.add(new Wall(new Position(6,3)));
+		container.add(new Wall(new Position(7,2)));
 		container.add(new Wall(new Position(7,3)));
-		container.add(new Wall(new Position(3,9)));
-		container.add(new Wall(new Position(4,9)));
+		container.add(new Wall(new Position(7,0)));
+		container.add(new Wall(new Position(6,3)));
 		container.add(new Wall(new Position(5,9)));
-		container.add(new Wall(new Position(6,9)));
+		container.add(new Wall(new Position(7,4)));
 		container.add(new Wall(new Position(7,9)));
 		container.add(new Wall(new Position(3,8)));
 		container.add(new ExitDoor(new Position(7,8)));
@@ -86,6 +86,14 @@ public class Game {
 	    }
 	}
 	
+	
+	//ns si es legal
+	public GameObjectContainer getContainer() {
+	    return this.container;
+	}
+	
+	
+
 	//Devuelve el ciclo actual
 	public int getCycle() {
 		return this.currentCycle;
@@ -104,6 +112,8 @@ public class Game {
 	public int numLemmingsDead() {
 		return this.lemmingsDead; 
 	}
+	//ns si esta bien
+
 
 	public int numLemmingsExit() {
 		int lemmingsExit = 0;

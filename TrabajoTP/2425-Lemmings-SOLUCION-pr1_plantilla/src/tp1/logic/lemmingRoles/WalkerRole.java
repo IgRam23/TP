@@ -13,35 +13,27 @@ public class WalkerRole {
 	        this.position = initialPosition;
 	   }
 	
+	 
+	//Realiza el movimiento del lemming
 	public void play(Lemming lemming) { 
-		/*if (lemming.isFalling()) {
-	        lemming.handleFall(); // Método para manejar la caída
-	    } else if (lemming.isInAir()) {
-	        lemming.fall(); // Método para caer
-	    } else {
-	        lemming.step(); // Método para avanzar o cambiar dirección
-	    }*/ 
+		
 		lemming.walkOrFall();          
 	}
 	
+
+	public Position move(Direction dir) {
+        
+		int newCol = position.getCol() + dir.getY(); // Sumar el valor de Y
+        int newRow = position.getRow() + dir.getX(); // Sumar el valor de X
+        position = new Position(newCol, newRow); // Actualiza la posición
+        return position; // Devuelve la nueva posición
+    }
 	
-	//El lemming se mueve hacia la izq
-	public Position andaDerch() {
-		Position newPosition = new Position(position.getCol() + 1, position.getRow());
-		return newPosition;
-    }
-
-    //El lemming se mueve hacia la derecha 
-    public Position andaIzq() {
-    	Position newPosition = new Position(position.getCol() - 1, position.getRow());
-		return newPosition;
-    }
-    
-    //El lemming se cae
-    public Position seCae() {
-    	Position newPosition = new Position(position.getCol(), position.getRow() - 1);
-		return newPosition;
-    }
-
+	//Revisa la caida del lemming, y si es > MAX_FALL, el lemming muere
+	public void handleFall(Lemming lemming) {
+	        if (lemming.getFallDistance() > MAX_FALL) {
+	            lemming.dead(); // Mata al lemming si cae demasiado
+	        }
+	}
 	
 }
