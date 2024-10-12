@@ -1,6 +1,7 @@
 package tp1.logic.lemmingRoles;
 
 import tp1.logic.Direction;
+import tp1.logic.Game;
 import tp1.logic.Position;
 import tp1.logic.gameobjects.*; 
 
@@ -33,6 +34,7 @@ public class WalkerRole {
 	        if (lemming.getFallDistance() > MAX_FALL) {
 	            lemming.dead(); // Mata al lemming si cae demasiado
 	        }
+	      
 	}
 	
 }

@@ -74,6 +74,8 @@ public class Lemming {
 	        
 			fallDistance++;
 			
+			rol.handleFall(this); //la palma si cae mas de 3 pisos
+						
 	        if (pos.getCol() + 1 >= Game.DIM_Y) { // Verifica si la posición abajo está fuera del tablero
 	            dead(); // Llama al método que mata al lemming
 	            return; 
@@ -86,6 +88,7 @@ public class Lemming {
 		else if(dir == Direction.DOWN) {
 			rol.handleFall(this);
 			dir = dir_anterior;
+			return;
 		}
 		else if (isInWall()) {
 			   // Cambia la dirección si hay una pared
@@ -127,7 +130,7 @@ public class Lemming {
 		else if (this.dir == Direction.LEFT)
 			return Messages.LEMMING_LEFT;
 		else if (this.dir == Direction.DOWN)
-			return Messages.LEMMING_PARACHUTE;
+			return Messages.LEMMING_DOWN_CAVING; 
 		return Messages.LEMMING_BLOCKING;
 	}
 	
