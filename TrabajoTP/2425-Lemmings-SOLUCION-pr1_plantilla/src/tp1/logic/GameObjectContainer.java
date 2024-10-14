@@ -43,16 +43,36 @@ public class GameObjectContainer {
     	removeDead();
 	}
     
-    public String positionToString(Position p) {
+    public String positionToString(Position p) {    	
     	if(isSolid(p)) {
     		return Messages.WALL;
-    	} else if(isExit(p)) {
-    		return Messages.EXIT_DOOR;
-    	} else if(isLemming(p) != -1) {
-    		Lemming l = Lem(p,isLemming(p));
-    		return l.getIcon();
-    	}else return " ";
-    	
+    	} else {
+    		StringBuilder respuesta = new StringBuilder();
+    		int cont = 0;
+    		
+    		if(isExit(p)) {
+    			respuesta.append(Messages.EXIT_DOOR);
+    			cont++;
+    		}
+    		
+    		int indice = isLemming(p, 0);
+    		
+    		if(indice != -1) {
+        		Lemming l = Lem(p, indice);
+        		respuesta.append(l.getIcon());
+        		cont++;
+        		indice = isLemming(p, indice + 1);
+        		if(indice != -1 && cont < 2) {
+        			Lemming l2 = Lem(p, indice);
+            		respuesta.append(l2.getIcon());
+        		}
+    		}
+    		
+    		if(cont == 0)
+    			respuesta.append(" ");
+    		
+    		return respuesta.toString();
+    	}    	
     }
     
     //Quitamos los lemmings muertos
@@ -104,8 +124,8 @@ public class GameObjectContainer {
     }
     
     //Verificamos si hay un lemming en la pos p
-    public int isLemming(Position p) {
-    	for(int i = 0; i < lemmings.size(); i++) {
+    public int isLemming(Position p, int ind) {
+    	for(int i = ind; i < lemmings.size(); i++) {
     		if(lemmings.get(i).isInPosition(p)) {
     			return i;
     		}
