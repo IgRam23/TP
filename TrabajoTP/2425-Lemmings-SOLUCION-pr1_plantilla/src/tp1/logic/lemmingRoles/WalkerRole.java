@@ -22,7 +22,6 @@ public class WalkerRole {
 	
 
 	public Position move(Direction dir) {
-        
 		int newCol = position.getCol() + dir.getY(); // Sumar el valor de Y
         int newRow = position.getRow() + dir.getX(); // Sumar el valor de X
         position = new Position(newCol, newRow); // Actualiza la posición
@@ -32,8 +31,8 @@ public class WalkerRole {
 	//Revisa la caida del lemming, y si es > MAX_FALL, el lemming muere
 	public void handleFall(Lemming lemming) {
 	        if (lemming.getFallDistance() > MAX_FALL) {
-	            lemming.dead(); // Mata al lemming si cae demasiado
-	        }
+	            lemming.die(); // Mata al lemming si cae demasiado
+	        } 
 	      
 	}
 	

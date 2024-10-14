@@ -13,6 +13,7 @@ public class Game {
 	private int currentCycle;					
 	private int numLemmings;
 	private int remaining;
+	private int lemmingsToWin;
 	private int lemmingsDead;
 	private int lemmingsExit;
 	private boolean doExit;
@@ -22,13 +23,15 @@ public class Game {
 
 		initGame2();
 	}
+	
+	
     
 	private void initGame2() {
 
 		container = new GameObjectContainer();
 		numLemmings=0;
 		container.add(new Lemming(this, new Position(4,1)));
-		//container.add(new Lemming(this, new Position(5,0)));
+		container.add(new Lemming(this, new Position(5,0)));
 		container.add(new Lemming(this, new Position(6,0)));
 		container.add(new Lemming(this, new Position(4,9)));
 
@@ -46,20 +49,20 @@ public class Game {
 		container.add(new Wall(new Position(7,0)));
 		container.add(new Wall(new Position(6,3)));
 		container.add(new Wall(new Position(5,9)));
-		//container.add(new Wall(new Position(9,4)));
+		container.add(new Wall(new Position(9,4)));
 		container.add(new Wall(new Position(7,7)));
 		container.add(new Wall(new Position(7,6)));
 		container.add(new Wall(new Position(7,5)));
 		container.add(new Wall(new Position(7,8)));
 		container.add(new ExitDoor(new Position(6,6)));
 
-		remaining = numLemmings - 1;
+		remaining = numLemmings; //inicializar remaining a los lemmings con los que empiezas
+		lemmingsToWin = 2;
 
 	}
 
         
 	public Game(int nLevel) {
-		
 		
 	}
 	
@@ -78,18 +81,29 @@ public class Game {
 	//Actualiza el juego
 	public void Update() {
 		if (!isFinished()) {
-	        nextCycle(); 
 	        container.update(); 
+	        nextCycle(); 
 	        if (playerWins() || playerLooses()) {
 	            finished = true; 
 	        }
 	    }
 	}
 	
+	public boolean isSolid(Position pos) {
+	    return container.isSolid(pos);
+	}
+
+	public boolean isExit(Position pos) {
+	    return container.isExit(pos);
+	}
 	
-	//ns si es legal
-	public GameObjectContainer getContainer() {
-	    return this.container;
+	
+	public void addLemming(Lemming lemming) {
+	    container.add(lemming); // Permite añadir lemmings sin exponer el contenedor
+	}
+
+	public Lemming getLemmingAt(Position pos) { 
+	    return container.getLemmingAt(pos); // Método que interactúa con el contenedor    
 	}
 	
 	
@@ -105,7 +119,7 @@ public class Game {
 
 	//Devuelve el num de lemmings
 	public int numLemmingsInBoard() {
-		return this.numLemmings;
+		return this.remaining;
 	}
 
 	//Devuelve el num de lemmings muertos
@@ -115,6 +129,7 @@ public class Game {
 	//Incrementa el num de lemmings muertos
 	public void incrementDeadLemmings() {
 	    this.lemmingsDead++;  // Incrementa el número de lemmings muertos
+	    this.remaining--; //quita lemmings remainings
 	}
 
     //
@@ -122,13 +137,13 @@ public class Game {
 		return lemmingsExit; 
 	}
 	public void incrementLemmingsExit() {
-		lemmingsExit++;
+		this.lemmingsExit++;
+		this.remaining--;
 	}
 	
     //Devuelve el num de lemmings necarios para ganar
 	public int numLemmingsToWin() {
-		
-		return 5;
+		return this.lemmingsToWin;
 	}
 
 	public String positionToString(int col, int row) {
@@ -145,8 +160,13 @@ public class Game {
 	
     //Devuelve true si el jugador ha perdido
 	public boolean playerLooses() {
-		return numLemmingsDead() == numLemmings; 
+		return remaining == 0 && numLemmingsExit() < numLemmingsToWin(); 
 	}
+	
+	public void lemmingHasDied() {
+        incrementDeadLemmings();  // Incrementa el contador de lemmings muertos
+    }
+
 
 	public String help() {
 		// TODO Auto-generated method stub

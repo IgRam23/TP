@@ -26,10 +26,7 @@ public class Position {
     
     public boolean equals(Position pos) {
     	return pos.row == row && pos.col == col;
-    }
-    
-    
-    
+    } 
 
 }
 

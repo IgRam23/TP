@@ -35,9 +35,9 @@ public class GameObjectContainer {
 	}
     public void update() {
     	for(int i = 0; i < numLemmings ;i++) {
-    	
-    		//Actualizamos cada lemming
-    		lemmings.get(i).update();
+    		Lemming lemming = lemmings.get(i);
+       		lemming.update(); 
+       		
     	}
     	//Eliminamos a los lemmings muertos
     	removeDead();
@@ -57,22 +57,31 @@ public class GameObjectContainer {
     
     //Quitamos los lemmings muertos
     private void removeDead() {
-    	
-    	 ArrayList<Lemming> lemmingsToRemove = new ArrayList<>();
-    	    
-    	    for (Lemming lemming : lemmings) {
-    	        if (!lemming.isAlive()) {
-    	            lemmingsToRemove.add(lemming);  // Añadimos los lemmings muertos a una lista temporal
-    	        }
-    	    }
+        ArrayList<Lemming> lemmingsToRemove = new ArrayList<>();
+        
+        for (Lemming lemming : lemmings) {
+            if (!lemming.isAlive()) {
+                lemmingsToRemove.add(lemming);
+            }
+        }
+        
+     // Quitamos los lemmings muertos de la lista original
+	    for (Lemming lemming : lemmingsToRemove) {
+	        lemmings.remove(lemming);
+	        numLemmings--;   // Reduce el número total de lemmings
 
-    	    // Quitamos los lemmings muertos de la lista original
-    	    for (Lemming lemming : lemmingsToRemove) {
-    	        lemmings.remove(lemming);
-    	        numLemmings--;   // Reduce el número total de lemmings
-    	        lemming.getGame().incrementDeadLemmings();  // Aumenta el contador de lemmings muertos en el juego
-    	    }
+	    }
+
+        
+    }
     
+    public Lemming getLemmingAt(Position pos) {          
+        for (Lemming lemming : lemmings) {
+            if (lemming.isInPosition(pos)) { 
+                return lemming;
+            }
+        }
+        return null; //si no encuentra ningun lemming
     }
     
     //Verificamos si hay una wall en la pos p
@@ -108,9 +117,6 @@ public class GameObjectContainer {
     		return lemmings.get(i);
    
     }
-    
    
-    
-	
 	
 }
