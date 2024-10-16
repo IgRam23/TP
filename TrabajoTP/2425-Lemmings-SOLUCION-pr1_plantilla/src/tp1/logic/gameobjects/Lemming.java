@@ -26,18 +26,18 @@ public class Lemming {
         this.fallDistance = 0;
 	}
 	
-	public void update() {
-		
+    //Actualizar el estado del juego
+	public void update() {		
 	    if (isAlive) {
 	      rol.play(this);     
 	    }
 	}
 	
-	//Si el elmming esta vivo, lo mata
+	//Mata a un lemming
 	public void die() {
         if (isAlive) {
             isAlive = false;
-            game.lemmingHasDied();  // Notifica al juego que este lemming ha muerto
+            game.lemmingHasDied();  
         }
     }
 	
@@ -46,56 +46,18 @@ public class Lemming {
 		return fallDistance;
 	}
 	
-	// Verifica si el lemming esta vivo
+	//Devuelve un booleano en funcion de si el lemming esta vivo
 	public boolean isAlive() {
 		return isAlive;
 	}
 	
-	// Verifica si el lemming esta en el aire
+	//Devuelve un booleano indicando si el lemming esta en el aire
 	public boolean isInAir() {
 		Position pos_abajo = new Position(pos.getCol() + 1, pos.getRow());
 	    return !game.isSolid(pos_abajo); 
 	}
-
-	// Establece la dir en la que se tiene que mover el lemming
-	public void walkOrFall() {
-		
-		if(isInExit()) {
-			exit();
-			return;
-		}
-		else if (isInAir()) {
-	        
-			fallDistance++;
-			//rol.handleFall(this); //muere si cae mas de 3 pisos
-						
-	        if (pos.getCol() + 1 >= Game.DIM_Y) { // Verifica si la posición abajo está fuera del tablero
-	            die(); // Llama al método que mata al lemming 
-	            return; 
-	        }
-	        
-	        if(dir != Direction.DOWN) {
-	        	dir_anterior = dir;
-	        }
-	        
-	        dir = Direction.DOWN;
-		}
-		else if(dir == Direction.DOWN) {
-			rol.handleFall(this);
-			dir = dir_anterior;
-			//return;
-		}
-		else if (isInWall()) {
-			dir_anterior = dir;
-			dir = (dir == Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT;
-         
-        }
-		
-		this.pos = rol.move(dir);
-	}
 	
-	
-	//Verifica si el lemming tiene que cambiar de direccion
+	//Devuelve un booleano indicando si el lemming tiene que cambiar de direccion (se va a chocar con una pared)
 	public boolean isInWall() {
 	    if (dir == Direction.RIGHT) {
 	        Position pos_derech = new Position(pos.getCol(), pos.getRow() + 1);
@@ -107,12 +69,44 @@ public class Lemming {
 	    return false; // No hay pared si no se está moviendo
 	}
 	
+	//Devuelve un booleano indicando si el lemming se encuentra en la posicion de salida 
 	public boolean isInExit() {
 	    return game.isExit(pos);
 	}
-	
-	public void exit() {
+
+	//Establece la direccion en la que se tiene que mover el lemming
+	public void walkOrFall() { 
+		if(isInExit()) {
+			exit();
+			return;
+		}
+		else if (isInAir()) { //si esta en el aire 
+			fallDistance++;
+	        if (pos.getCol() + 1 >= Game.DIM_Y) { //comprobamos si la posición abajo está fuera del tablero para ver si hay que llamar a die()
+	            die();  
+	            return; 
+	        }	        
+	        
+	        if(dir != Direction.DOWN) {
+	        	dir_anterior = dir;
+	        }
+	        
+	        dir = Direction.DOWN;
+		}
+		else if(dir == Direction.DOWN) { //si esta empezando a caer
+			rol.handleFall(this);
+			dir = dir_anterior;
+		}
+		else if (isInWall()) { //si se va a chocar con una pared
+			dir_anterior = dir;
+			dir = (dir == Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT;
+        }
 		
+		this.pos = rol.move(dir);
+	}
+	
+	//Actualiza el estado del lemming y del juego si hay un nuevo lemming que sale por la puerta
+	public void exit() {
 	    if (isAlive) {
 	        game.incrementLemmingsExit(); // Incrementa el número de lemmings que han salido
 	        isAlive = false; // Marcar el lemming como muerto porque ha salido
@@ -121,9 +115,8 @@ public class Lemming {
 	        }
 	    }
     }
-
 	
-	//Verifica si el lemming esta en pos 
+	//Verifica si el lemming esta en la posicion pos 
 	public boolean isInPosition(Position pos) {
 		return this.pos.equals(pos);
 	}

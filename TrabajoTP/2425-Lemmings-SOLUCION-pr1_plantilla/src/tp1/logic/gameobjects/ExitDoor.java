@@ -13,8 +13,6 @@ public class ExitDoor {
 	}
 
 	public boolean isInPosition(Position pos) {
-			
 		return this.pos.equals(pos);
-		
 	}
 }

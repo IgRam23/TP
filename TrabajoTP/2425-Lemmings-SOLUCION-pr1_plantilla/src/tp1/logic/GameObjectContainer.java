@@ -40,36 +40,43 @@ public class GameObjectContainer {
     		Lemming lemming = lemmings.get(i);
        		lemming.update(); 
     	}
-    	//Eliminamos a los lemmings muertos
     	removeDead();
 	}
     
+    //Convierte los distintos elementos del juego a simbolos string
     public String positionToString(Position p) {    	
-    	if(isSolid(p)) {
+    	
+    	if(isSolid(p)) { //hay una pared
     		return Messages.WALL;
-    	} else {
+    	} else { //evaluamos los elementos que pueden coincidir en una posicion
+    		
     		StringBuilder respuesta = new StringBuilder();
     		int cont = 0;
     		
-    		if(isExit(p)) {
-    			respuesta.append(Messages.EXIT_DOOR);
-    			cont++;
+    		if(isExit(p)) { //hay una puerta
+    			respuesta.append(Messages.EXIT_DOOR); 
+    			cont++; //aumentamos el contador
     		}
     		
-    		int indice = isLemming(p, 0);
+    		int indice = isLemming(p, 0); 
     		
-    		if(indice != -1) {
+    		if(indice != -1) { //hay por lo menos un lemming en esa posicion
+    			
         		Lemming l = Lem(p, indice);
         		respuesta.append(l.getIcon());
-        		cont++;
-        		indice = isLemming(p, indice + 1);
-        		if(indice != -1 && cont < 2) {
+        		cont++; //aumentamos el contador de lemmings
+        		
+        		indice = isLemming(p, indice + 1); //miramos a ver si hay un segundo lemming
+        		
+        		if(indice != -1 && cont < 2) { //si hay un lemming tambien en esa posicion se tiene que comprobar que no hay ya mas de dos elementos (lemming + puerta)
+        										//y si no los hay entonces puede haber dos lemmings en la misma posicion
         			Lemming l2 = Lem(p, indice);
             		respuesta.append(l2.getIcon());
+            		
         		}
     		}
     		
-    		if(cont == 0)
+    		if(cont == 0) //no hay nada en esa posicion
     			respuesta.append(" ");
     		
     		return respuesta.toString();
@@ -78,23 +85,21 @@ public class GameObjectContainer {
     
     //Quitamos los lemmings muertos
     private void removeDead() {
-        ArrayList<Lemming> lemmingsToRemove = new ArrayList<>();
+        ArrayList<Lemming> lemmingsToRemove = new ArrayList<>(); //usamos una lista temporal (variable local)
         
         for (Lemming lemming : lemmings) {
             if (!lemming.isAlive()) {
-                lemmingsToRemove.add(lemming);
+                lemmingsToRemove.add(lemming);   //incluimos a los lemmings en la lista temporal
             }
         }
         
-     // Quitamos los lemmings muertos de la lista original
-	    for (Lemming lemming : lemmingsToRemove) {
+	    for (Lemming lemming : lemmingsToRemove) { //quitamos a los lemmings muertos de la lista original
 	        lemmings.remove(lemming);
-	        numLemmings--;   // Reduce el número total de lemmings
-
+	        numLemmings--;   
 	    }
-
     }
     
+    //Deuvelve el lemming que se encuentra en una posicion especifica
     public Lemming getLemmingAt(Position pos) {          
         for (Lemming lemming : lemmings) {
             if (lemming.isInPosition(pos)) { 
@@ -104,7 +109,7 @@ public class GameObjectContainer {
         return null; //si no encuentra ningun lemming
     }
     
-    //Verificamos si hay una wall en la pos p
+    //Devuelve un booleano sobre si hay una pared en la pos p
     public boolean isSolid(Position p) {
     	for(int i = 0; i < walls.size(); i++){
     		if(walls.get(i).isInPosition(p))
@@ -113,7 +118,7 @@ public class GameObjectContainer {
     	return false;
     }
     
-    //Verificamos si hay una ExitDoor en la pos p
+    //Devuelve un booleano sobre si hay una ExitDoor en la pos p
     public boolean isExit(Position p) {
     	for(int i = 0; i < doors.size(); i++){
     		if(doors.get(i).isInPosition(p))
@@ -123,7 +128,7 @@ public class GameObjectContainer {
     	return false;
     }
     
-    //Verificamos si hay un lemming en la pos p
+    //Devuelve el indice de la posicion en la lista que ocupa un lemming en la lista de lemmings (si lo hay), sino devuelve -1
     public int isLemming(Position p, int ind) {
     	for(int i = ind; i < lemmings.size(); i++) {
     		if(lemmings.get(i).isInPosition(p)) {
@@ -132,10 +137,10 @@ public class GameObjectContainer {
     	}
     	return -1;
     }
-    //Devuelve el lemming de la pos p
-    public Lemming Lem(Position p,int i) {
+    
+    //Devuelve el lemming que se encuentra en la pos i de la lista de lemmings
+    public Lemming Lem(Position pos, int i) {
     		return lemmings.get(i);
-   
     }
    
 	

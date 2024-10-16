@@ -18,22 +18,16 @@ public class Controller {
 		this.view = view;
 		
 	}
-
-	/**
-	 * Runs the game logic, coordinate Model(game) and View(view)
-	 * 
-	 */
+	
+	//Controla el juego
 	public void run() {
 		view.showWelcome();
+		view.showGame();
+		String command = "";
 		
-		while (!game.isFinished()) {
-			
-			
-			
-			view.showGame();
-			
+		while (!game.isFinished()) {	  		 
 			String[] res =  view.getPrompt();
-			String command = String.join(" ", res).toLowerCase();
+			command = String.join(" ", res).toLowerCase();
 			mensajesToString (command);
 		}
 		
@@ -41,8 +35,8 @@ public class Controller {
 		view.showEndMessage();
 	}
 
+	//Gestiona los distintos comandos que se introducen por consola
 	public void mensajesToString (String s) {  
-		 
 		switch(s) {
 		
 			case Messages.COMMAND_HELP_NAME:
@@ -52,7 +46,8 @@ public class Controller {
 				
 			case "reset":
 			case "r":
-				game.reset();  
+				game.reset(); 
+				view.showGame();
 				break;
 				
 			case Messages.COMMAND_EXIT_NAME:
@@ -66,10 +61,12 @@ public class Controller {
 			case Messages.EMPTY: 
 				view.showMessage(Messages.COMMAND_NONE_HELP);
 				game.Update();
-				break;
+				view.showGame();
+				break; 
 			
 			default:
 				view.showMessage("Comando no válido");
+				view.showGame();
 		        break;
 		}
 	}
