@@ -24,15 +24,13 @@ public class Game {
 		initGame2();
 	}
 	
-	
-    
 	private void initGame2() {
 
 		container = new GameObjectContainer();
 		numLemmings=0;
 		container.add(new Lemming(this, new Position(4,1)));
 		container.add(new Lemming(this, new Position(5,0)));
-		container.add(new Lemming(this, new Position(6,0)));
+		container.add(new Lemming(this, new Position(5,5)));
 		container.add(new Lemming(this, new Position(4,9)));
 
 		numLemmings = 4;
@@ -72,6 +70,7 @@ public class Game {
 		container = new GameObjectContainer();
 	    currentCycle = 0;
 	    lemmingsDead = 0;
+	    lemmingsExit = 0;
 	    numLemmings = 0;
 	    finished = false;
 	    initGame2();  

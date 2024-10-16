@@ -33,6 +33,7 @@ public class Lemming {
 	    }
 	}
 	
+	//Si el elmming esta vivo, lo mata
 	public void die() {
         if (isAlive) {
             isAlive = false;
@@ -40,7 +41,7 @@ public class Lemming {
         }
     }
 	
-	//Devuelve cuanros ciclos lleva cayendo el lemming
+	//Devuelve cuantos ciclos lleva cayendo el lemming
 	public int getFallDistance() {
 		return fallDistance;
 	}
@@ -52,11 +53,9 @@ public class Lemming {
 	
 	// Verifica si el lemming esta en el aire
 	public boolean isInAir() {
-
 		Position pos_abajo = new Position(pos.getCol() + 1, pos.getRow());
-	  
 	    return !game.isSolid(pos_abajo); 
-	  }
+	}
 
 	// Establece la dir en la que se tiene que mover el lemming
 	public void walkOrFall() {
@@ -68,7 +67,7 @@ public class Lemming {
 		else if (isInAir()) {
 	        
 			fallDistance++;
-			rol.handleFall(this); //la palma si cae mas de 3 pisos
+			//rol.handleFall(this); //muere si cae mas de 3 pisos
 						
 	        if (pos.getCol() + 1 >= Game.DIM_Y) { // Verifica si la posición abajo está fuera del tablero
 	            die(); // Llama al método que mata al lemming 
@@ -84,7 +83,7 @@ public class Lemming {
 		else if(dir == Direction.DOWN) {
 			rol.handleFall(this);
 			dir = dir_anterior;
-			return;
+			//return;
 		}
 		else if (isInWall()) {
 			dir_anterior = dir;
@@ -121,8 +120,6 @@ public class Lemming {
 	            game.setFinished(true);    // Solo termina el juego si han salido suficientes lemmings
 	        }
 	    }
-	    
-		
     }
 
 	
@@ -137,16 +134,15 @@ public class Lemming {
 			return Messages.LEMMING_RIGHT; 
 		else if (this.dir == Direction.LEFT)
 			return Messages.LEMMING_LEFT;
-		else if (this.dir == Direction.DOWN)
-			return Messages.LEMMING_DOWN_CAVING; 
+		else if (this.dir == Direction.DOWN) {
+			if(this.dir_anterior == Direction.LEFT) {
+				return Messages.LEMMING_LEFT;
+			}
+			else if(this.dir_anterior == Direction.RIGHT) {
+				return Messages.LEMMING_RIGHT;
+			}
+		}
 		return Messages.LEMMING_BLOCKING;
-	}
-	
-	//Ns que hace
-	public String toString() {
-		
-		
-		return " ";
 	}
 	
 }

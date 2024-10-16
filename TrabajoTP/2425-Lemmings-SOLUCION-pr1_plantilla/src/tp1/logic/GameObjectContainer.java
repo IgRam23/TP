@@ -33,11 +33,12 @@ public class GameObjectContainer {
 		doors.add(d);
 		numDoors++;
 	}
+	
+	//Recorre la lista de lemmings y los va actualizando
     public void update() {
     	for(int i = 0; i < numLemmings ;i++) {
     		Lemming lemming = lemmings.get(i);
        		lemming.update(); 
-       		
     	}
     	//Eliminamos a los lemmings muertos
     	removeDead();
@@ -92,7 +93,6 @@ public class GameObjectContainer {
 
 	    }
 
-        
     }
     
     public Lemming getLemmingAt(Position pos) {          

@@ -10,9 +10,9 @@ public class WalkerRole {
 	private static final int MAX_FALL = 2;
 	private Position position;
 	
-	 public WalkerRole(Position initialPosition) {
+	public WalkerRole(Position initialPosition) {
 	        this.position = initialPosition;
-	   }
+	}
 	
 	 
 	//Realiza el movimiento del lemming

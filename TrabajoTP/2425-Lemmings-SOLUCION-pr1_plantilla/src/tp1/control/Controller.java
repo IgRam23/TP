@@ -28,15 +28,13 @@ public class Controller {
 		
 		while (!game.isFinished()) {
 			
+			
+			
 			view.showGame();
 			
 			String[] res =  view.getPrompt();
 			String command = String.join(" ", res).toLowerCase();
 			mensajesToString (command);
-			
-			 if (!game.isFinished() && (!command.equals("reset")) && (!command.equals("r"))) {
-		            game.Update(); //Para actualizar los ciclos a no ser que se haya terminado o reseteado
-		        }
 		}
 		
 	    //El juego termina
@@ -67,6 +65,7 @@ public class Controller {
 			case Messages.COMMAND_NONE_SHORTCUT:
 			case Messages.EMPTY: 
 				view.showMessage(Messages.COMMAND_NONE_HELP);
+				game.Update();
 				break;
 			
 			default:
