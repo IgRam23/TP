@@ -18,53 +18,22 @@ public class Game {
 	private int lemmingsExit;
 	private boolean doExit;
 	private boolean finished;
+	private int nivel;
 
 	public Game() {
 
 		initGame2();
 	}
 	
-	private void initGame2() {
+	private void initGame1() {
 
 		container = new GameObjectContainer();
 		numLemmings=0;
-		container.add(new Lemming(this, new Position(4,1)));
-		container.add(new Lemming(this, new Position(5,0)));
-		container.add(new Lemming(this, new Position(5,5)));
-		container.add(new Lemming(this, new Position(4,9)));
 
-		numLemmings = 4;
-
-		//container.add(new Wall(new Position(2,1)));
-		//container.add(new Wall(new Position(3,1)));
-		//container.add(new Wall(new Position(4,1)));
-		container.add(new Wall(new Position(5,1)));
-		container.add(new Wall(new Position(5,2)));
-		container.add(new Wall(new Position(7,1)));
-		container.add(new Wall(new Position(5,3)));
-		container.add(new Wall(new Position(7,2)));
-		container.add(new Wall(new Position(7,3)));
-		container.add(new Wall(new Position(7,0)));
-		container.add(new Wall(new Position(6,3)));
-		container.add(new Wall(new Position(5,9)));
-		container.add(new Wall(new Position(9,4)));
-		container.add(new Wall(new Position(7,7)));
-		container.add(new Wall(new Position(7,6)));
-		container.add(new Wall(new Position(7,5)));
-		container.add(new Wall(new Position(7,8)));
-		container.add(new ExitDoor(new Position(6,6)));
-
-		remaining = numLemmings; //inicializar remaining a los lemmings con los que empiezas
-		lemmingsToWin = 2;
-		
-		/*container.add(new Lemming(this, new Position(0,8)));
+		container.add(new Lemming(this, new Position(3,3)));
 		container.add(new Lemming(this, new Position(2,3)));
-		container.add(new Lemming(this, new Position(9,0)));
-		
-		numLemmings = 3;
+		numLemmings = 2;
 
-		container.add(new Wall(new Position(0,9)));
-		container.add(new Wall(new Position(1,9)));
 		container.add(new Wall(new Position(2,4)));
 		container.add(new Wall(new Position(3,4)));
 		container.add(new Wall(new Position(4,4)));
@@ -73,37 +42,115 @@ public class Game {
 		container.add(new Wall(new Position(6,6)));
 		container.add(new Wall(new Position(7,6)));
 		container.add(new Wall(new Position(7,5)));
-		container.add(new Wall(new Position(8,1)));
-		container.add(new Wall(new Position(9,1)));
-		container.add(new Wall(new Position(8,8)));
-		container.add(new Wall(new Position(9,9)));
-		container.add(new Wall(new Position(8,8)));
 		container.add(new ExitDoor(new Position(4,5)));
 
-		remaining = numLemmings; 
-		lemmingsToWin = 2;//por ejemplo*/
+		lemmingsToWin = 1;
+		remaining = numLemmings;
 
+	}
+	
+	
+	private void initGame2() {
+
+		container = new GameObjectContainer();
+		numLemmings=0;
+
+		container.add(new Lemming(this, new Position(4,8)));
+		container.add(new Lemming(this, new Position(5,0)));
+		container.add(new Lemming(this, new Position(6,0)));
+		container.add(new Lemming(this, new Position(7,0)));
+		numLemmings = 4;
+
+		container.add(new Wall(new Position(2,1)));
+		container.add(new Wall(new Position(3,1)));
+		container.add(new Wall(new Position(4,1)));
+		container.add(new Wall(new Position(5,1)));
+		container.add(new Wall(new Position(6,1)));
+		container.add(new Wall(new Position(7,1)));
+		container.add(new Wall(new Position(5,3)));
+		container.add(new Wall(new Position(6,3)));
+		container.add(new Wall(new Position(7,3)));
+		container.add(new Wall(new Position(3,9)));
+		container.add(new Wall(new Position(4,9)));
+		container.add(new Wall(new Position(5,9)));
+		container.add(new Wall(new Position(6,9)));
+		container.add(new Wall(new Position(7,9)));
+		container.add(new Wall(new Position(3,8)));
+		container.add(new ExitDoor(new Position(7,8)));
+
+		lemmingsToWin = 2;
+		remaining = numLemmings;
+	}
+	
+	private void initGame3() {
+
+		container = new GameObjectContainer();
+		container.add(new Lemming(this, new Position(4,1)));
+		container.add(new Lemming(this, new Position(5,0)));
+		container.add(new Lemming(this, new Position(5,5)));
+		container.add(new Lemming(this, new Position(4,9)));
+
+		numLemmings = 4;
+
+		container.add(new Wall(new Position(5,1)));
+		container.add(new Wall(new Position(5,2)));
+		container.add(new Wall(new Position(7,1)));
+		container.add(new Wall(new Position(5,3)));
+		container.add(new Wall(new Position(7,2)));
+		container.add(new Wall(new Position(7,3)));
+		container.add(new Wall(new Position(7,0)));
+		container.add(new Wall(new Position(6,3)));
+		container.add(new Wall(new Position(6,4)));
+		container.add(new Wall(new Position(5,9)));
+		container.add(new Wall(new Position(9,4)));
+		container.add(new Wall(new Position(7,7)));
+		container.add(new Wall(new Position(7,6)));
+		container.add(new Wall(new Position(7,5)));
+		container.add(new Wall(new Position(7,8)));
+		container.add(new ExitDoor(new Position(6,6)));
+
+		lemmingsToWin = 3;
+		remaining = numLemmings; 
+
+	}
+	
+	//Gestiona los niveles
+	public Game(int nLevel) {
+		nivel = nLevel;
+		if(nivel == 1) {
+	    	initGame1();
+	    } else if(nivel == 2) {
+		    initGame2();  
+	    } else if(nivel == 3){
+	    	initGame3(); 
+	    } else {
+	    	initGame1();
+	    }
 	}
 	
 	//Resetea el juego
 	public void reset() { 
-		container = new GameObjectContainer();
 	    currentCycle = 0;
 	    lemmingsDead = 0;
 	    lemmingsExit = 0;
 	    numLemmings = 0;
 	    finished = false;
-	    initGame2();  
+	    
+	    if(nivel == 1) {
+	    	initGame1();
+	    } else if(nivel == 2) {
+		    initGame2(); 
+	    } else if(nivel == 3){
+	    	initGame3();
+	    }else {
+	    	initGame1(); //vamos a dejar este por defecto
+	    }
     }
 
 	//Actualiza el juego
 	public void Update() { 
 		if (!isFinished()) {
 	        container.update(); 
-	        nextCycle(); 
-	        if (playerWins() || playerLooses()) {
-	            finished = true; 
-	        }
 	    }
 	}
 	
@@ -121,11 +168,6 @@ public class Game {
 	public void addLemming(Lemming lemming) {
 	    container.add(lemming); 
 	}
-	
-	//Hace return de un lemming en una posicion concreta
-	public Lemming getLemmingAt(Position pos) { 
-	    return container.getLemmingAt(pos);     
-	}	
 	
 	//Devuelve el ciclo actual
 	public int getCycle() {
@@ -200,6 +242,7 @@ public class Game {
         this.finished = finished;
     }
 
+    
     public String help() {
 		return "";
 	}

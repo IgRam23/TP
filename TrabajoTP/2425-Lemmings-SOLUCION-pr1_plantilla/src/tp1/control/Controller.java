@@ -29,6 +29,9 @@ public class Controller {
 			String[] res =  view.getPrompt();
 			command = String.join(" ", res).toLowerCase();
 			mensajesToString (command);
+			if (game.playerWins() || game.playerLooses()) {
+	            game.setFinished(true);
+	        }
 		}
 		
 	    //El juego termina
@@ -52,21 +55,19 @@ public class Controller {
 				
 			case Messages.COMMAND_EXIT_NAME:
 			case Messages.COMMAND_EXIT_SHORTCUT:
-				view.showMessage(Messages.COMMAND_EXIT_HELP);
 				game.setFinished(true);
 				break;
 				
 			case Messages.COMMAND_NONE_NAME:
 			case Messages.COMMAND_NONE_SHORTCUT:
 			case Messages.EMPTY: 
-				view.showMessage(Messages.COMMAND_NONE_HELP);
 				game.Update();
+				game.nextCycle();
 				view.showGame();
 				break; 
 			
 			default:
 				view.showMessage("Comando no válido");
-				view.showGame();
 		        break;
 		}
 	}

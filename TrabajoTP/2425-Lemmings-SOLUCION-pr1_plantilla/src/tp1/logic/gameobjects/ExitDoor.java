@@ -8,10 +8,12 @@ public class ExitDoor {
 
 	private Position pos; 
 	
+	//Constructor
 	public ExitDoor (Position pos){
 		this.pos = pos;
 	}
-
+	
+	//Comprueba si hay una puerta en una posicion especificada
 	public boolean isInPosition(Position pos) {
 		return this.pos.equals(pos);
 	}

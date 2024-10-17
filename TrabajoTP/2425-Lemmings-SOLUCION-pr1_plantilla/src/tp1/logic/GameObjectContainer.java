@@ -100,7 +100,7 @@ public class GameObjectContainer {
     }
     
     //Deuvelve el lemming que se encuentra en una posicion especifica
-    public Lemming getLemmingAt(Position pos) {          
+    private Lemming getLemmingAt(Position pos) {          
         for (Lemming lemming : lemmings) {
             if (lemming.isInPosition(pos)) { 
                 return lemming;
@@ -139,7 +139,7 @@ public class GameObjectContainer {
     }
     
     //Devuelve el lemming que se encuentra en la pos i de la lista de lemmings
-    public Lemming Lem(Position pos, int i) {
+    private Lemming Lem(Position pos, int i) {
     		return lemmings.get(i);
     }
    
