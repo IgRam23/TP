@@ -161,7 +161,7 @@ public class ConsoleView extends GameView {
 		String line = scanner.nextLine();
 		String[] words = line.trim().split("\\s+");
 
-		System.out.println("DEBUG: command= "+line);
+		System.out.println("DEBUG: command="+line);
 
 		return words;
 	}

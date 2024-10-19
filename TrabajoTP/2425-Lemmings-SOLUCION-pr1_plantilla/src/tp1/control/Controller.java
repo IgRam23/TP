@@ -23,7 +23,7 @@ public class Controller {
 	public void run() {
 		view.showWelcome();
 		view.showGame();
-		String command = "";
+		String command = " ";
 		
 		while (!game.isFinished()) {	  		 
 			String[] res =  view.getPrompt();

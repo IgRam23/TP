@@ -53,18 +53,18 @@ public class Lemming {
 	
 	//Devuelve un booleano indicando si el lemming esta en el aire
 	public boolean isInAir() {
-		Position pos_abajo = new Position(pos.getCol() + 1, pos.getRow());
+		Position pos_abajo = new Position(pos.getCol(), pos.getRow() + 1);
 	    return !game.isSolid(pos_abajo); 
 	}
 	
 	//Devuelve un booleano indicando si el lemming tiene que cambiar de direccion (se va a chocar con una pared)
 	public boolean isInWall() {
 	    if (dir == Direction.RIGHT) {
-	        Position pos_derech = new Position(pos.getCol(), pos.getRow() + 1);
-	        return (pos_derech.getRow() >= Game.DIM_X || game.isSolid(pos_derech));
+	        Position pos_derech = new Position(pos.getCol() + 1, pos.getRow());
+	        return (pos_derech.getCol() >= Game.DIM_X || game.isSolid(pos_derech));
 	    } else if (dir == Direction.LEFT) { 
-	        Position pos_izq = new Position(pos.getCol(), pos.getRow() - 1);
-	        return (pos_izq.getRow() < 0 || game.isSolid(pos_izq));
+	        Position pos_izq = new Position(pos.getCol() - 1, pos.getRow());
+	        return (pos_izq.getCol() < 0 || game.isSolid(pos_izq));
 	    }
 	    return false; // No hay pared si no se está moviendo
 	}
@@ -82,7 +82,7 @@ public class Lemming {
 		}
 		else if (isInAir()) { //si esta en el aire 
 			fallDistance++;
-	        if (pos.getCol() + 1 >= Game.DIM_Y) { //comprobamos si la posición abajo está fuera del tablero para ver si hay que llamar a die()
+	        if (pos.getRow() + 1 >= Game.DIM_Y) { //comprobamos si la posición abajo está fuera del tablero para ver si hay que llamar a die()
 	            die();  
 	            return; 
 	        }	        
@@ -100,6 +100,7 @@ public class Lemming {
 		else if (isInWall()) { //si se va a chocar con una pared
 			dir_anterior = dir;
 			dir = (dir == Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT;
+			return;
         }
 		
 		this.pos = rol.move(dir);

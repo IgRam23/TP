@@ -58,7 +58,7 @@ public class Messages {
 
 	public static final String REMAINING_LEMMINGS = "Remaining lemmings:";
 
-	public static final String DEAD_LEMMINGS = "Lemmings dead:";
+	public static final String DEAD_LEMMINGS = "Dead lemmings:";
 
 	public static final Object EXIT_LEMMINGS = "Lemmings exit door:";
 

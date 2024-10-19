@@ -21,8 +21,8 @@ public class WalkerRole {
 	
 	//Mueve al lemming
 	public Position move(Direction dir) {
-		int newCol = position.getCol() + dir.getY(); 
-        int newRow = position.getRow() + dir.getX(); 
+		int newCol = position.getCol() + dir.getX(); 
+        int newRow = position.getRow() + dir.getY(); 
         position = new Position(newCol, newRow); 
         return position; 
     }

@@ -21,19 +21,18 @@ public class Game {
 	private int nivel;
 
 	public Game() {
-
-		initGame2();
+		initGame1();
 	}
 	
 	private void initGame1() {
-
 		container = new GameObjectContainer();
-		numLemmings=0;
 
-		container.add(new Lemming(this, new Position(3,3)));
+		container.add(new Lemming(this, new Position(0,8)));
 		container.add(new Lemming(this, new Position(2,3)));
-		numLemmings = 2;
+		container.add(new Lemming(this, new Position(9,0)));
 
+		container.add(new Wall(new Position(0,9)));
+		container.add(new Wall(new Position(1,9)));
 		container.add(new Wall(new Position(2,4)));
 		container.add(new Wall(new Position(3,4)));
 		container.add(new Wall(new Position(4,4)));
@@ -42,73 +41,79 @@ public class Game {
 		container.add(new Wall(new Position(6,6)));
 		container.add(new Wall(new Position(7,6)));
 		container.add(new Wall(new Position(7,5)));
+		container.add(new Wall(new Position(8,1)));
+		container.add(new Wall(new Position(9,1)));
+		container.add(new Wall(new Position(8,8)));
+		container.add(new Wall(new Position(9,9)));
+		container.add(new Wall(new Position(8,8)));
+		container.add(new Wall(new Position(8,9)));
+
 		container.add(new ExitDoor(new Position(4,5)));
 
-		lemmingsToWin = 1;
+		numLemmings = 3;
 		remaining = numLemmings;
-
-	}
-	
-	
-	private void initGame2() {
-
-		container = new GameObjectContainer();
-		numLemmings=0;
-
-		container.add(new Lemming(this, new Position(4,8)));
-		container.add(new Lemming(this, new Position(5,0)));
-		container.add(new Lemming(this, new Position(6,0)));
-		container.add(new Lemming(this, new Position(7,0)));
-		numLemmings = 4;
-
-		container.add(new Wall(new Position(2,1)));
-		container.add(new Wall(new Position(3,1)));
-		container.add(new Wall(new Position(4,1)));
-		container.add(new Wall(new Position(5,1)));
-		container.add(new Wall(new Position(6,1)));
-		container.add(new Wall(new Position(7,1)));
-		container.add(new Wall(new Position(5,3)));
-		container.add(new Wall(new Position(6,3)));
-		container.add(new Wall(new Position(7,3)));
-		container.add(new Wall(new Position(3,9)));
-		container.add(new Wall(new Position(4,9)));
-		container.add(new Wall(new Position(5,9)));
-		container.add(new Wall(new Position(6,9)));
-		container.add(new Wall(new Position(7,9)));
-		container.add(new Wall(new Position(3,8)));
-		container.add(new ExitDoor(new Position(7,8)));
-
 		lemmingsToWin = 2;
+	}
+
+	private void initGame2() {
+		container = new GameObjectContainer();
+
+		container.add(new Lemming(this, new Position(0,8)));
+		container.add(new Lemming(this, new Position(2,3)));
+		container.add(new Lemming(this, new Position(9,0)));
+		container.add(new Lemming(this, new Position(3,3)));
+
+		container.add(new Wall(new Position(0,9)));
+		container.add(new Wall(new Position(1,9)));
+		container.add(new Wall(new Position(2,4)));
+		container.add(new Wall(new Position(3,4)));
+		container.add(new Wall(new Position(4,4)));
+		container.add(new Wall(new Position(4,6)));
+		container.add(new Wall(new Position(5,6)));
+		container.add(new Wall(new Position(6,6)));
+		container.add(new Wall(new Position(7,6)));
+		container.add(new Wall(new Position(7,5)));
+		container.add(new Wall(new Position(8,1)));
+		container.add(new Wall(new Position(9,1)));
+		container.add(new Wall(new Position(8,8)));
+		container.add(new Wall(new Position(9,9)));
+		container.add(new Wall(new Position(8,8)));
+		container.add(new Wall(new Position(8,9)));
+
+		container.add(new ExitDoor(new Position(4,5)));
+
+		numLemmings = 4;
 		remaining = numLemmings;
+		lemmingsToWin = 2;
 	}
 	
 	private void initGame3() {
 
 		container = new GameObjectContainer();
-		container.add(new Lemming(this, new Position(4,1)));
-		container.add(new Lemming(this, new Position(5,0)));
+		container.add(new Lemming(this, new Position(1,4)));
+		container.add(new Lemming(this, new Position(0,5)));
 		container.add(new Lemming(this, new Position(5,5)));
-		container.add(new Lemming(this, new Position(4,9)));
+		container.add(new Lemming(this, new Position(9,4)));
 
-		numLemmings = 4;
-
-		container.add(new Wall(new Position(5,1)));
-		container.add(new Wall(new Position(5,2)));
-		container.add(new Wall(new Position(7,1)));
-		container.add(new Wall(new Position(5,3)));
-		container.add(new Wall(new Position(7,2)));
-		container.add(new Wall(new Position(7,3)));
-		container.add(new Wall(new Position(7,0)));
-		container.add(new Wall(new Position(6,3)));
-		container.add(new Wall(new Position(6,4)));
-		container.add(new Wall(new Position(5,9)));
-		container.add(new Wall(new Position(9,4)));
+		container.add(new Wall(new Position(1,5)));
+		container.add(new Wall(new Position(2,5)));
+		container.add(new Wall(new Position(1,7)));
+		container.add(new Wall(new Position(3,5)));
+		container.add(new Wall(new Position(2,7)));
+		container.add(new Wall(new Position(3,7)));
+		container.add(new Wall(new Position(0,7)));
+		container.add(new Wall(new Position(3,6)));
+		container.add(new Wall(new Position(4,6)));
+		container.add(new Wall(new Position(9,5)));
+		container.add(new Wall(new Position(4,9)));
 		container.add(new Wall(new Position(7,7)));
-		container.add(new Wall(new Position(7,6)));
-		container.add(new Wall(new Position(7,5)));
-		container.add(new Wall(new Position(7,8)));
+		container.add(new Wall(new Position(6,7)));
+		container.add(new Wall(new Position(5,7)));
+		container.add(new Wall(new Position(8,7)));
+		
 		container.add(new ExitDoor(new Position(6,6)));
-
+		
+		numLemmings = 4;
 		lemmingsToWin = 3;
 		remaining = numLemmings; 
 
@@ -213,7 +218,7 @@ public class Game {
 	
 	//Llama a la funcion que devuelve los elementos como string
 	public String positionToString(int col, int row) { 
-		Position pos = new Position(row,col);
+		Position pos = new Position(col,row);
 		return container.positionToString(pos);
 	}
 	
