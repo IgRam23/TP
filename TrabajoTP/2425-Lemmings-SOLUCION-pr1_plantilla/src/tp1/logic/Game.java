@@ -24,7 +24,7 @@ public class Game {
 		initGame1();
 	}
 	
-	
+	//PLAY EXPECTED 1
 	//3 lemmings termina player looses con 2 muertos y uno en exit door
 	private void initGame1() {
 		container = new GameObjectContainer();
@@ -57,6 +57,7 @@ public class Game {
 		lemmingsToWin = 2;
 	}
 	
+	//PLAY EXPECTED 2
 	//empiezas con 4 palman dos sobreviven otros dos player wins
 	private void initGame2() {
 		container = new GameObjectContainer();
@@ -90,6 +91,7 @@ public class Game {
 		lemmingsToWin = 2;
 	}
 	
+	//NUESTRO
 	//empiezas con 4 palman 2 sobreviven dos player looses
 	private void initGame3() {
 
