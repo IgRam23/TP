@@ -7,13 +7,23 @@ public class Wall extends GameObject{
 	public Wall (Game game, Position pos){
 		super(game, pos);
 	}
-	
-    public boolean isSolid() {
-        return true; // Las paredes son sólidas
-    }
 
     @Override
     public String getIcon() {
         return Messages.WALL; // Representación de la pared
+    }
+    
+    @Override
+    public void update() {
+    }
+    
+    @Override
+    public boolean isSolid() {
+    	return true;
+    }
+    
+    @Override
+    public boolean isExit() {
+    	return false;
     }
 }

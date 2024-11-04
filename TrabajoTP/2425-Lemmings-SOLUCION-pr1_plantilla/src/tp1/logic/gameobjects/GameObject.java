@@ -26,4 +26,10 @@ public abstract class GameObject {
 
 	public abstract String getIcon();
 
+	public abstract void update();
+	
+	public abstract boolean isSolid();
+	
+	public abstract boolean isExit();
+
 }

@@ -13,13 +13,22 @@ public class ExitDoor extends GameObject{
 		
 	}
 
-    public boolean isExit() {
-        return false; 
-    }
-   
-
     @Override
     public String getIcon() {
         return Messages.EXIT_DOOR; 
+    }
+    
+    @Override
+    public void update() {
+    }
+    
+    @Override
+    public boolean isSolid() {
+    	return false;
+    }
+    
+    @Override
+    public boolean isExit() {
+    	return true;
     }
 }

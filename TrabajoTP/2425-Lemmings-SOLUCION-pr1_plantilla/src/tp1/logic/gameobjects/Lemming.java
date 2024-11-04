@@ -31,6 +31,7 @@ public class Lemming extends GameObject{
 	}
 
     //Actualizar el estado del juego
+    @Override
 	public void update() {		
 	    if (isAlive) {
 	      rol.play(this);     
@@ -52,9 +53,20 @@ public class Lemming extends GameObject{
   				return Messages.LEMMING_RIGHT;
   			}
   		}
-  		return Messages.LEMMING_PARACHUTE; 
+  		return Messages.EMPTY; 
   	}
-	
+    
+    @Override
+    public boolean isSolid() {
+    	return false;
+    }
+    
+    @Override
+    public boolean isExit() {
+    	return false;
+    }
+    
+    
 	//Mata a un lemming
 	public void die() {
         if (isAlive) {
@@ -76,24 +88,24 @@ public class Lemming extends GameObject{
 	//Devuelve un booleano indicando si el lemming esta en el aire
 	public boolean isInAir() {
 		Position pos_abajo = new Position(pos.getCol(), pos.getRow() + 1);
-	    return !container.isSolid(pos_abajo); 
+	    return !container.isSolidAt(pos_abajo, this); 
 	}
 	
 	//Devuelve un booleano indicando si el lemming tiene que cambiar de direccion (se va a chocar con una pared)
 	public boolean isInWall() {
 	    if (dir == Direction.RIGHT) {
 	        Position pos_derech = new Position(pos.getCol() + 1, pos.getRow());
-	        return (pos_derech.getCol() >= Game.DIM_X || container.isSolid(pos_derech));
+	        return (pos_derech.getCol() >= Game.DIM_X || container.isSolidAt(pos_derech, this));
 	    } else if (dir == Direction.LEFT) { 
 	        Position pos_izq = new Position(pos.getCol() - 1, pos.getRow());
-	        return (pos_izq.getCol() < 0 || container.isSolid(pos_izq));
+	        return (pos_izq.getCol() < 0 || container.isSolidAt(pos_izq, this));
 	    }
 	    return false; // No hay pared si no se está moviendo
 	}
 	
 	//Devuelve un booleano indicando si el lemming se encuentra en la posicion de salida 
 	public boolean isInExit() {
-	    return container.isExit(pos);
+	    return container.isExitAt(pos); 
 	}
 
 	//Establece la direccion en la que se tiene que mover el lemming

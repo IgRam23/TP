@@ -32,9 +32,13 @@ public class Game implements GameStatus {
 		//container.add(new Lemming(this, new Position(2,3)));
 		//container.add(new Lemming(this, new Position(9,0)));
 		
-		Lemming lemming = new Lemming(this, new Position(2, 3), container);     
+		Lemming lemming = new Lemming(this, new Position(0, 8), container);     
 		container.add(lemming);
-
+		Lemming lemming1 = new Lemming(this, new Position(2, 3), container);     
+		container.add(lemming1);
+		Lemming lemming2 = new Lemming(this, new Position(9, 0), container);     
+		container.add(lemming2);
+		
 
 		container.add(new Wall(this,new Position(0,9)));
 		container.add(new Wall(this,new Position(1,9)));
@@ -57,7 +61,7 @@ public class Game implements GameStatus {
 		container.add(exit);
 		//container.add(new ExitDoor(this,new Position(4,5)));
 
-		numLemmings = 1;
+		numLemmings = 3;
 		remaining = numLemmings;
 		lemmingsToWin = 2;
 	}
@@ -66,11 +70,20 @@ public class Game implements GameStatus {
 	//empiezas con 4 palman dos sobreviven otros dos player wins
 	private void initGame2() {
 		container = new GameObjectContainer();
-
-		container.add(new Lemming(this, new Position(0,8)));
-		container.add(new Lemming(this, new Position(2,3)));
-		container.add(new Lemming(this, new Position(9,0)));
-		container.add(new Lemming(this, new Position(3,3)));
+		
+		Lemming lemming = new Lemming(this, new Position(2, 3), container);     
+		container.add(lemming);
+		Lemming lemming1 = new Lemming(this, new Position(0, 8), container);     
+		container.add(lemming1);
+		Lemming lemming2 = new Lemming(this, new Position(9, 0), container);     
+		container.add(lemming2);
+		Lemming lemming3 = new Lemming(this, new Position(3, 3), container);     
+		container.add(lemming3);
+		
+		//container.add(new Lemming(this, new Position(0,8)));
+		//container.add(new Lemming(this, new Position(2,3)));
+		//container.add(new Lemming(this, new Position(9,0)));
+		//container.add(new Lemming(this, new Position(3,3)));
 
 		container.add(new Wall(this,new Position(0,9)));
 		container.add(new Wall(this,new Position(1,9)));
@@ -89,7 +102,9 @@ public class Game implements GameStatus {
 		container.add(new Wall(this,new Position(8,8)));
 		container.add(new Wall(this,new Position(8,9)));
 
-		container.add(new ExitDoor(this,new Position(4,5)));
+		ExitDoor exit = new ExitDoor(this, new Position(4,5), container);
+		container.add(exit);
+		//container.add(new ExitDoor(this,new Position(4,5)));
 
 		numLemmings = 4;
 		remaining = numLemmings;
@@ -101,11 +116,21 @@ public class Game implements GameStatus {
 	private void initGame3() {
 
 		container = new GameObjectContainer();
-		container.add(new Lemming(this, new Position(1,4)));
-		container.add(new Lemming(this, new Position(0,5)));
-		container.add(new Lemming(this, new Position(5,5)));
-		container.add(new Lemming(this, new Position(9,4)));
+		//container.add(new Lemming(this, new Position(1,4)));
+		//container.add(new Lemming(this, new Position(0,5)));
+		//container.add(new Lemming(this, new Position(5,5)));
+		//container.add(new Lemming(this, new Position(9,4)));
 
+		Lemming lemming = new Lemming(this, new Position(1, 4), container);     
+		container.add(lemming);
+		Lemming lemming1 = new Lemming(this, new Position(0, 5), container);     
+		container.add(lemming1);
+		Lemming lemming2 = new Lemming(this, new Position(5, 5), container);     
+		container.add(lemming2);
+		Lemming lemming3 = new Lemming(this, new Position(9, 4), container);     
+		container.add(lemming3);
+		
+		
 		container.add(new Wall(this,new Position(1,5)));
 		container.add(new Wall(this,new Position(2,5)));
 		container.add(new Wall(this,new Position(1,7)));
@@ -122,7 +147,9 @@ public class Game implements GameStatus {
 		container.add(new Wall(this,new Position(5,7)));
 		container.add(new Wall(this,new Position(8,7)));
 		
-		container.add(new ExitDoor(this,new Position(6,6)));
+		ExitDoor exit = new ExitDoor(this, new Position(6,6), container);
+		container.add(exit);
+		//container.add(new ExitDoor(this,new Position(6,6)));
 		
 		numLemmings = 4;
 		lemmingsToWin = 3;

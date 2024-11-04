@@ -1,7 +1,8 @@
 package tp1.control.commands;
 
-import tp1.logic.Game;
+import tp1.logic.Game; 
 import tp1.view.GameView; 
+import tp1.view.Messages;
 
 public abstract class NoParamsCommand extends Command {
 
@@ -12,15 +13,10 @@ public abstract class NoParamsCommand extends Command {
 	@Override
 	public Command parse(String[] commandWords) {
 		
-		boolean matchCommand = false; 
-	       
-		if (commandWords[0].equalsIgnoreCase(getName()) || commandWords[0].equalsIgnoreCase(getShortcut())) {
-			matchCommand = true;
-	    }
-
-		if (commandWords.length == 1 && matchCommand){ 
-            return this;  
-        }
+	   if ((commandWords.length == 0 || (commandWords.length == 1 && commandWords[0].equalsIgnoreCase(Messages.EMPTY))) 
+	            || (commandWords.length == 1 && (commandWords[0].equalsIgnoreCase(getName()) || commandWords[0].equalsIgnoreCase(getShortcut())))) {
+	            return this;  
+	        }
 		
 		return null;
 	}
