@@ -71,69 +71,69 @@ public class GameObjectContainer {
 	
 	    return respuesta.toString();
 	}
-    //Quitamos los lemmings muertos
+	
+	//Quitamos los lemmings muertos
     private void removeDead() {
     	List<GameObject> lemmingsToRemove = new ArrayList<>();
 
-        // Iteramos sobre todos los objetos en el contenedor
         for (GameObject obj : objects) {
-            // Si el objeto es un Lemming y no está vivo, lo añadimos a la lista para eliminar
-            if (obj instanceof Lemming) {
-                Lemming lemming = (Lemming) obj; // Convertimos a Lemming
+
+            if (obj.isLemming()) { //comprobacion de que es un lemming
+                Lemming lemming = (Lemming) obj; 
                 if (!lemming.isAlive()) {
                     lemmingsToRemove.add(obj);
                 }
             }
         }
 
-        // Ahora eliminamos los lemmings muertos de la lista de objetos
         for (GameObject lemming : lemmingsToRemove) {
-            objects.remove(lemming); // Removemos el lemming muerto
+            objects.remove(lemming); 
         }
         
     }
     
+    //Comprueba si el objeto es una pared
     public boolean isSolidAt(Position pos, GameObject sourceObject) {
         for (GameObject obj : objects) {
-            if (obj != sourceObject && obj.isInPosition(pos) && obj.isSolid()) {
-                return true; // Hay un objeto sólido en esa posición
+            if (obj.isInPosition(pos) && obj.isSolid()) {
+                return true; 
             }
         }
-        return false; // No hay objeto sólido en esa posición
+        return false; 
     }
 
-    
+    //Comprueba si el objeto es una puerta de salida
     public boolean isExitAt(Position pos) {
         for (GameObject obj : objects) {
             if (obj.isInPosition(pos) && obj.isExit()) {
-                return true; // Hay un objeto que es una salida en esa posición
+                return true; 
             }
         }
-        return false; // No hay objeto que sea una salida en esa posición
+        return false; 
     }
     
     
- // Devuelve el índice del lemming que ocupa la posición en la lista de objetos (si lo hay), sino devuelve -1
+    //Devuelve el índice del lemming que ocupa la posición en la lista de objetos (si lo hay), sino devuelve -1
     public int isLemming(Position p, int ind) {
         for (int i = ind; i < objects.size(); i++) {
             GameObject obj = objects.get(i);
-            // Comprobamos si el objeto es un lemming y si está en la posición
-            if (obj instanceof Lemming && obj.isInPosition(p)) {
-                return i; // Retornamos el índice si encontramos un lemming en la posición
+
+            if (obj.isInPosition(p) && obj.isLemming()) {
+                return i; 
             }
         }
-        return -1; // Si no encontramos, retornamos -1
+        return -1; 
     }
-
- // Devuelve el Lemming en la posición indicada, si lo hay; sino, devuelve null
+    
+    //Devuelve el Lemming en la posición indicada, si lo hay; sino, devuelve null
     private Lemming Lem(Position p) {
         for (GameObject obj : objects) {
-            if (obj instanceof Lemming && obj.isInPosition(p)) {
-                return (Lemming) obj; // Hacemos el casting a Lemming
+            if (obj.isInPosition(p) && obj.isLemming()) { 
+                return (Lemming) obj; 
             }
         }
-        return null; // Si no se encuentra, devolvemos null
-    }
+        return null; 
+    }    
 
     
     

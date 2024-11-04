@@ -1,13 +1,14 @@
 package tp1.logic;
 
-import tp1.logic.gameobjects.Lemming;
+import tp1.logic.gameobjects.Lemming; 
 import tp1.logic.gameobjects.Wall;
 import tp1.logic.gameobjects.ExitDoor;
+import tp1.logic.*; 
 
-public class Game implements GameStatus {
-
-	public static final int DIM_X = 10;
-	public static final int DIM_Y = 10;
+public class Game implements GameWorld, GameStatus, GameModel{
+     
+	public static final int DIM_X = 10;   
+	public static final int DIM_Y = 10;  
 
     private GameObjectContainer container;
 	private int currentCycle;					
@@ -171,7 +172,13 @@ public class Game implements GameStatus {
 	    }
 	}
 	
+	
+	
+	//ordenar las funciones dependiendo d si las gestiona GameModel, GameWorld, GameStatus y al final las independientes
+	
+	
 	//Resetea el juego
+	@Override
 	public void reset() { 
 	    currentCycle = 0;
 	    lemmingsDead = 0;
@@ -191,6 +198,7 @@ public class Game implements GameStatus {
     }
 
 	//Actualiza el juego
+	@Override
 	public void update() { 
 		if (!isFinished()) {
 	        container.update(); 
@@ -201,6 +209,7 @@ public class Game implements GameStatus {
 	}
 	
 	//Añade un lemming
+	@Override
 	public void addLemming(Lemming lemming) {
 	    container.add(lemming); 
 	}
@@ -212,6 +221,7 @@ public class Game implements GameStatus {
 	}
 	
 	//Aumenta el ciclo del juego
+	@Override
 	public void nextCycle() {
 		this.currentCycle++; 
 	}
@@ -229,6 +239,7 @@ public class Game implements GameStatus {
 	}
 	
 	//Aumenta el numero de lemmings muertos
+	@Override
 	public void incrementDeadLemmings() {
 	    this.lemmingsDead++;  // Incrementa el número de lemmings muertos
 	    this.remaining--; //quita lemmings remainings
@@ -241,6 +252,7 @@ public class Game implements GameStatus {
 	}
 	
 	//Aumenta el numero de lemmings que salen por la puerta y resta uno al numero de lemmings que quedan en la partida
+	@Override
 	public void incrementLemmingsExit() {
 		this.lemmingsExit++;
 		this.remaining--;
@@ -272,6 +284,7 @@ public class Game implements GameStatus {
 	}
 	
 	//Aumenta el numero de lemmings muertos
+	@Override
 	public void lemmingHasDied() {
         incrementDeadLemmings();  
     }
@@ -283,11 +296,11 @@ public class Game implements GameStatus {
 	}
 	
 	//Pone el estado del juego a -> terminado (usado por exit)
-    public void setFinished(boolean finished) {
+	@Override
+	public void setFinished(boolean finished) {
         this.finished = finished;
     }
 
-    
     public String help() {
 		return "";
 	}

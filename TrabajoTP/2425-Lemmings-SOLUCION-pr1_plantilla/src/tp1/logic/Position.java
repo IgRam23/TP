@@ -1,10 +1,5 @@
 package tp1.logic;
 
-/**
- * 
- * Immutable class to encapsulate and manipulate positions in the game board
- * 
- */
 public class Position {
 
 	private int col;
@@ -27,6 +22,9 @@ public class Position {
     public boolean equals(Position pos) {
     	return pos.row == row && pos.col == col;
     } 
-
+   
+    
+    
+    //preguntar si tenemos que agregar alguna funcion de lemming/walkerrole aqui (algo dijo en la primera defensa)
 }
 

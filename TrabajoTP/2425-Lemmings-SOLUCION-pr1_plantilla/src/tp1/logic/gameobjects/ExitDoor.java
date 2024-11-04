@@ -8,7 +8,7 @@ import tp1.view.Messages;
 public class ExitDoor extends GameObject{
 	
 	//Constructor
-	public ExitDoor(Game game, Position pos, GameObjectContainer container){
+	public ExitDoor(GameWorld game, Position pos, GameObjectContainer container){
 		super(game, pos);
 		
 	}
@@ -30,5 +30,10 @@ public class ExitDoor extends GameObject{
     @Override
     public boolean isExit() {
     	return true;
+    }
+    
+    @Override
+    public boolean isLemming() {
+    	return false;
     }
 }

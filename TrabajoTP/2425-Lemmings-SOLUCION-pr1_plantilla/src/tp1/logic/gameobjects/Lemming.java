@@ -1,6 +1,6 @@
 package tp1.logic.gameobjects;
 
-import tp1.logic.*; //con el asterisco me mete las carpetas enteras
+import tp1.logic.*; 
 
 import tp1.view.Messages;
 
@@ -15,10 +15,10 @@ public class Lemming extends GameObject{
 	private int fallDistance;
 	GameObjectContainer container;
 	
-    public Lemming(Game game, Position pos, GameObjectContainer container){
+    public Lemming(GameWorld game, Position pos, GameObjectContainer container){
     	super(game, pos);
     	this.container = container;
-    	this.rol = WalkerRole(pos); 
+    	this.rol = WalkerRole(pos);  
         this.dir = Direction.RIGHT;
         this.dir_anterior = Direction.RIGHT;
         this.isAlive = true; // Inicialmente, el lemming está vivo
@@ -27,7 +27,7 @@ public class Lemming extends GameObject{
 	
     //Creo un estado WalkerRole
     private WalkerRole WalkerRole(Position pos) {
-    	return new WalkerRole(pos);
+    	return new WalkerRole(pos); 
 	}
 
     //Actualizar el estado del juego
@@ -36,7 +36,12 @@ public class Lemming extends GameObject{
 	    if (isAlive) {
 	      rol.play(this);     
 	    }
-	}
+	}    
+    
+    @Override
+    public boolean isLemming() {
+    	return true;
+    }
 
     @Override
     //Dibuja el lemming
@@ -65,7 +70,6 @@ public class Lemming extends GameObject{
     public boolean isExit() {
     	return false;
     }
-    
     
 	//Mata a un lemming
 	public void die() {
@@ -137,16 +141,17 @@ public class Lemming extends GameObject{
 			return;
         }
 		
-		this.pos = rol.move(dir);
+		this.pos = rol.move(dir);   
 	}
 	
+
 	//Actualiza el estado del lemming y del juego si hay un nuevo lemming que sale por la puerta
 	public void exit() {
 	    if (isAlive) {
-	        game.incrementLemmingsExit(); // Incrementa el número de lemmings que han salido
-	        isAlive = false; // Marcar el lemming como muerto porque ha salido
+	        game.incrementLemmingsExit(); 
+	        isAlive = false; 
 	        if (game.numLemmingsExit() >= game.numLemmingsToWin()) {
-	            game.setFinished(true);    // Solo termina el juego si han salido suficientes lemmings
+	            game.setFinished(true);    
 	        }
 	    }
     }

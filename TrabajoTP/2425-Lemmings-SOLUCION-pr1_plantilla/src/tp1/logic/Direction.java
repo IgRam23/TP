@@ -24,5 +24,5 @@ public enum Direction {
 	}
 	
 	
-	//Tenemos que pasar las funciones que tengan que ver con la direccion aqui
+    //preguntar si tenemos que agregar alguna funcion de lemming/walkerrole aqui (algo dijo en la primera defensa)
 }

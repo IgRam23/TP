@@ -1,6 +1,6 @@
 package tp1.control.commands;
 
-import tp1.logic.Game; 
+import tp1.logic.GameModel; 
 import tp1.view.GameView; 
 import tp1.view.Messages;
 
@@ -22,6 +22,6 @@ public abstract class NoParamsCommand extends Command {
 	}
 	
 	@Override
-	public abstract void execute(Game game, GameView view); 
+	public abstract void execute(GameModel game, GameView view); 
 	
 }

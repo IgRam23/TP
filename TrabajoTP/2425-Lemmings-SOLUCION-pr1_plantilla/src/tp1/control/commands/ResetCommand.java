@@ -1,6 +1,6 @@
 package tp1.control.commands;
 
-import tp1.logic.Game;
+import tp1.logic.GameModel;
 import tp1.view.GameView;
 
 public class ResetCommand extends NoParamsCommand{
@@ -15,7 +15,7 @@ public class ResetCommand extends NoParamsCommand{
 	}
 
 	@Override
-	public void execute(Game game, GameView view){
+	public void execute(GameModel game, GameView view){
 		game.reset(); 
 		view.showGame();
 	}

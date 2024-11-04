@@ -4,7 +4,7 @@ import tp1.view.Messages;
 
 public class Wall extends GameObject{ 
 	//Constructor
-	public Wall (Game game, Position pos){
+	public Wall (GameWorld game, Position pos){
 		super(game, pos);
 	}
 
@@ -24,6 +24,11 @@ public class Wall extends GameObject{
     
     @Override
     public boolean isExit() {
+    	return false;
+    }
+    
+    @Override
+    public boolean isLemming() {
     	return false;
     }
 }
