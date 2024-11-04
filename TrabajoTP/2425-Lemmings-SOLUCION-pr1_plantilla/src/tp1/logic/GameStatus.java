@@ -12,4 +12,5 @@ public interface GameStatus {
 
 	public boolean playerWins();
 	public boolean playerLooses();
+	public boolean isFinished();
 }

@@ -112,7 +112,7 @@ public class Game implements GameStatus {
 	}
 	
 	//NUESTRO
-	//empiezas con 4 palman 2 sobreviven dos player looses
+	//empiezas con 4 palman 0 player wins
 	private void initGame3() {
 
 		container = new GameObjectContainer();
@@ -206,6 +206,7 @@ public class Game implements GameStatus {
 	}
 	
 	//Devuelve el ciclo actual
+	@Override
 	public int getCycle() {
 		return this.currentCycle;
 	}
@@ -216,11 +217,13 @@ public class Game implements GameStatus {
 	}
 
 	//Devuelve el numero de lemmings que siguen en la partida
+	@Override
 	public int numLemmingsInBoard() {
 		return this.remaining;
 	}
 
 	//Devuelve el numero de lemmings muertos
+	@Override 
 	public int numLemmingsDead() {
 		return this.lemmingsDead; 
 	}
@@ -232,6 +235,7 @@ public class Game implements GameStatus {
 	}
 
     //Devuelve el numero de lemmings que ha salido
+	@Override 
 	public int numLemmingsExit() {
 		return lemmingsExit; 
 	}
@@ -243,22 +247,26 @@ public class Game implements GameStatus {
 	}
 	
     //Devuelve el numero de lemmings necesarios para ganar
+	@Override
 	public int numLemmingsToWin() {
 		return this.lemmingsToWin;
 	}
 	
 	//Llama a la funcion que devuelve los elementos como string
+	@Override
 	public String positionToString(int col, int row) { 
 		Position pos = new Position(col,row);
 		return container.positionToString(pos);
 	}
 	
     //Devuelve true si el jugador ha ganado
+	@Override
 	public boolean playerWins() {
 		return numLemmingsExit() >= numLemmingsToWin(); 
 	}
 	
     //Devuelve true si el jugador ha perdido
+	@Override 
 	public boolean playerLooses() {
 		return remaining == 0 && numLemmingsExit() < numLemmingsToWin(); 
 	}
@@ -269,8 +277,9 @@ public class Game implements GameStatus {
     }
 	
 	//Devuelve true si el juego ha terminado
+	@Override	
 	public boolean isFinished() {
-		return this.finished;
+		return finished || playerWins() || playerLooses();
 	}
 	
 	//Pone el estado del juego a -> terminado (usado por exit)

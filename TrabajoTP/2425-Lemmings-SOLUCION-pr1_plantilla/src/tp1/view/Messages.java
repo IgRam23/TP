@@ -19,7 +19,7 @@ public class Messages {
 
 	public static final String PROMPT = "Command > ";
 
-	public static final String DEBUG = "[DEBUG] Executing: %s%n";
+	public static final String DEBUG = "DEBUG: command= %s%n";
 	public static final String ERROR = "[ERROR] Error: %s%n";
 	
 	// GAME STATUS
@@ -79,7 +79,7 @@ public class Messages {
 			"[e]xit: end the execution of the game"};
 	/* @formatter:on */
 	@Deprecated
-	public static final String HELP = String.join(LINE_SEPARATOR+"   ", HELP_LINES) + LINE_SEPARATOR;
+	public static final String HELP = String.join(LINE_SEPARATOR, HELP_LINES) + LINE_SEPARATOR;
 
 
 	// UPDATE (NONE)
