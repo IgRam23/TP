@@ -13,13 +13,12 @@ public abstract class GameView {
 	}
 	
 	// show methods
-	public abstract void showWelcome();// mensaje de bienvenida
-	public abstract void showGame();// muestra el estado del juego
-	public abstract void showHelp();
-	public abstract void showEndMessage();// mensaje final
-	public abstract void showError(String message);// mensaje de error
-	public abstract void showMessage(String message);// mensaje
+	public abstract void showWelcome();
+	public abstract void showGame();
+	public abstract void showEndMessage();
+	public abstract void showError(String message);
+	public abstract void showMessage(String message);
 
 	// get data from view methods
-	public abstract String[] getPrompt();//pide una línea al usuario
+	public abstract String[] getPrompt();
 }

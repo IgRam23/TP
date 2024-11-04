@@ -22,4 +22,7 @@ public enum Direction {
 	public int getY() {
 		return y;
 	}
+	
+	
+	//Tenemos que pasar las funciones que tengan que ver con la direccion aqui
 }

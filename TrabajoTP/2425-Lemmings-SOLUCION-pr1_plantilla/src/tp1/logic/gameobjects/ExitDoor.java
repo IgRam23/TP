@@ -3,18 +3,23 @@ package tp1.logic.gameobjects;
 import tp1.logic.*;
 
 import tp1.logic.Position;
+import tp1.view.Messages;
 
-public class ExitDoor {
-
-	private Position pos; 
+public class ExitDoor extends GameObject{
 	
 	//Constructor
-	public ExitDoor (Position pos){
-		this.pos = pos;
+	public ExitDoor(Game game, Position pos, GameObjectContainer container){
+		super(game, pos);
+		
 	}
-	
-	//Comprueba si hay una puerta en una posicion especificada
-	public boolean isInPosition(Position pos) {
-		return this.pos.equals(pos);
-	}
+
+    public boolean isExit() {
+        return false; 
+    }
+   
+
+    @Override
+    public String getIcon() {
+        return Messages.EXIT_DOOR; 
+    }
 }

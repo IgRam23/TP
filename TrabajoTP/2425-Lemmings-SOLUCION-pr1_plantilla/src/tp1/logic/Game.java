@@ -4,7 +4,7 @@ import tp1.logic.gameobjects.Lemming;
 import tp1.logic.gameobjects.Wall;
 import tp1.logic.gameobjects.ExitDoor;
 
-public class Game {
+public class Game implements GameStatus {
 
 	public static final int DIM_X = 10;
 	public static final int DIM_Y = 10;
@@ -16,7 +16,6 @@ public class Game {
 	private int lemmingsToWin;
 	private int lemmingsDead;
 	private int lemmingsExit;
-	private boolean doExit;
 	private boolean finished;
 	private int nivel;
 
@@ -29,30 +28,36 @@ public class Game {
 	private void initGame1() {
 		container = new GameObjectContainer();
 
-		container.add(new Lemming(this, new Position(0,8)));
-		container.add(new Lemming(this, new Position(2,3)));
-		container.add(new Lemming(this, new Position(9,0)));
+		//container.add(new Lemming(this, new Position(0,8)));
+		//container.add(new Lemming(this, new Position(2,3)));
+		//container.add(new Lemming(this, new Position(9,0)));
+		
+		Lemming lemming = new Lemming(this, new Position(2, 3), container);     
+		container.add(lemming);
 
-		container.add(new Wall(new Position(0,9)));
-		container.add(new Wall(new Position(1,9)));
-		container.add(new Wall(new Position(2,4)));
-		container.add(new Wall(new Position(3,4)));
-		container.add(new Wall(new Position(4,4)));
-		container.add(new Wall(new Position(4,6)));
-		container.add(new Wall(new Position(5,6)));
-		container.add(new Wall(new Position(6,6)));
-		container.add(new Wall(new Position(7,6)));
-		container.add(new Wall(new Position(7,5)));
-		container.add(new Wall(new Position(8,1)));
-		container.add(new Wall(new Position(9,1)));
-		container.add(new Wall(new Position(8,8)));
-		container.add(new Wall(new Position(9,9)));
-		container.add(new Wall(new Position(8,8)));
-		container.add(new Wall(new Position(8,9)));
 
-		container.add(new ExitDoor(new Position(4,5)));
+		container.add(new Wall(this,new Position(0,9)));
+		container.add(new Wall(this,new Position(1,9)));
+		container.add(new Wall(this,new Position(2,4)));
+		container.add(new Wall(this,new Position(3,4)));
+		container.add(new Wall(this,new Position(4,4)));
+		container.add(new Wall(this,new Position(4,6)));
+		container.add(new Wall(this,new Position(5,6)));
+		container.add(new Wall(this,new Position(6,6)));
+		container.add(new Wall(this,new Position(7,6)));
+		container.add(new Wall(this,new Position(7,5)));
+		container.add(new Wall(this,new Position(8,1)));
+		container.add(new Wall(this,new Position(9,1)));
+		container.add(new Wall(this,new Position(8,8)));
+		container.add(new Wall(this,new Position(9,9)));
+		container.add(new Wall(this,new Position(8,8)));
+		container.add(new Wall(this,new Position(8,9)));
 
-		numLemmings = 3;
+		ExitDoor exit = new ExitDoor(this, new Position(4,5), container);
+		container.add(exit);
+		//container.add(new ExitDoor(this,new Position(4,5)));
+
+		numLemmings = 1;
 		remaining = numLemmings;
 		lemmingsToWin = 2;
 	}
@@ -67,24 +72,24 @@ public class Game {
 		container.add(new Lemming(this, new Position(9,0)));
 		container.add(new Lemming(this, new Position(3,3)));
 
-		container.add(new Wall(new Position(0,9)));
-		container.add(new Wall(new Position(1,9)));
-		container.add(new Wall(new Position(2,4)));
-		container.add(new Wall(new Position(3,4)));
-		container.add(new Wall(new Position(4,4)));
-		container.add(new Wall(new Position(4,6)));
-		container.add(new Wall(new Position(5,6)));
-		container.add(new Wall(new Position(6,6)));
-		container.add(new Wall(new Position(7,6)));
-		container.add(new Wall(new Position(7,5)));
-		container.add(new Wall(new Position(8,1)));
-		container.add(new Wall(new Position(9,1)));
-		container.add(new Wall(new Position(8,8)));
-		container.add(new Wall(new Position(9,9)));
-		container.add(new Wall(new Position(8,8)));
-		container.add(new Wall(new Position(8,9)));
+		container.add(new Wall(this,new Position(0,9)));
+		container.add(new Wall(this,new Position(1,9)));
+		container.add(new Wall(this,new Position(2,4)));
+		container.add(new Wall(this,new Position(3,4)));
+		container.add(new Wall(this,new Position(4,4)));
+		container.add(new Wall(this,new Position(4,6)));
+		container.add(new Wall(this,new Position(5,6)));
+		container.add(new Wall(this,new Position(6,6)));
+		container.add(new Wall(this,new Position(7,6)));
+		container.add(new Wall(this,new Position(7,5)));
+		container.add(new Wall(this,new Position(8,1)));
+		container.add(new Wall(this,new Position(9,1)));
+		container.add(new Wall(this,new Position(8,8)));
+		container.add(new Wall(this,new Position(9,9)));
+		container.add(new Wall(this,new Position(8,8)));
+		container.add(new Wall(this,new Position(8,9)));
 
-		container.add(new ExitDoor(new Position(4,5)));
+		container.add(new ExitDoor(this,new Position(4,5)));
 
 		numLemmings = 4;
 		remaining = numLemmings;
@@ -101,23 +106,23 @@ public class Game {
 		container.add(new Lemming(this, new Position(5,5)));
 		container.add(new Lemming(this, new Position(9,4)));
 
-		container.add(new Wall(new Position(1,5)));
-		container.add(new Wall(new Position(2,5)));
-		container.add(new Wall(new Position(1,7)));
-		container.add(new Wall(new Position(3,5)));
-		container.add(new Wall(new Position(2,7)));
-		container.add(new Wall(new Position(3,7)));
-		container.add(new Wall(new Position(0,7)));
-		container.add(new Wall(new Position(3,6)));
-		container.add(new Wall(new Position(4,6)));
-		container.add(new Wall(new Position(9,5)));
-		container.add(new Wall(new Position(4,9)));
-		container.add(new Wall(new Position(7,7)));
-		container.add(new Wall(new Position(6,7)));
-		container.add(new Wall(new Position(5,7)));
-		container.add(new Wall(new Position(8,7)));
+		container.add(new Wall(this,new Position(1,5)));
+		container.add(new Wall(this,new Position(2,5)));
+		container.add(new Wall(this,new Position(1,7)));
+		container.add(new Wall(this,new Position(3,5)));
+		container.add(new Wall(this,new Position(2,7)));
+		container.add(new Wall(this,new Position(3,7)));
+		container.add(new Wall(this,new Position(0,7)));
+		container.add(new Wall(this,new Position(3,6)));
+		container.add(new Wall(this,new Position(4,6)));
+		container.add(new Wall(this,new Position(9,5)));
+		container.add(new Wall(this,new Position(4,9)));
+		container.add(new Wall(this,new Position(7,7)));
+		container.add(new Wall(this,new Position(6,7)));
+		container.add(new Wall(this,new Position(5,7)));
+		container.add(new Wall(this,new Position(8,7)));
 		
-		container.add(new ExitDoor(new Position(6,6)));
+		container.add(new ExitDoor(this,new Position(6,6)));
 		
 		numLemmings = 4;
 		lemmingsToWin = 3;
@@ -159,20 +164,13 @@ public class Game {
     }
 
 	//Actualiza el juego
-	public void Update() { 
+	public void update() { 
 		if (!isFinished()) {
 	        container.update(); 
 	    }
-	}
-	
-	//Comprueba y devuelve un booleano segun si es una pared 
-	public boolean isSolid(Position pos) {
-	    return container.isSolid(pos);
-	}
-	
-	//Comprueba y devuelve un booleano segun si es una puerta de salida
-	public boolean isExit(Position pos) {
-	    return container.isExit(pos);
+		if (playerWins() || playerLooses()) {
+            setFinished(true);
+        }
 	}
 	
 	//Añade un lemming
