@@ -30,47 +30,36 @@ public class GameObjectContainer {
 	}
     
     //Convierte los distintos elementos del juego a simbolos string
-	public String positionToString(Position p) {     
-	    StringBuilder respuesta = new StringBuilder();
-	    int cont = 0; // Contador para los elementos encontrados
-	
-	    // Primero, verificamos si hay una pared en la posición
-	    for (GameObject obj : objects) {
-	        if (obj.isInPosition(p)) {
-	            if (obj.isSolid()) { // Si hay una pared
-	                return Messages.WALL; // Retornamos el icono de la pared
-	            }
-	            // Si es una puerta de salida
-	            if (obj.isExit()) {
-	                respuesta.append(Messages.EXIT_DOOR); 
-	                cont++; // Aumentamos el contador por la puerta
-	            }
-	        }
-	    }
-	
-	    // Ahora buscamos lemmings en la posición
-	    int indice = isLemming(p, 0); 
-	
-	    if (indice != -1) { // Si hay al menos un lemming
-	        Lemming l = Lem(p);
-	        respuesta.append(l.getIcon());
-	        cont++; // Aumentamos el contador de lemmings
-	
-	        // Miramos si hay un segundo lemming en la misma posición
-	        indice = isLemming(p, indice + 1); 
-	        if (indice != -1 && cont < 2) { // Solo agregamos si no hemos alcanzado 2 elementos
-	            Lemming l2 = Lem(p);
-	            respuesta.append(l2.getIcon());
-	        }
-	    }
-	
-	    // Si no hemos encontrado nada, añadimos un espacio
-	    if (cont == 0) {
-	        respuesta.append(" ");
-	    }
-	
-	    return respuesta.toString();
-	}
+    public String positionToString(Position p) {
+        StringBuilder respuesta = new StringBuilder();
+        int contador = 0; // Contador para los elementos encontrados
+
+        // Recorremos la lista de objetos
+        for (GameObject obj : objects) {
+            if (obj.isInPosition(p)) {
+                // Obtenemos el icono del objeto
+                String icon = obj.getIcon();
+                // Si el icono no está vacío, lo añadimos al resultado
+                if (!icon.equals(Messages.EMPTY)) {
+                    respuesta.append(icon);
+                    contador++;
+                }
+            }
+            
+            // Si hemos encontrado ya dos elementos, dejamos de buscar
+            if (contador >= 2) {
+                break;
+            }
+        }
+
+        // Si no hemos encontrado nada, devolvemos un espacio
+        if (contador == 0) {
+            return Messages.SPACE;
+        }
+
+        return respuesta.toString();
+    }
+
 	
 	//Quitamos los lemmings muertos
     private void removeDead() {
@@ -124,17 +113,6 @@ public class GameObjectContainer {
         }
         return -1; 
     }
-    
-    //Devuelve el Lemming en la posición indicada, si lo hay; sino, devuelve null
-    private Lemming Lem(Position p) {
-        for (GameObject obj : objects) {
-            if (obj.isInPosition(p) && obj.isLemming()) { 
-                return (Lemming) obj; 
-            }
-        }
-        return null; 
-    }    
-
-    
+       
     
 }
