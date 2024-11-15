@@ -6,7 +6,7 @@ import tp1.logic.Position;
 import tp1.logic.gameobjects.*;
 import tp1.view.Messages; 
 
-public class WalkerRole {
+public class WalkerRole extends AbstractRole {
 	
 	Position pos;
 	
@@ -19,11 +19,19 @@ public class WalkerRole {
 		this.pos = pos;
 	}
 	
+	@Override
+	public void start(Lemming lemming) {
+		
+	}
+	  
 	//Va manejando al lemming
+	@Override
 	public void play(Lemming lemming) {;	
 		lemming.walkOrFall();
 	}
-
+	
+	
+	@Override
 	public String getIcon(Lemming lemming) {
 		if(lemming.getIcon() == Messages.LEMMING_RIGHT) {
 			return ICON_RIGHT;
