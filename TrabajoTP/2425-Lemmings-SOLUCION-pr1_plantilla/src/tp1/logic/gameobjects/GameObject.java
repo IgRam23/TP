@@ -1,6 +1,7 @@
 package tp1.logic.gameobjects;
 
 import tp1.logic.GameWorld;
+import tp1.logic.lemmingRoles.LemmingRole;
 import tp1.logic.Position;
 
 public abstract class GameObject implements GameItem{
@@ -23,11 +24,7 @@ public abstract class GameObject implements GameItem{
 		return isAlive;
 	}
 	
-	@Override
-	public boolean setRole(LemmingRole role) {
-		return false; //solo a lemmings
-	}
-
+	
 	public abstract String getIcon();
 
 	public abstract void update();

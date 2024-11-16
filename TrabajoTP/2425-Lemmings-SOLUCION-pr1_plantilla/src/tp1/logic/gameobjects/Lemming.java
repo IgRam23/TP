@@ -37,7 +37,6 @@ public class Lemming extends GameObject{
 	    }
 	}    
     
-    @Override
     public boolean setRole(LemmingRole newRole) {
     	if(newRole != null) {
     		this.rol = newRole;
@@ -169,5 +168,49 @@ public class Lemming extends GameObject{
 	public boolean isInPosition(Position pos) {
 		return this.pos.equals(pos);
 	}
+	
+	public boolean receiveInteraction(GameItem other) {
+	    // Aquí puedes manejar interacciones genéricas con otros objetos de juego
+	    if (other instanceof Wall) {
+	        return interactWith((Wall) other);
+	    } else if (other instanceof ExitDoor) {
+	        return interactWith((ExitDoor) other);
+	    } else if (other instanceof Lemming) {
+	        return interactWith((Lemming) other);
+	    }
+	    return false;
+	}
+	
+	public boolean interactWith(Wall wall) {
+	   
+	    return false;
+	}
+	
+	public boolean interactWith(ExitDoor door) {
+	    // Si el lemming llega a una puerta de salida, se sale
+	    if (isInExit()) {
+	        exit();  // El lemming se sale por la puerta
+	        return true;  // Interacción exitosa
+	    }
+	    return false;
+	}
+	
+	public boolean interactWith(Lemming lemming) {
+	   
+	    if (this.pos.equals(lemming.pos)) {
+	        // Ejemplo de interacción: cambiar de dirección si se encuentran
+	        dir = dir == Direction.RIGHT ? Direction.LEFT : Direction.RIGHT;
+	        return true;  // Interacción exitosa
+	    }
+	    return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
