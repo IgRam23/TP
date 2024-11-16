@@ -1,6 +1,6 @@
 package tp1.logic.lemmingRoles;
 
-import java.util.HashMap;
+import java.util.HashMap; 
 import java.util.Map;
 import tp1.logic.*;
 

@@ -11,24 +11,23 @@ public class Lemming extends GameObject{
 	private Direction dir;
 	private Direction dir_anterior;
 	private boolean isAlive;
-	WalkerRole rol;
+	private LemmingRole rol;
 	private int fallDistance;
 	GameObjectContainer container;
 	
     public Lemming(GameWorld game, Position pos, GameObjectContainer container){
     	super(game, pos);
     	this.container = container;
-    	this.rol = WalkerRole(pos);  
+    	this.rol = new WalkerRole(pos);  
         this.dir = Direction.RIGHT;
         this.dir_anterior = Direction.RIGHT;
         this.isAlive = true; // Inicialmente, el lemming está vivo
         this.fallDistance = 0;
 	}
-	
-    //Creo un estado WalkerRole
-    private WalkerRole WalkerRole(Position pos) {
-    	return new WalkerRole(pos); 
-	}
+    
+    public void disableRole() {
+    	this.rol = new WalkerRole(this.pos);
+    }
 
     //Actualizar el estado del juego
     @Override
@@ -37,6 +36,16 @@ public class Lemming extends GameObject{
 	      rol.play(this);     
 	    }
 	}    
+    
+    @Override
+    public boolean setRole(LemmingRole newRole) {
+    	if(newRole != null) {
+    		this.rol = newRole;
+    		this.rol.start(this);
+    		return true;
+    	}
+    	return false; 
+    } 
     
     @Override
     public boolean isLemming() {
