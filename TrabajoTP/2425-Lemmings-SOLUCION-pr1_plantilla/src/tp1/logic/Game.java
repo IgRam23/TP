@@ -3,6 +3,7 @@ package tp1.logic;
 import tp1.logic.gameobjects.Lemming; 
 import tp1.logic.gameobjects.Wall;
 import tp1.logic.gameobjects.ExitDoor;
+import tp1.logic.gameobjects.GameObject;
 import tp1.logic.*; 
 
 public class Game implements GameWorld, GameStatus, GameModel{
@@ -304,5 +305,6 @@ public class Game implements GameWorld, GameStatus, GameModel{
     public String help() {
 		return "";
 	}
+    
 
 }

@@ -27,7 +27,36 @@ public class WalkerRole extends AbstractRole {
 	//Va manejando al lemming
 	@Override
 	public void play(Lemming lemming) {;	
-		lemming.walkOrFall();
+	
+	if(lemming.isInExit()) {
+		lemming.exit();
+		return;
+	}
+	else if (lemming.isInAir()) { //si esta en el aire 
+		lemming.increaseFallDistance();
+        if (pos.getRow() + 1 >= Game.DIM_Y) { //comprobamos si la posición abajo está fuera del tablero para ver si hay que llamar a die()
+            lemming.die();  
+            return; 
+        }	        
+        
+        if(lemming.getDirection() != Direction.DOWN) {
+        	lemming.changePreviousDir(lemming.getDirection());
+        }
+        
+        lemming.changeDir(Direction.DOWN);
+	}
+	else if(lemming.getDirection() == Direction.DOWN) { //si esta empezando a caer
+		handleFall(lemming);
+		lemming.changeDir(lemming.getPreviousDirection());
+	}
+	
+	else if (lemming.isInWall()) { //si se va a chocar con una pared
+		lemming.changePreviousDir(lemming.getDirection());
+		lemming.changeDir(lemming.getDirection() == Direction.RIGHT ? Direction.LEFT : Direction.RIGHT);
+		return;
+    }
+	
+	//this.pos = rol.move(dir);   
 	}
 	
 	

@@ -122,6 +122,7 @@ public class Lemming extends GameObject{
 
 	//Establece la direccion en la que se tiene que mover el lemming
 	public void walkOrFall() { 
+		
 		if(isInExit()) {
 			exit();
 			return;
@@ -182,8 +183,14 @@ public class Lemming extends GameObject{
 	}
 	
 	public boolean interactWith(Wall wall) {
-	   
-	    return false;
+		
+		if(isInWall()) {
+			dir_anterior = dir;
+			dir = (dir == Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT;
+		    return true;
+			
+		}
+		return false;
 	}
 	
 	public boolean interactWith(ExitDoor door) {
@@ -205,8 +212,40 @@ public class Lemming extends GameObject{
 	    return false;
 	}
 	
+	//ns si es correcto
+	public void increaseFallDistance() {
+		this.fallDistance++;
+	}
 	
+	public void changePreviousDir(Direction dir) {
+		
+		this.dir_anterior = dir;
+	}
 	
+    public void changeDir(Direction dir) {
+		
+		this.dir = dir;
+	}
+	
+	public Direction getDirection() {
+		
+		return this.dir;
+	}
+	
+    public Direction getPreviousDirection() {
+		
+		return this.dir_anterior;
+	}
+    
+     public Position getPosition() {
+		
+		return this.pos;
+	}
+     
+     public void changeFall(int newFall) {
+ 		
+ 		this.fallDistance = newFall;
+ 	}
 	
 	
 	
