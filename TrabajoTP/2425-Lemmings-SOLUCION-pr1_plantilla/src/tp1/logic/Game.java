@@ -3,8 +3,7 @@ package tp1.logic;
 import tp1.logic.gameobjects.Lemming; 
 import tp1.logic.gameobjects.Wall;
 import tp1.logic.gameobjects.ExitDoor;
-import tp1.logic.gameobjects.GameObject;
-import tp1.logic.*; 
+import tp1.logic.lemmingRoles.*;
 
 public class Game implements GameWorld, GameStatus, GameModel{
      
@@ -29,17 +28,16 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	//3 lemmings termina player looses con 2 muertos y uno en exit door
 	private void initGame1() {
 		container = new GameObjectContainer();
-
-		//container.add(new Lemming(this, new Position(0,8)));
-		//container.add(new Lemming(this, new Position(2,3)));
-		//container.add(new Lemming(this, new Position(9,0)));
 		
-		Lemming lemming = new Lemming(this, new Position(0, 8), container);     
-		container.add(lemming);
-		Lemming lemming1 = new Lemming(this, new Position(2, 3), container);     
+		LemmingRole walkerRole = LemmingRoleFactory.parse("W"); 
+
+
+		Lemming lemming1 = new Lemming(this, new Position(2, 3), container, walkerRole); 
 		container.add(lemming1);
-		Lemming lemming2 = new Lemming(this, new Position(9, 0), container);     
+		Lemming lemming2 = new Lemming(this, new Position(0, 8), container, walkerRole);     
 		container.add(lemming2);
+		Lemming lemming3 = new Lemming(this, new Position(9, 0), container, walkerRole);    
+		container.add(lemming3);
 		
 
 		container.add(new Wall(this,new Position(0,9)));
@@ -73,20 +71,23 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	private void initGame2() {
 		container = new GameObjectContainer();
 		
-		Lemming lemming = new Lemming(this, new Position(2, 3), container);     
-		container.add(lemming);
-		Lemming lemming1 = new Lemming(this, new Position(0, 8), container);     
-		container.add(lemming1);
-		Lemming lemming2 = new Lemming(this, new Position(9, 0), container);     
-		container.add(lemming2);
-		Lemming lemming3 = new Lemming(this, new Position(3, 3), container);     
-		container.add(lemming3);
-		
-		//container.add(new Lemming(this, new Position(0,8)));
-		//container.add(new Lemming(this, new Position(2,3)));
-		//container.add(new Lemming(this, new Position(9,0)));
-		//container.add(new Lemming(this, new Position(3,3)));
+		LemmingRole walkerRole = LemmingRoleFactory.parse("W"); 
+		LemmingRole parachuterRole = LemmingRoleFactory.parse("P"); 
 
+		Lemming lemming1 = new Lemming(this, new Position(2, 3), container, walkerRole); 
+		container.add(lemming1);
+		Lemming lemming2 = new Lemming(this, new Position(0, 8), container, walkerRole);     
+		container.add(lemming2);
+		Lemming lemming3 = new Lemming(this, new Position(9, 0), container, walkerRole);    
+		container.add(lemming3);
+		Lemming lemming4 = new Lemming(this, new Position(3, 3), container, walkerRole);         
+		container.add(lemming4);
+		
+		Lemming lemming5 = new Lemming(this, new Position (9, 4), container, parachuterRole);  
+	    container.add(lemming5);
+	    
+
+	    
 		container.add(new Wall(this,new Position(0,9)));
 		container.add(new Wall(this,new Position(1,9)));
 		container.add(new Wall(this,new Position(2,4)));
@@ -108,7 +109,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		container.add(exit);
 		//container.add(new ExitDoor(this,new Position(4,5)));
 
-		numLemmings = 4;
+		numLemmings = 5;
 		remaining = numLemmings;
 		lemmingsToWin = 2;
 	}
@@ -118,20 +119,17 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	private void initGame3() {
 
 		container = new GameObjectContainer();
-		//container.add(new Lemming(this, new Position(1,4)));
-		//container.add(new Lemming(this, new Position(0,5)));
-		//container.add(new Lemming(this, new Position(5,5)));
-		//container.add(new Lemming(this, new Position(9,4)));
-
-		Lemming lemming = new Lemming(this, new Position(1, 4), container);     
-		container.add(lemming);
-		Lemming lemming1 = new Lemming(this, new Position(0, 5), container);     
-		container.add(lemming1);
-		Lemming lemming2 = new Lemming(this, new Position(5, 5), container);     
-		container.add(lemming2);
-		Lemming lemming3 = new Lemming(this, new Position(9, 4), container);     
-		container.add(lemming3);
 		
+		LemmingRole walkerRole = LemmingRoleFactory.parse("W"); 
+
+		Lemming lemming1 = new Lemming(this, new Position(1, 4), container, walkerRole); 
+		container.add(lemming1);
+		Lemming lemming2 = new Lemming(this, new Position(0, 5), container, walkerRole);     
+		container.add(lemming2);
+		Lemming lemming3 = new Lemming(this, new Position(9, 4), container, walkerRole);    
+		container.add(lemming3);
+		Lemming lemming4 = new Lemming(this, new Position(5, 5), container, walkerRole);         
+		container.add(lemming4);
 		
 		container.add(new Wall(this,new Position(1,5)));
 		container.add(new Wall(this,new Position(2,5)));
@@ -301,10 +299,17 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	public void setFinished(boolean finished) {
         this.finished = finished;
     }
+	
+	@Override 
+    public boolean setRoleAt(Position position, LemmingRole role) {
+		return container.setRoleAtObject(position, role); 
+	}
 
     public String help() {
 		return "";
 	}
+    
+    
     
 
 }

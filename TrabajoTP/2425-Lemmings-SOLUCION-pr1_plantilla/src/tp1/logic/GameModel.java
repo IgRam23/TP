@@ -1,6 +1,6 @@
 package tp1.logic;
 
-import tp1.logic.gameobjects.GameObject;
+import tp1.logic.lemmingRoles.LemmingRole;
 
 public interface GameModel {
 	
@@ -9,7 +9,8 @@ public interface GameModel {
 	public void setFinished(boolean b);
 	void nextCycle();
 	boolean isFinished();
-	//ns si esta bien
-	//GameObject getObjectAt(Position position);
 	
+	
+	// Establecer el rol de un lemming en una posición específica
+    public boolean setRoleAt(Position position, LemmingRole role);
 }

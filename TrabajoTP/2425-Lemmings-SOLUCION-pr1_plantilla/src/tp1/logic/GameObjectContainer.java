@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tp1.logic.gameobjects.*;
+import tp1.logic.lemmingRoles.LemmingRole;
 import tp1.view.Messages;
 
 public class GameObjectContainer {
@@ -28,6 +29,18 @@ public class GameObjectContainer {
         }
     	removeDead();
 	}
+    
+    public boolean setRoleAtObject(Position position, LemmingRole role) {
+		for (GameObject obj: objects)
+	        if (obj.isInPosition(position) && obj.isLemming()) {  // Si hay un lemming en esa posición
+	        	Lemming lemming = (Lemming)obj;
+	            lemming.setRole(role);  // Asignamos el nuevo rol
+	            return true;  // Rol asignado con éxito
+	        }
+		        
+		return false;
+	}
+    
     
     //Convierte los distintos elementos del juego a simbolos string
     public String positionToString(Position p) {

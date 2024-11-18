@@ -13,16 +13,16 @@ public class Lemming extends GameObject{
 	private boolean isAlive;
 	private LemmingRole rol;
 	private int fallDistance;
-	GameObjectContainer container;
+	private GameObjectContainer container;
 	
-    public Lemming(GameWorld game, Position pos, GameObjectContainer container){
+    public Lemming(GameWorld game, Position pos, GameObjectContainer container, LemmingRole role){
     	super(game, pos);
     	this.container = container;
-    	this.rol = new WalkerRole(pos);  
         this.dir = Direction.RIGHT;
         this.dir_anterior = Direction.RIGHT;
         this.isAlive = true; // Inicialmente, el lemming está vivo
         this.fallDistance = 0;
+        this.rol = role;
 	}
     
     public void disableRole() {
@@ -150,7 +150,7 @@ public class Lemming extends GameObject{
 			return;
         }
 		
-		this.pos = rol.move(dir);   
+		rol.move(dir); 
 	}
 	
 
@@ -246,10 +246,4 @@ public class Lemming extends GameObject{
  		
  		this.fallDistance = newFall;
  	}
-	
-	
-	
-	
-	
-	
 }

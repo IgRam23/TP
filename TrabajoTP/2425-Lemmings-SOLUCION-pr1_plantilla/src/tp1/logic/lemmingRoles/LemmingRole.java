@@ -1,10 +1,11 @@
 package tp1.logic.lemmingRoles;
 
+import tp1.logic.Direction;
+import tp1.logic.Position;
 import tp1.logic.gameobjects.ExitDoor;
 import tp1.logic.gameobjects.GameItem;
 import tp1.logic.gameobjects.Lemming;
 import tp1.logic.gameobjects.Wall;
-import tp1.logic.lemmingRoles.*; 
 
 public interface LemmingRole {
     void start(Lemming lemming);
@@ -15,5 +16,10 @@ public interface LemmingRole {
     boolean interactWith(Lemming receiver, Lemming owner);
     boolean interactWith(Wall wall, Lemming owner);
     boolean interactWith(ExitDoor door, Lemming owner);
+	void move(Direction dir);
+	void handleFall(Lemming lemming);
+	
+    boolean canParse(String input);
+	LemmingRole createInstance(Position position);
 }
 

@@ -10,7 +10,7 @@ import tp1.view.Messages;
 /**
  *  Accepts user input and coordinates the game execution logic
  */
-public class Controller {
+public class Controller{
 
 	private GameModel game;   
 	private GameView view;
