@@ -46,14 +46,16 @@ public class Lemming extends GameObject{
     	return false; 
     } 
     
+    
     @Override
     public boolean isLemming() {
     	return true;
     }
 
+  //Dibuja el lemming
     @Override
-    //Dibuja el lemming
   	public String getIcon() {
+
   		if (this.dir == Direction.RIGHT)
   			return Messages.LEMMING_RIGHT; 
   		else if (this.dir == Direction.LEFT)
@@ -121,6 +123,7 @@ public class Lemming extends GameObject{
 	}
 
 	//Establece la direccion en la que se tiene que mover el lemming
+	/*
 	public void walkOrFall() { 
 		
 		if(isInExit()) {
@@ -152,13 +155,13 @@ public class Lemming extends GameObject{
 		
 		rol.move(dir); 
 	}
-	
+	*/
 
 	//Actualiza el estado del lemming y del juego si hay un nuevo lemming que sale por la puerta
 	public void exit() {
-	    if (isAlive) {
+	    if (this.isAlive) {
 	        game.incrementLemmingsExit(); 
-	        isAlive = false; 
+	        this.isAlive = false; 
 	        if (game.numLemmingsExit() >= game.numLemmingsToWin()) {
 	            game.setFinished(true);    
 	        }

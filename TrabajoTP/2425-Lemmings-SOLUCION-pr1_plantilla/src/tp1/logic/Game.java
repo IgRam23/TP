@@ -121,14 +121,15 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		container = new GameObjectContainer();
 		
 		LemmingRole walkerRole = LemmingRoleFactory.parse("W"); 
-
+		LemmingRole parachuterRole = LemmingRoleFactory.parse("P");
+        /*
 		Lemming lemming1 = new Lemming(this, new Position(1, 4), container, walkerRole); 
 		container.add(lemming1);
 		Lemming lemming2 = new Lemming(this, new Position(0, 5), container, walkerRole);     
 		container.add(lemming2);
 		Lemming lemming3 = new Lemming(this, new Position(9, 4), container, walkerRole);    
-		container.add(lemming3);
-		Lemming lemming4 = new Lemming(this, new Position(5, 5), container, walkerRole);         
+		container.add(lemming3);*/
+		Lemming lemming4 = new Lemming(this, new Position(5, 1), container, parachuterRole);         
 		container.add(lemming4);
 		
 		container.add(new Wall(this,new Position(1,5)));

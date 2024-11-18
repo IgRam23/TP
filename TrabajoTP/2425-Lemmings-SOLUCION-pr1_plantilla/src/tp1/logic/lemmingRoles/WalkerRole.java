@@ -68,7 +68,7 @@ public class WalkerRole extends AbstractRole {
 
 	}
 	
-	
+	/*
 	@Override
 	public String getIcon(Lemming lemming) {
 		if(lemming.getIcon() == Messages.LEMMING_RIGHT) {
@@ -76,7 +76,22 @@ public class WalkerRole extends AbstractRole {
 		} else if (lemming.getIcon() == Messages.LEMMING_LEFT) {
 			return ICON_LEFT;
 		} else return Messages.EMPTY;
-	}
+	}*/
+	public String getIcon(Lemming lemming) {
+  		if ( lemming.getDirection()== Direction.RIGHT)
+  			return Messages.LEMMING_RIGHT; 
+  		else if (lemming.getDirection() == Direction.LEFT)
+  			return Messages.LEMMING_LEFT;
+  		else if (lemming.getDirection()== Direction.DOWN) {
+  			if(lemming.getPreviousDirection() == Direction.LEFT) {
+  				return Messages.LEMMING_LEFT;
+  			}
+  			else if(lemming.getPreviousDirection()  == Direction.RIGHT) {
+  				return Messages.LEMMING_RIGHT;
+  			}
+  		}
+  		return Messages.EMPTY; 
+  	}
 
 	private String getName() {
 		return NAME;
