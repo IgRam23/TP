@@ -45,14 +45,16 @@ public class Wall extends GameObject{
 
     @Override
     public boolean interactWith(Lemming lemming) {
-        // Definir la lógica de interacción con un lemming si es necesario
-        return false;
+    	if (lemming.isInWall()) {
+            lemming.changePreviousDir(lemming.getDirection());
+            lemming.changeDir(lemming.getDirection() == Direction.RIGHT ? Direction.LEFT : Direction.RIGHT);
+            return true; // Interacción procesada
+        }
+        return false; // No hubo interacción
     
     }
     public boolean receiveInteraction(GameItem other) {
-        // En el caso de la pared, generalmente no se realiza ninguna interacción
-        // con otros objetos, así que simplemente devolvemos false.
-        return false;
+        return other.interactWith(this); 
     }
     
     

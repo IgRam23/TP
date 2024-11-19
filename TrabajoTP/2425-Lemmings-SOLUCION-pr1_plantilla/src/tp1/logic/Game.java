@@ -63,6 +63,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
 
 		numLemmings = 3;
 		remaining = numLemmings;
+		
 		lemmingsToWin = 2;
 	}
 	
@@ -83,7 +84,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		Lemming lemming4 = new Lemming(this, new Position(3, 3), container, walkerRole);         
 		container.add(lemming4);
 		
-		Lemming lemming5 = new Lemming(this, new Position (9, 4), container, parachuterRole);  
+		Lemming lemming5 = new Lemming(this, new Position (9, 4), container, walkerRole);  
 	    container.add(lemming5);
 	    
 

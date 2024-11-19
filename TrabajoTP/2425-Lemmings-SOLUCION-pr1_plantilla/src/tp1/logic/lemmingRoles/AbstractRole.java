@@ -27,12 +27,14 @@ public abstract class AbstractRole implements LemmingRole {
         return false; // Por defecto, no interactúa con puertas
     }
     
+    
     @Override
     //Mueve al lemming
-	public void move(Direction dir) {       
+	public Position move(Direction dir) {       
 		int newCol = pos.getCol() + dir.getX(); 
         int newRow = pos.getRow() + dir.getY(); 
         pos = new Position(newCol, newRow); 
+        return pos; 
     }
 	
     @Override
@@ -43,5 +45,10 @@ public abstract class AbstractRole implements LemmingRole {
             lemming.die(); 
         } 
 	}
+    
+    @Override
+    public String getRoleType() {
+    	return "WalkerRole";
+    }
 }
 

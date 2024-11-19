@@ -15,7 +15,7 @@ public class ExitDoor extends GameObject{
 
     @Override
     public String getIcon() {
-        return Messages.EXIT_DOOR; //bhb
+        return Messages.EXIT_DOOR; 
     }
     
     @Override
@@ -51,14 +51,16 @@ public class ExitDoor extends GameObject{
 
     @Override
     public boolean interactWith(Lemming lemming) {
-        // Definir la lógica de interacción con un lemming si es necesario
-        return false;
+        if (lemming.isInExit()) {
+            lemming.exit(); // Marca al lemming como salido
+            return true; // Interacción procesada
+        }
+        return false; // No hubo interacción
     }
-
+    
     @Override
     public boolean receiveInteraction(GameItem other) {
-        // La puerta de salida no realiza ninguna acción al recibir una interacción
-        return false;
+        return other.interactWith(this); 
     }
 }
     

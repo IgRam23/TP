@@ -21,6 +21,8 @@ public class Messages {
 
 	public static final String DEBUG = "DEBUG: command= %s%n";
 	public static final String ERROR = "[ERROR] Error: %s%n";
+	public static final String ERROR_ROLE = "[ERROR] Error: Unknown Role";
+	public static final String ERROR_ROLE_POS = "[ERROR] Error: SetRoleCommand error (Incorrect position or no object in that position admits that role)";
 	
 	// GAME STATUS
 	public static final String NUMBER_OF_CYCLES = "Number of cycles: %s";

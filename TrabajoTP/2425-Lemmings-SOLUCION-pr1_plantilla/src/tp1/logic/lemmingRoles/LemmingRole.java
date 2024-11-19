@@ -12,14 +12,18 @@ public interface LemmingRole {
     void play(Lemming lemming);
     String getIcon(Lemming lemming);
     
+    
     boolean receiveInteraction(GameItem other, Lemming owner);
     boolean interactWith(Lemming receiver, Lemming owner);
     boolean interactWith(Wall wall, Lemming owner);
     boolean interactWith(ExitDoor door, Lemming owner);
-	void move(Direction dir);
+    
 	void handleFall(Lemming lemming);
+	Position move(Direction dir);
 	
     boolean canParse(String input);
 	LemmingRole createInstance(Position position);
+	
+	String getRoleType();
 }
 

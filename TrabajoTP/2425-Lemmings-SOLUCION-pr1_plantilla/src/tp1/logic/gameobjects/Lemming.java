@@ -33,9 +33,10 @@ public class Lemming extends GameObject{
     @Override
 	public void update() {		
 	    if (isAlive) {
-	      rol.play(this);     
+	      this.rol.play(this);     
 	    }
 	}    
+
     
     public boolean setRole(LemmingRole newRole) {
     	if(newRole != null) {
@@ -55,19 +56,25 @@ public class Lemming extends GameObject{
   //Dibuja el lemming
     @Override
   	public String getIcon() {
-
-  		if (this.dir == Direction.RIGHT)
-  			return Messages.LEMMING_RIGHT; 
-  		else if (this.dir == Direction.LEFT)
-  			return Messages.LEMMING_LEFT;
-  		else if (this.dir == Direction.DOWN) {
-  			if(this.dir_anterior == Direction.LEFT) {
-  				return Messages.LEMMING_LEFT;
-  			}
-  			else if(this.dir_anterior == Direction.RIGHT) {
-  				return Messages.LEMMING_RIGHT;
-  			}
-  		}
+    	
+    	if(this.rol.getRoleType() == "WalkerRole") {
+    		if (this.dir == Direction.RIGHT)
+      			return Messages.LEMMING_RIGHT; 
+      		else if (this.dir == Direction.LEFT)
+      			return Messages.LEMMING_LEFT;
+      		else if (this.dir == Direction.DOWN) {
+      			if(this.dir_anterior == Direction.LEFT) {
+      				return Messages.LEMMING_LEFT;
+      			}
+      			else if(this.dir_anterior == Direction.RIGHT) {
+      				return Messages.LEMMING_RIGHT;
+      			}
+      		}
+    		
+    	} else if(this.rol.getRoleType() == "Parachuter") {
+    		return Messages.LEMMING_PARACHUTE;
+    	}  		
+    	
   		return Messages.EMPTY; 
   	}
     
@@ -121,9 +128,8 @@ public class Lemming extends GameObject{
 	public boolean isInExit() {
 	    return container.isExitAt(pos); 
 	}
-
+/*
 	//Establece la direccion en la que se tiene que mover el lemming
-	/*
 	public void walkOrFall() { 
 		
 		if(isInExit()) {
@@ -153,9 +159,8 @@ public class Lemming extends GameObject{
 			return;
         }
 		
-		rol.move(dir); 
-	}
-	*/
+		this.pos.move(dir); 
+	} */
 
 	//Actualiza el estado del lemming y del juego si hay un nuevo lemming que sale por la puerta
 	public void exit() {
@@ -174,15 +179,7 @@ public class Lemming extends GameObject{
 	}
 	
 	public boolean receiveInteraction(GameItem other) {
-	    // Aquí puedes manejar interacciones genéricas con otros objetos de juego
-	    if (other instanceof Wall) {
-	        return interactWith((Wall) other);
-	    } else if (other instanceof ExitDoor) {
-	        return interactWith((ExitDoor) other);
-	    } else if (other instanceof Lemming) {
-	        return interactWith((Lemming) other);
-	    }
-	    return false;
+	    return(other.interactWith(this));
 	}
 	
 	public boolean interactWith(Wall wall) {

@@ -1,5 +1,6 @@
 package tp1.logic.lemmingRoles;
 
+import tp1.logic.Direction;
 import tp1.logic.Position;
 import tp1.logic.gameobjects.*;  
 import tp1.view.Messages;
@@ -35,6 +36,11 @@ public class ParachuterRole extends AbstractRole {
     }
     
     
+    @Override
+    public String getRoleType() {
+    	return "Parachuter";
+    }
+    
     public void fallSlowly() {
     	
 	}
@@ -52,6 +58,11 @@ public class ParachuterRole extends AbstractRole {
     @Override 
     public void handleFall(Lemming lemming) {
     	//No muere por caer asi que no hace nada
+    }
+    
+    @Override 
+    public Position move(Direction dir) {
+    	return null; 
     }
 
     

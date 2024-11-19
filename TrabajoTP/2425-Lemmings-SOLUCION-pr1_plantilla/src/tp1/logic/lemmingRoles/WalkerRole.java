@@ -64,19 +64,30 @@ public class WalkerRole extends AbstractRole {
 			return;
 	    }
 		
-		move(lemming.getDirection());
+		this.pos = move(lemming.getDirection());
 
 	}
 	
-	/*
-	@Override
-	public String getIcon(Lemming lemming) {
-		if(lemming.getIcon() == Messages.LEMMING_RIGHT) {
-			return ICON_RIGHT;
-		} else if (lemming.getIcon() == Messages.LEMMING_LEFT) {
-			return ICON_LEFT;
-		} else return Messages.EMPTY;
-	}*/
+    
+    @Override
+    //Mueve al lemming
+	public Position move(Direction dir) {       
+		int newCol = pos.getCol() + dir.getX(); 
+        int newRow = pos.getRow() + dir.getY(); 
+        pos = new Position(newCol, newRow); 
+        return pos; 
+    }
+	
+    @Override
+	//Revisa la caida del lemming, y si es > MAX_FALL, el lemming muere
+	public void handleFall(Lemming lemming) {
+		int MAX_FALL = 2;
+        if (lemming.getFallDistance() > MAX_FALL) {
+            lemming.die(); 
+        } 
+	}
+	
+
 	public String getIcon(Lemming lemming) {
   		if ( lemming.getDirection()== Direction.RIGHT)
   			return Messages.LEMMING_RIGHT; 
@@ -101,6 +112,12 @@ public class WalkerRole extends AbstractRole {
 		return HELP;
 	}
 
+	@Override
+	public String getRoleType() {
+		return "WalkerRole";
+	}
+	
+	
 	@Override
 	public String toString() {
 		return getName();
