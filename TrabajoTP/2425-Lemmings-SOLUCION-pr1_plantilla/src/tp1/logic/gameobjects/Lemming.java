@@ -25,6 +25,8 @@ public class Lemming extends GameObject{
         this.rol = role;
 	}
     
+    
+    
     public void disableRole() {
     	this.rol = new WalkerRole(this.pos);
     }
@@ -39,9 +41,9 @@ public class Lemming extends GameObject{
 
     
     public boolean setRole(LemmingRole newRole) {
-    	if(newRole != null) {
-    		this.rol = newRole;
-    		this.rol.start(this);
+    	if(newRole != null && newRole != rol) {
+    		rol = newRole;
+    		rol.start(this);
     		return true;
     	}
     	return false; 
@@ -128,7 +130,19 @@ public class Lemming extends GameObject{
 	public boolean isInExit() {
 	    return container.isExitAt(pos); 
 	}
-/*
+	public void fall(){
+		fallDistance++;
+        if (pos.getRow() + 1 >= Game.DIM_Y) { //comprobamos si la posición abajo está fuera del tablero para ver si hay que llamar a die()
+            die();  
+            return; 
+        }	        
+        
+        if(dir != Direction.DOWN) {
+        	dir_anterior = dir;
+        }
+        
+        dir = Direction.DOWN;
+	}
 	//Establece la direccion en la que se tiene que mover el lemming
 	public void walkOrFall() { 
 		
@@ -137,20 +151,12 @@ public class Lemming extends GameObject{
 			return;
 		}
 		else if (isInAir()) { //si esta en el aire 
-			fallDistance++;
-	        if (pos.getRow() + 1 >= Game.DIM_Y) { //comprobamos si la posición abajo está fuera del tablero para ver si hay que llamar a die()
-	            die();  
-	            return; 
-	        }	        
-	        
-	        if(dir != Direction.DOWN) {
-	        	dir_anterior = dir;
-	        }
-	        
-	        dir = Direction.DOWN;
+			fall();
+			
 		}
 		else if(dir == Direction.DOWN) { //si esta empezando a caer
 			rol.handleFall(this);
+			
 			dir = dir_anterior;
 		}
 		else if (isInWall()) { //si se va a chocar con una pared
@@ -159,8 +165,16 @@ public class Lemming extends GameObject{
 			return;
         }
 		
-		this.pos.move(dir); 
-	} */
+		pos = move(dir);  
+	} 
+	   
+    //Mueve al lemming
+	public Position move(Direction dir) {       
+		int newCol = pos.getCol() + dir.getX(); 
+        int newRow = pos.getRow() + dir.getY(); 
+        pos = new Position(newCol, newRow); 
+        return pos; 
+    }
 
 	//Actualiza el estado del lemming y del juego si hay un nuevo lemming que sale por la puerta
 	public void exit() {
