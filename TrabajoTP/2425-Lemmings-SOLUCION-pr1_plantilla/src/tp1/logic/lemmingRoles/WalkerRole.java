@@ -27,6 +27,7 @@ public class WalkerRole extends AbstractRole {
         return input.equalsIgnoreCase("Walker") || input.equalsIgnoreCase("W");
     } 
 	
+	
 	@Override
     public LemmingRole createInstance(Position position) {
         return new WalkerRole(position); // Crea una nueva instancia con la posición dada

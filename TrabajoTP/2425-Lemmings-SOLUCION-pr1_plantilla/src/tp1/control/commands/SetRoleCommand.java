@@ -7,7 +7,7 @@ import tp1.logic.Position;
 import tp1.logic.lemmingRoles.LemmingRole;
 import tp1.logic.lemmingRoles.LemmingRoleFactory;
 
-public class SetRoleCommand extends NoParamsCommand {
+public class SetRoleCommand extends Command {
 
     private Position position; 
     private String roleInput;  

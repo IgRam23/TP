@@ -127,5 +127,19 @@ public class GameObjectContainer {
         return -1; 
     }
        
+	  public boolean receiveInteractionsFrom(GameItem obj) {
+		  
+		  
+		  
+		  return false;
+				  
+	  }
+    
+    
+    
+    
+    
+    
+    
     
 }

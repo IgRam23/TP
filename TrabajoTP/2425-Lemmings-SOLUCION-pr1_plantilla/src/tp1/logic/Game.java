@@ -4,6 +4,7 @@ import tp1.logic.gameobjects.Lemming;
 import tp1.logic.gameobjects.Wall;
 import tp1.logic.gameobjects.ExitDoor;
 import tp1.logic.lemmingRoles.*;
+import tp1.logic.gameobjects.*;
 
 public class Game implements GameWorld, GameStatus, GameModel{
      
@@ -311,6 +312,12 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		return "";
 	}
     
+	@Override 
+	public boolean receiveInteractionsFrom(GameItem obj){
+		
+		
+		return false;
+	}
     
     
 

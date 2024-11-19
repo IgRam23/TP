@@ -172,6 +172,7 @@ public class Lemming extends GameObject{
 	public Position move(Direction dir) {       
 		int newCol = pos.getCol() + dir.getX(); 
         int newRow = pos.getRow() + dir.getY(); 
+        
         pos = new Position(newCol, newRow); 
         return pos; 
     }
@@ -218,11 +219,6 @@ public class Lemming extends GameObject{
 	
 	public boolean interactWith(Lemming lemming) {
 	   
-	    if (this.pos.equals(lemming.pos)) {
-	        // Ejemplo de interacción: cambiar de dirección si se encuentran
-	        dir = dir == Direction.RIGHT ? Direction.LEFT : Direction.RIGHT;
-	        return true;  // Interacción exitosa
-	    }
 	    return false;
 	}
 	
