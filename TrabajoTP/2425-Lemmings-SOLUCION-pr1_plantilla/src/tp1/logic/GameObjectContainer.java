@@ -25,16 +25,19 @@ public class GameObjectContainer {
     public void update() {
     	for (int i = 0; i < objects.size(); i++) {
             GameObject object = objects.get(i);
+            receiveInteractionsFrom(object); 
             object.update(); 
+            
         }
     	removeDead();
 	}
     
     public boolean setRoleAtObject(Position position, LemmingRole role) {
-		for (GameObject obj: objects)
-	        if (obj.isInPosition(position) && obj.isLemming()) {  // Si hay un lemming en esa posición
-	        	Lemming lemming = (Lemming)obj;
-	            lemming.setRole(role);  // Asignamos el nuevo rol
+		
+    	for (GameObject obj: objects)
+	       
+			if (obj.isInPosition(position)) {  // Si hay un lemming en esa posición
+	            obj.setRole(role);  // Asignamos el nuevo rol
 	            return true;  // Rol asignado con éxito
 	        }
 		        
@@ -76,19 +79,17 @@ public class GameObjectContainer {
 	
 	//Quitamos los lemmings muertos
     private void removeDead() {
-    	List<GameObject> lemmingsToRemove = new ArrayList<>();
+    	List<GameObject> objectsToRemove = new ArrayList<>();
 
         for (GameObject obj : objects) {
 
-            if (obj.isLemming()) { //comprobacion de que es un lemming
-                Lemming lemming = (Lemming) obj; 
-                if (!lemming.isAlive()) {
-                    lemmingsToRemove.add(obj);
-                }
+            if (!obj.isAlive()) {
+                objectsToRemove.add(obj);
+            
             }
         }
 
-        for (GameObject lemming : lemmingsToRemove) {
+        for (GameObject lemming : objectsToRemove) {
             objects.remove(lemming); 
         }
         
@@ -120,26 +121,23 @@ public class GameObjectContainer {
         for (int i = ind; i < objects.size(); i++) {
             GameObject obj = objects.get(i);
 
-            if (obj.isInPosition(p) && obj.isLemming()) {
+            if (obj.isInPosition(p)) {
                 return i; 
             }
         }
         return -1; 
     }
        
-	  public boolean receiveInteractionsFrom(GameItem obj) {
-		  
-		  
-		  
-		  return false;
+	public boolean receiveInteractionsFrom(GameItem obj) {
+		boolean interactionOccurred = false;
+
+        for (GameObject gameObject : objects) {
+            if (gameObject.receiveInteraction(obj)) {
+                interactionOccurred = true;
+            }
+        }  
+		return interactionOccurred;
 				  
-	  }
-    
-    
-    
-    
-    
-    
-    
+	}
     
 }

@@ -1,4 +1,4 @@
-package tp1.logic.lemmingRoles;
+ package tp1.logic.lemmingRoles;
 
 import tp1.logic.Direction;
 import tp1.logic.Position;
@@ -37,6 +37,8 @@ public abstract class AbstractRole implements LemmingRole {
         return pos; 
     }
 	
+ 
+    
     @Override
 	//Revisa la caida del lemming, y si es > MAX_FALL, el lemming muere
 	public void handleFall(Lemming lemming) {

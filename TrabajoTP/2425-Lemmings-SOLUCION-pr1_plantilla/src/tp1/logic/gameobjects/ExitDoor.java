@@ -23,23 +23,12 @@ public class ExitDoor extends GameObject{
     }
     
     @Override
-    public boolean isSolid() {
-    	return false;
-    }
-    
-    @Override
     public boolean isExit() {
     	return true;
     }
     
     @Override
-    public boolean isLemming() {
-    	return false;
-    }
-    
-    @Override
     public boolean interactWith(Wall wall) {
-        // Define la interacción con un muro si es necesario (por ejemplo, un muro bloqueando la puerta)
         return false;
     }
 
@@ -51,11 +40,7 @@ public class ExitDoor extends GameObject{
 
     @Override
     public boolean interactWith(Lemming lemming) {
-        if (lemming.isInExit()) {
-            lemming.exit(); // Marca al lemming como salido
-            return true; // Interacción procesada
-        }
-        return false; // No hubo interacción
+        return lemming.interactWith(this); // No hubo interacción
     }
     
     @Override

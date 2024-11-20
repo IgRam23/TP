@@ -18,7 +18,12 @@ public class Position {
     public int getRow() {
         return row;
     }
-  
+    
+    public Position up() {
+    	Position newPos = new Position (this.col,this.row++);
+    	return newPos;
+    }
+
     // Comparar si las posiciones son iguales
     @Override
     public boolean equals(Object obj) {

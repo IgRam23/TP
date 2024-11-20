@@ -46,6 +46,8 @@ public class SetRoleCommand extends Command {
             System.out.println(Messages.ERROR_ROLE_POS);    
         }
         
+        game.update();
+        
 		view.showGame();
     }
 

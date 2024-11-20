@@ -39,7 +39,7 @@ public class Lemming extends GameObject{
 	    }
 	}    
 
-    
+    @Override
     public boolean setRole(LemmingRole newRole) {
     	if(newRole != null && newRole != rol) {
     		rol = newRole;
@@ -49,11 +49,6 @@ public class Lemming extends GameObject{
     	return false; 
     } 
     
-    
-    @Override
-    public boolean isLemming() {
-    	return true;
-    }
 
   //Dibuja el lemming
     @Override
@@ -80,17 +75,7 @@ public class Lemming extends GameObject{
   		return Messages.EMPTY; 
   	}
     
-    @Override
-    public boolean isSolid() {
-    	return false;
-    }
-    
-    @Override
-    public boolean isExit() {
-    	return false;
-    }
-    
-	//Mata a un lemming
+    //Mata a un lemming
 	public void die() {
         if (isAlive) {
             isAlive = false;
@@ -125,6 +110,12 @@ public class Lemming extends GameObject{
 	    }
 	    return false; // No hay pared si no se está moviendo
 	}
+	
+	public boolean isInSoftFloor() {
+		Position pos_debajo = new Position(pos.getCol(), pos.getRow() - 1);
+		return(container.isSolidAt(pos_debajo, this));
+	}
+	
 	
 	//Devuelve un booleano indicando si el lemming se encuentra en la posicion de salida 
 	public boolean isInExit() {
@@ -194,20 +185,16 @@ public class Lemming extends GameObject{
 	}
 	
 	public boolean receiveInteraction(GameItem other) {
-	    return(other.interactWith(this));
+	    return other.interactWith(this);
 	}
 	
+	@Override
 	public boolean interactWith(Wall wall) {
+		return rol.interactWith(wall,this);
 		
-		if(isInWall()) {
-			dir_anterior = dir;
-			dir = (dir == Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT;
-		    return true;
-			
-		}
-		return false;
 	}
 	
+	@Override
 	public boolean interactWith(ExitDoor door) {
 	    // Si el lemming llega a una puerta de salida, se sale
 	    if (isInExit()) {
@@ -217,10 +204,14 @@ public class Lemming extends GameObject{
 	    return false;
 	}
 	
+	@Override
 	public boolean interactWith(Lemming lemming) {
 	   
 	    return false;
 	}
+	
+	
+	
 	
 	//ns si es correcto
 	public void increaseFallDistance() {
@@ -247,11 +238,6 @@ public class Lemming extends GameObject{
 		return this.dir_anterior;
 	}
     
-     public Position getPosition() {
-		
-		return this.pos;
-	}
-     
      public void changeFall(int newFall) {
  		
  		this.fallDistance = newFall;

@@ -24,15 +24,18 @@ public abstract class GameObject implements GameItem{
 		return isAlive;
 	}
 	
+	public boolean setRole(LemmingRole newRole) {return false;}
 	
 	public abstract String getIcon();
 
 	public abstract void update();
 	
-	public abstract boolean isSolid();
+	public boolean isSolid() {
+		return false;
+	}
 	
-	public abstract boolean isExit();
+	public boolean isExit() {
+		return false;
+	}
 	
-	public abstract boolean isLemming();
-
 }

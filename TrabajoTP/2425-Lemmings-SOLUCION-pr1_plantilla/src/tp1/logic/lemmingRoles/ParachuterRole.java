@@ -55,8 +55,6 @@ public class ParachuterRole extends AbstractRole {
         return new ParachuterRole(position); 
     }
 
- 
-   
-    
+
     
 }

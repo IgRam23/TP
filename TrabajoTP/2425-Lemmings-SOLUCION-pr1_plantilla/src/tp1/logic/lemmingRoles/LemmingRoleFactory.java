@@ -10,7 +10,8 @@ public class LemmingRoleFactory {
 
     static {
         availableRoles.add(new WalkerRole(new Position(0, 0))); // Registro del rol
-        availableRoles.add(new ParachuterRole(new Position(0, 0))); // Registro del rol
+        availableRoles.add(new ParachuterRole(new Position(0, 0)));// Registro del rol
+        availableRoles.add(new DownCaverRole(new Position(0, 0))); // Registtro del rol
     }
     
     public static LemmingRole parse(String input) {

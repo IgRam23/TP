@@ -21,18 +21,9 @@ public class Wall extends GameObject{
     public boolean isSolid() {
     	return true;
     }
-    
+
     @Override
-    public boolean isExit() {
-    	return false;
-    }
-    
-    @Override
-    public boolean isLemming() {
-    	return false;
-    }
-    
-    public boolean interactWith(Wall wall) {
+    public boolean interactWith(Wall wall){
         // Los muros no interactúan con otros muros, por lo que devolveremos false.
         return false;
     }
@@ -45,17 +36,32 @@ public class Wall extends GameObject{
 
     @Override
     public boolean interactWith(Lemming lemming) {
-    	if (lemming.isInWall()) {
-            lemming.changePreviousDir(lemming.getDirection());
+    	
+    	
+    	if (lemming.isInPosition(this.pos)) {
+           
+    		this.isAlive = false;
+    		/*lemming.changePreviousDir(lemming.getDirection());
             lemming.changeDir(lemming.getDirection() == Direction.RIGHT ? Direction.LEFT : Direction.RIGHT);
-            return true; // Interacción procesada
+            return true; // Interacción procesada*/return true;
         }
         return false; // No hubo interacción
     
     }
+    
     public boolean receiveInteraction(GameItem other) {
         return other.interactWith(this); 
     }
+    
+    public void killWall(){
+    	
+    	this.isAlive = false;
+    }
+    
+    public Position getPos() {
+    	return this.pos;
+    }
+    
     
     
 }
