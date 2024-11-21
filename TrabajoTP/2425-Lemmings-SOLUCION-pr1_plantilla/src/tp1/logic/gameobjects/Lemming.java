@@ -151,7 +151,8 @@ public class Lemming extends GameObject{
 			
 			dir = dir_anterior;
 		}
-		else if (isInWall()) { //si se va a chocar con una pared
+		
+		if (isInWall()) { //si se va a chocar con una pared
 			dir_anterior = dir;
 			dir = (dir == Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT;
 			return;

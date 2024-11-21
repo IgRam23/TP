@@ -18,6 +18,10 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	private int lemmingsToWin;
 	private int lemmingsDead;
 	private int lemmingsExit;
+	
+	
+	
+	
 	private boolean finished;
 	private int nivel;
 
@@ -116,6 +120,8 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		lemmingsToWin = 2;
 	}
 	
+	/*
+	
 	//NUESTRO
 	//empiezas con 4 palman 0 player wins
 	private void initGame3() {
@@ -124,13 +130,13 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		
 		LemmingRole walkerRole = LemmingRoleFactory.parse("W"); 
 		LemmingRole parachuterRole = LemmingRoleFactory.parse("P");
-        /*
+        
 		Lemming lemming1 = new Lemming(this, new Position(1, 4), container, walkerRole); 
 		container.add(lemming1);
 		Lemming lemming2 = new Lemming(this, new Position(0, 5), container, walkerRole);     
 		container.add(lemming2);
 		Lemming lemming3 = new Lemming(this, new Position(9, 4), container, walkerRole);    
-		container.add(lemming3);*/
+		container.add(lemming3);
 		Lemming lemming4 = new Lemming(this, new Position(5, 1), container, parachuterRole);         
 		container.add(lemming4);
 		
@@ -159,7 +165,78 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		remaining = numLemmings; 
 
 	}
+	*/
 	
+	private void initGame3() {
+
+		container = new GameObjectContainer();
+		
+		LemmingRole walkerRole = LemmingRoleFactory.parse("W"); 
+		LemmingRole parachuterRole = LemmingRoleFactory.parse("P");
+		
+		
+		numLemmings = 0;
+		
+		container.add(new Lemming(this, new Position(9,0), container, walkerRole));
+		numLemmings++;
+		
+		container.add(new Lemming(this, new Position(2,3), container, walkerRole));
+		numLemmings++;
+		
+		container.add(new ExitDoor(this,new Position(4,5), container));
+
+
+		container.add(new Lemming(this, new Position(0,8), container, walkerRole));
+		numLemmings++;
+
+		container.add(new Lemming(this, new Position(3,3), container, walkerRole));
+		
+		numLemmings++;
+		
+		container.add(new Lemming(this, new Position(6,0), container, walkerRole));
+		numLemmings++;
+		
+		container.add(new Lemming(this, new Position(6,0), container, parachuterRole));
+		numLemmings++;
+		
+		remaining = numLemmings;
+		
+		lemmingsToWin = 2;
+
+		container.add(new Wall(this,new Position(2,4)));
+		container.add(new MetalWall(this,new Position(3,6)));
+		container.add(new Wall(this,new Position(3,5)));
+
+		//container.add(new Wall(this,new Position(3,5)));
+
+		container.add(new Wall(this,new Position(3,4)));
+
+		container.add(new Wall(this,new Position(4,4)));
+		
+		container.add(new Wall(this,new Position(6,6)));
+
+		container.add(new Wall(this,new Position(7,6)));
+		
+		container.add(new Wall(this,new Position(4,6)));
+
+		container.add(new Wall(this,new Position(5,6)));
+		
+		container.add(new Wall(this,new Position(7,5)));
+
+		container.add(new Wall(this,new Position(8,9)));
+		container.add(new Wall(this,new Position(8,8)));
+		container.add(new Wall(this,new Position(9,9)));
+
+		container.add(new Wall(this,new Position(9,1)));
+
+		container.add(new Wall(this,new Position(8,1)));		
+		
+		container.add(new Wall(this,new Position(0,9)));
+
+		container.add(new Wall(this,new Position(1,9)));
+			
+			
+			}
 	//Gestiona los niveles
 	public Game(int nLevel) {
 		nivel = nLevel;

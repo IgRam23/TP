@@ -29,7 +29,7 @@ public class DownCaverRole extends AbstractRole {
     //	Position below = lemming.move(Direction.DOWN );
 
     	if(!lemming.isInAir() && hasCaved){
-    		lemming.fall(); // Si la pared es dura, vuelve a ser WalkerRole}
+    		lemming.fall(); // Si la pared es dura, vuelve a ser WalkerRole
             lemming.move(lemming.getDirection());
     		hasCaved = false;
     	}
