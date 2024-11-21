@@ -7,9 +7,13 @@ import tp1.view.Messages;
 
 public class ParachuterRole extends AbstractRole {  
 	
-	public ParachuterRole(Position pos) {
-		this.pos = pos;
-	}
+	
+	private static final String NAME = "Parachuter";
+	private static final String HELP = "[P]arachuter: Lemming falls with a parachute";
+	
+//	public ParachuterRole(Position pos) {
+//		this.pos = pos;
+//	}
 	
 	
     @Override
@@ -27,6 +31,7 @@ public class ParachuterRole extends AbstractRole {
             lemming.move(lemming.getDirection());
         } else {
             lemming.disableRole(); // Al tocar el suelo, vuelve a ser caminante
+            lemming.update();
         }
     }
 
@@ -52,8 +57,14 @@ public class ParachuterRole extends AbstractRole {
 	//reviasr esto
 	@Override
     public LemmingRole createInstance(Position position) {
-        return new ParachuterRole(position); 
+        return new ParachuterRole(); 
     }
+
+	@Override
+	public String helpText() {
+		// TODO Auto-generated method stub
+		return HELP ;
+	}
 
 
     

@@ -28,7 +28,7 @@ public class Lemming extends GameObject{
     
     
     public void disableRole() {
-    	this.rol = new WalkerRole(this.pos);
+    	this.rol = new WalkerRole();
     }
 
     //Actualizar el estado del juego
@@ -53,7 +53,8 @@ public class Lemming extends GameObject{
   //Dibuja el lemming
     @Override
   	public String getIcon() {
-    	
+    	return rol.getIcon(this);
+    	/*
     	if(this.rol.getRoleType() == "WalkerRole") {
     		if (this.dir == Direction.RIGHT)
       			return Messages.LEMMING_RIGHT; 
@@ -72,7 +73,7 @@ public class Lemming extends GameObject{
     		return Messages.LEMMING_PARACHUTE;
     	}  		
     	
-  		return Messages.EMPTY; 
+  		return Messages.EMPTY; */
   	}
     
     //Mata a un lemming
@@ -164,7 +165,16 @@ public class Lemming extends GameObject{
 		int newCol = pos.getCol() + dir.getX(); 
         int newRow = pos.getRow() + dir.getY(); 
         
-        pos = new Position(newCol, newRow); 
+        if(newCol > 0 && newCol < Game.DIM_X ) {
+        	 pos = new Position(newCol, newRow); 
+        }else {
+        	if(dir == Direction.RIGHT) {
+        		dir = Direction.LEFT;
+        	}else if(dir == Direction.LEFT){
+        		dir = Direction.RIGHT;
+        	}
+        }
+        
         return pos; 
     }
 
@@ -173,9 +183,9 @@ public class Lemming extends GameObject{
 	    if (this.isAlive) {
 	        game.incrementLemmingsExit(); 
 	        this.isAlive = false; 
-	        if (game.numLemmingsExit() >= game.numLemmingsToWin()) {
+	        /*if (game.numLemmingsExit() >= game.numLemmingsToWin()) {
 	            game.setFinished(true);    
-	        }
+	        }*/
 	    }
     }
 	
@@ -196,12 +206,7 @@ public class Lemming extends GameObject{
 	
 	@Override
 	public boolean interactWith(ExitDoor door) {
-	    // Si el lemming llega a una puerta de salida, se sale
-	    if (isInExit()) {
-	        exit();  // El lemming se sale por la puerta
-	        return true;  // Interacción exitosa
-	    }
-	    return false;
+		return false;
 	}
 	
 	@Override

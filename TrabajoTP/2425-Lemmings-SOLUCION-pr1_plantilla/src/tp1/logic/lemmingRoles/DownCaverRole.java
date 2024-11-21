@@ -8,15 +8,18 @@ import tp1.view.Messages;
 
 public class DownCaverRole extends AbstractRole {
 	
+	private static final String NAME = "DownCaver";
+	private static final String HELP = "[D]own [C]aver: Lemming caves downwards";
+	
 	private boolean hasCaved;
 
-	public DownCaverRole(Position pos) {
+	/*public DownCaverRole(Position pos) {
 		this.pos = pos;
-	}
+	}*/
 	
     @Override
     public void start(Lemming lemming) {
-        if(!lemming.isInSoftFloor()) {
+        if(lemming.isInAir()) {
         	lemming.disableRole();
         }
     }    
@@ -25,11 +28,15 @@ public class DownCaverRole extends AbstractRole {
     public void play(Lemming lemming) {
     //	Position below = lemming.move(Direction.DOWN );
 
-    	if(lemming.isInAir()){
-    		
-    		lemming.disableRole();
+    	if(!lemming.isInAir() && hasCaved){
+    		lemming.fall(); // Si la pared es dura, vuelve a ser WalkerRole}
+            lemming.move(lemming.getDirection());
+    		hasCaved = false;
     	}
-    	else  lemming.fall(); // Si la pared es dura, vuelve a ser WalkerRole
+    	else { 
+    		lemming.disableRole();
+    		lemming.update();
+    	}
      
     }
 
@@ -51,22 +58,26 @@ public class DownCaverRole extends AbstractRole {
 	
 	@Override
     public LemmingRole createInstance(Position position) {
-        return new DownCaverRole(position); 
+        return new DownCaverRole(); 
     }
 
 	@Override
 	public boolean interactWith(Wall wall, Lemming lemming) {
 		
 		if(lemming.isInPosition(wall.getPos().up())) {
-			
 			wall.killWall();
 			hasCaved = true;
-			lemming.move(Direction.DOWN);
+			//lemming.move(Direction.DOWN);
 			return true;
 		}
 		
 		return false;
 		
+	}
+
+	@Override
+	public String helpText() {
+		return HELP;
 	}
 	
 	

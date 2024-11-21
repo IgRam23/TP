@@ -53,6 +53,7 @@ public class Wall extends GameObject{
         return other.interactWith(this); 
     }
     
+    
     public void killWall(){
     	
     	this.isAlive = false;

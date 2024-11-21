@@ -10,40 +10,34 @@ import tp1.logic.lemmingRoles.LemmingRoleFactory;
 public class SetRoleCommand extends Command {
 
     private Position position; 
-    private String roleInput;  
+    private LemmingRole roleInput;  
 
     private static final String NAME = "setRole";  
     private static final String SHORTCUT = "sr";   
     private static final String DETAILS = "[s]et[R]ole ROLE ROW COL: sets the lemming in position (ROW,COL) to role ROLE";
-    private static final String HELP = "Assign a role to a lemming at a given position.";
+    private static final String HELP = "\n" + LemmingRoleFactory.commandHelp();
 
     public SetRoleCommand() {
         super(NAME, SHORTCUT, DETAILS, HELP);  // Constructor de la clase base
     }
 
-    public void setParameters(String roleInput, Position position) {
+    /*public void setParameters(String roleInput, Position position) {
         this.roleInput = roleInput;
         this.position = position;
-    }
+    }*/
 
     @Override
     public void execute(GameModel game, GameView view) {
 
         if (position == null || roleInput == null) {
-            System.out.println(Messages.ERROR);
+            view.showError(Messages.ERROR_POSITION);
             return;
         }
 
-        LemmingRole role = LemmingRoleFactory.parse(roleInput, position);
-
-        if (role == null) {
-            System.out.println(Messages.ERROR_ROLE); 
-            return;
-        }
-
-        boolean success = game.setRoleAt(position, role);
+        boolean success = game.setRoleAt(position, roleInput);
         if (!success) {
-            System.out.println(Messages.ERROR_ROLE_POS);    
+        	view.showError(Messages.ERROR_POSITION);
+        	return;
         }
         
         game.update();
@@ -54,25 +48,35 @@ public class SetRoleCommand extends Command {
     @Override
     public Command parse(String[] commandWords) {
 
-        if (commandWords.length != 4) { //Necesitamos 4 palabras: "sr", "Parachuter", "3", "3"
+        if (commandWords.length != 4 || !matchCommandName(commandWords[0])) { //Necesitamos 4 palabras: "sr", "Parachuter", "3", "3"
             return null;
         }
-
-        String role = commandWords[1];  //El primer parámetro después de "sr" es el rol
-        int row, col;
-
-        try {
-            row = Integer.parseInt(commandWords[2]);  //El segundo parámetro es la fila
-            col = Integer.parseInt(commandWords[3]);  //El tercer parámetro es la columna
-        } catch (NumberFormatException e) {
-            System.out.println(Messages.ERROR_ROLE_POS);
-            return null;
+        
+        roleInput = LemmingRoleFactory.parse(commandWords[1]);
+        if(roleInput == null) {
+        	return null;
         }
+               
+        int row;
+        char letra;
+        int col;
+             	
+            
+        letra =commandWords[2].charAt(0);
+        if(letra < 'a' || letra > 'j') {
+        	position = null;
+        }else {
+        	col = letra - 'a';
+            row = Integer.parseInt(commandWords[3]);  //El segundo parámetro es la fila (num)
+            if(row < 1 || row > 10) {
+            	position = null;
+            }else {
+            	position = new Position(row-1,col);
+            }
 
-        Position position = new Position(row, col);
-        SetRoleCommand command = new SetRoleCommand();
-        command.setParameters(role, position);
+        }
+            	
 
-        return command;
+        return this;
     }
 }

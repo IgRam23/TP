@@ -12,9 +12,9 @@ public class WalkerRole extends AbstractRole {
 	private static final String ICON_RIGHT = Messages.LEMMING_RIGHT;
 	private static final String ICON_LEFT = Messages.LEMMING_LEFT;
 	
-	public WalkerRole(Position pos) {
-		this.pos = pos;
-	}
+//	public WalkerRole(Position pos) {
+//		this.pos = pos;
+//	}
 	
 	@Override
 	public void start(Lemming lemming) {
@@ -29,16 +29,13 @@ public class WalkerRole extends AbstractRole {
 	
 	@Override
     public LemmingRole createInstance(Position position) {
-        return new WalkerRole(position); // Crea una nueva instancia con la posición dada
+        return new WalkerRole(); // Crea una nueva instancia con la posición dada
     }
 	  
 	//Va manejando al lemming
 	@Override
 	public void play(Lemming lemming) {
-		
 		lemming.walkOrFall();
-		
-
 	}
 	
  
@@ -86,6 +83,11 @@ public class WalkerRole extends AbstractRole {
 	@Override
 	public String toString() {
 		return getName();
+	}
+
+	@Override
+	public String helpText() {
+		return HELP;
 	}	
 	
 	

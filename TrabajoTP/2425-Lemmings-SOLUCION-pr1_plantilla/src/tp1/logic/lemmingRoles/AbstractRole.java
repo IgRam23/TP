@@ -9,7 +9,6 @@ import tp1.logic.gameobjects.Wall;
 
 public abstract class AbstractRole implements LemmingRole {
 	
-	protected Position pos;
 
     public boolean receiveInteraction(GameItem other, Lemming lemming) {
         return other.interactWith(lemming);     
@@ -28,7 +27,7 @@ public abstract class AbstractRole implements LemmingRole {
     }
     
     
-    @Override
+    /*@Override
     //Mueve al lemming
 	public Position move(Direction dir) {       
 		int newCol = pos.getCol() + dir.getX(); 
@@ -36,8 +35,9 @@ public abstract class AbstractRole implements LemmingRole {
         pos = new Position(newCol, newRow); 
         return pos; 
     }
-	
+	*/
  
+    public abstract String helpText();
     
     @Override
 	//Revisa la caida del lemming, y si es > MAX_FALL, el lemming muere

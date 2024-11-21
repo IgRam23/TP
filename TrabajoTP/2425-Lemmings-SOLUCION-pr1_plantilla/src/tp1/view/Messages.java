@@ -4,7 +4,7 @@ import tp1.util.MyStringUtils;
 
 public class Messages {
 	
-	public static final String VERSION = "2.1";
+	public static final String VERSION = "2.2";
 
 	public static final String GAME_NAME = "Lemmings";
 
@@ -19,10 +19,9 @@ public class Messages {
 
 	public static final String PROMPT = "Command > ";
 
-	public static final String DEBUG = "DEBUG: command= %s%n";
+	public static final String DEBUG = "[DEBUG] Executing: %s%n";
 	public static final String ERROR = "[ERROR] Error: %s%n";
-	public static final String ERROR_ROLE = "[ERROR] Error: Unknown Role";
-	public static final String ERROR_ROLE_POS = "[ERROR] Error: SetRoleCommand error (Incorrect position or no object in that position admits that role)";
+	public static final String ERROR_POSITION = "SetRoleCommand error (Incorrect position or no object in that position admits that role)"; 
 	
 	// GAME STATUS
 	public static final String NUMBER_OF_CYCLES = "Number of cycles: %s";
@@ -34,7 +33,7 @@ public class Messages {
 	public static final String GAME_OVER = "Game over";
 	public static final String PLAYER_QUITS = "Player leaves the game";
 	public static final String PLAYER_WINS = "Player wins!";
-	public static final String PLAYER_LOOSES = "Player looses...";
+	public static final String PLAYER_LOOSES = "Player loses...";
 
 	// Position format
 	public static final String POSITION = "(%s,%s)";
@@ -81,7 +80,7 @@ public class Messages {
 			"[e]xit: end the execution of the game"};
 	/* @formatter:on */
 	@Deprecated
-	public static final String HELP = String.join(LINE_SEPARATOR, HELP_LINES) + LINE_SEPARATOR;
+	public static final String HELP = String.join(LINE_SEPARATOR+"   ", HELP_LINES) + LINE_SEPARATOR;
 
 
 	// UPDATE (NONE)

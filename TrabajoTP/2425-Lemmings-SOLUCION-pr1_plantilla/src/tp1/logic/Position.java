@@ -20,7 +20,7 @@ public class Position {
     }
     
     public Position up() {
-    	Position newPos = new Position (this.col,this.row++);
+    	Position newPos = new Position (this.col,this.row-1);
     	return newPos;
     }
 

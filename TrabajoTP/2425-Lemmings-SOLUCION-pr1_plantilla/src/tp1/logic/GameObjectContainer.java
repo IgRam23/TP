@@ -37,8 +37,8 @@ public class GameObjectContainer {
     	for (GameObject obj: objects)
 	       
 			if (obj.isInPosition(position)) {  // Si hay un lemming en esa posición
-	            obj.setRole(role);  // Asignamos el nuevo rol
-	            return true;  // Rol asignado con éxito
+	            return obj.setRole(role);  // Asignamos el nuevo rol
+	            //return true;  // Rol asignado con éxito
 	        }
 		        
 		return false;
@@ -53,19 +53,23 @@ public class GameObjectContainer {
         // Recorremos la lista de objetos
         for (GameObject obj : objects) {
             if (obj.isInPosition(p)) {
-                // Obtenemos el icono del objeto
-                String icon = obj.getIcon();
+            	respuesta.append(obj.getIcon());
+            	contador++;
+            	if(contador == 3){
+            		break;
+            	}
                 // Si el icono no está vacío, lo añadimos al resultado
-                if (!icon.equals(Messages.EMPTY)) {
+                /*if (!icon.equals(Messages.EMPTY)) {
                     respuesta.append(icon);
                     contador++;
-                }
+                }*/
             }
             
-            // Si hemos encontrado ya dos elementos, dejamos de buscar
+            /*// Si hemos encontrado ya dos elementos, dejamos de buscar
             if (contador >= 2) {
                 break;
-            }
+            }*/
+          
         }
 
         // Si no hemos encontrado nada, devolvemos un espacio

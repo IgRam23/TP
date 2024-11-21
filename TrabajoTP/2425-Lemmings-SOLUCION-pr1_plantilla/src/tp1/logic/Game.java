@@ -201,13 +201,15 @@ public class Game implements GameWorld, GameStatus, GameModel{
 
 	//Actualiza el juego
 	@Override
-	public void update() { 
+	public void update() {
+		 container.update(); 
+		 /*
 		if (!isFinished()) {
 	        container.update(); 
 	    }
 		if (playerWins() || playerLooses()) {
             setFinished(true);
-        }
+        }*/
 	}
 	
 	//Añade un lemming
@@ -276,7 +278,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
     //Devuelve true si el jugador ha ganado
 	@Override
 	public boolean playerWins() {
-		return numLemmingsExit() >= numLemmingsToWin(); 
+		return numLemmingsExit() >= numLemmingsToWin() && remaining == 0; 
 	}
 	
     //Devuelve true si el jugador ha perdido
