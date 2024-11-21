@@ -17,10 +17,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	private int remaining;
 	private int lemmingsToWin;
 	private int lemmingsDead;
-	private int lemmingsExit;
-	
-	
-	
+	private int lemmingsExit;	
 	
 	private boolean finished;
 	private int nivel;
@@ -29,6 +26,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		initGame1();
 	}
 	
+	/*
 	//PLAY EXPECTED 1
 	//3 lemmings termina player looses con 2 muertos y uno en exit door
 	private void initGame1() {
@@ -120,7 +118,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		lemmingsToWin = 2;
 	}
 	
-	/*
+	
 	
 	//NUESTRO
 	//empiezas con 4 palman 0 player wins
@@ -167,7 +165,134 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	}
 	*/
 	
-	private void initGame3() {
+	private void initGame0() {
+		
+		LemmingRole walkerRole = LemmingRoleFactory.parse("W"); 
+
+		container = new GameObjectContainer();
+
+		numLemmings = 0;
+		
+		container.add(new Lemming(this, new Position(9,0), container, walkerRole));
+		numLemmings++;
+
+		
+		container.add(new Lemming(this, new Position(2,3), container, walkerRole));
+		numLemmings++;
+		
+		container.add(new ExitDoor(this,new Position(4,5), container));
+
+
+		container.add(new Lemming(this, new Position(0,8), container, walkerRole));
+		numLemmings++;
+
+		
+		remaining = numLemmings;
+		
+		lemmingsToWin = 2;
+
+		
+
+		container.add(new Wall(this,new Position(2,4)));
+		//container.add(new MetalWall(this,new Position(2,5)));
+		//container.add(new MetalWall(this,new Position(3,6)));
+
+		//container.add(new Wall(this,new Position(3,5)));
+
+		container.add(new Wall(this,new Position(3,4)));
+
+		container.add(new Wall(this,new Position(4,4)));
+		
+		container.add(new Wall(this,new Position(6,6)));
+
+		container.add(new Wall(this,new Position(7,6)));
+		
+		container.add(new Wall(this,new Position(4,6)));
+
+		container.add(new Wall(this,new Position(5,6)));
+		
+		container.add(new Wall(this,new Position(7,5)));
+
+		container.add(new Wall(this,new Position(8,9)));
+		container.add(new Wall(this,new Position(8,8)));
+		container.add(new Wall(this,new Position(9,9)));
+
+		container.add(new Wall(this,new Position(9,1)));
+
+		container.add(new Wall(this,new Position(8,1)));		
+		
+		container.add(new Wall(this,new Position(0,9)));
+
+		container.add(new Wall(this,new Position(1,9)));
+		
+		
+		}
+	
+	
+	private void initGame1() {
+		
+		LemmingRole walkerRole = LemmingRoleFactory.parse("W"); 
+
+		container = new GameObjectContainer();
+
+		numLemmings = 0;
+		
+		container.add(new Lemming(this, new Position(9,0), container, walkerRole));
+		numLemmings++;
+
+		
+		container.add(new Lemming(this, new Position(2,3), container, walkerRole));
+		numLemmings++;
+		container.add(new ExitDoor(this,new Position(4,5), container));
+
+
+		container.add(new Lemming(this, new Position(0,8), container, walkerRole));
+		numLemmings++;
+
+		container.add(new Lemming(this, new Position(3,3),container, walkerRole));
+
+		numLemmings++;
+		
+		remaining = numLemmings;
+		
+		lemmingsToWin = 2;
+
+		
+
+		container.add(new Wall(this,new Position(2,4)));
+		
+
+		container.add(new Wall(this,new Position(3,4)));
+
+		container.add(new Wall(this,new Position(4,4)));
+		
+		container.add(new Wall(this,new Position(6,6)));
+
+		container.add(new Wall(this,new Position(7,6)));
+		
+		container.add(new Wall(this,new Position(4,6)));
+
+		container.add(new Wall(this,new Position(5,6)));
+		
+		container.add(new Wall(this,new Position(7,5)));
+
+		container.add(new Wall(this,new Position(8,9)));
+		container.add(new Wall(this,new Position(8,8)));
+		container.add(new Wall(this,new Position(9,9)));
+
+		container.add(new Wall(this,new Position(9,1)));
+
+		container.add(new Wall(this,new Position(8,1)));		
+		
+		container.add(new Wall(this,new Position(0,9)));
+
+		container.add(new Wall(this,new Position(1,9)));
+		
+		
+		}
+
+	
+	private void initGame2() {
 
 		container = new GameObjectContainer();
 		
@@ -240,21 +365,16 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	//Gestiona los niveles
 	public Game(int nLevel) {
 		nivel = nLevel;
-		if(nivel == 1) {
-	    	initGame1();
-	    } else if(nivel == 2) {
-		    initGame2();  
-	    } else if(nivel == 3){
-	    	initGame3(); 
+		if(nivel == 0) {
+	    	initGame0();
+	    } else if(nivel == 1) {
+		    initGame1();  
+	    } else if(nivel == 2){
+	    	initGame2(); 
 	    } else {
-	    	initGame1();
+	    	initGame0();
 	    }
-	}
-	
-	
-	
-	//ordenar las funciones dependiendo d si las gestiona GameModel, GameWorld, GameStatus y al final las independientes
-	
+	}	
 	
 	//Resetea el juego
 	@Override
@@ -265,14 +385,14 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	    numLemmings = 0;
 	    finished = false;
 	    
-	    if(nivel == 1) {
-	    	initGame1();
-	    } else if(nivel == 2) {
-		    initGame2(); 
-	    } else if(nivel == 3){
-	    	initGame3();
-	    }else {
-	    	initGame1(); //vamos a dejar este por defecto
+	    if(nivel == 0) {
+	    	initGame0();
+	    } else if(nivel == 1) {
+		    initGame1();  
+	    } else if(nivel == 2){
+	    	initGame2(); 
+	    } else {
+	    	initGame0();
 	    }
     }
 
@@ -280,13 +400,6 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	@Override
 	public void update() {
 		 container.update(); 
-		 /*
-		if (!isFinished()) {
-	        container.update(); 
-	    }
-		if (playerWins() || playerLooses()) {
-            setFinished(true);
-        }*/
 	}
 	
 	//Añade un lemming
@@ -322,8 +435,8 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	//Aumenta el numero de lemmings muertos
 	@Override
 	public void incrementDeadLemmings() {
-	    this.lemmingsDead++;  // Incrementa el número de lemmings muertos
-	    this.remaining--; //quita lemmings remainings
+	    this.lemmingsDead++;  
+	    this.remaining--; 
 	}
 
     //Devuelve el numero de lemmings que ha salido
@@ -393,8 +506,6 @@ public class Game implements GameWorld, GameStatus, GameModel{
     
 	@Override 
 	public boolean receiveInteractionsFrom(GameItem obj){
-		
-		
 		return false;
 	}
     

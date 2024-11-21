@@ -41,9 +41,7 @@ public class Wall extends GameObject{
     	if (lemming.isInPosition(this.pos)) {
            
     		this.isAlive = false;
-    		/*lemming.changePreviousDir(lemming.getDirection());
-            lemming.changeDir(lemming.getDirection() == Direction.RIGHT ? Direction.LEFT : Direction.RIGHT);
-            return true; // Interacción procesada*/return true;
+    		return true;
         }
         return false; // No hubo interacción
     
@@ -60,7 +58,8 @@ public class Wall extends GameObject{
     }
     
     public Position getPos() {
-    	return this.pos;
+    	Position pos = new Position(this.pos.getCol(),this.pos.getRow());
+    	return pos;
     }
     
     

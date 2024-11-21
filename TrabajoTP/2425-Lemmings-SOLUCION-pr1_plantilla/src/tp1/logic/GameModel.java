@@ -11,6 +11,5 @@ public interface GameModel {
 	boolean isFinished();
 	
 	
-	// Establecer el rol de un lemming en una posición específica
     public boolean setRoleAt(Position position, LemmingRole role);
 }

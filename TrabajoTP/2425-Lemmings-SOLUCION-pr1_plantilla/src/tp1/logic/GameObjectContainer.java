@@ -15,7 +15,6 @@ public class GameObjectContainer {
 		objects = new ArrayList<GameObject>();
 	}
 	
-	// Only one add method (polymorphism)
 	public void add(GameObject object) {
 		objects.add(object);
 	}
@@ -58,18 +57,7 @@ public class GameObjectContainer {
             	if(contador == 3){
             		break;
             	}
-                // Si el icono no está vacío, lo añadimos al resultado
-                /*if (!icon.equals(Messages.EMPTY)) {
-                    respuesta.append(icon);
-                    contador++;
-                }*/
-            }
-            
-            /*// Si hemos encontrado ya dos elementos, dejamos de buscar
-            if (contador >= 2) {
-                break;
-            }*/
-          
+            }          
         }
 
         // Si no hemos encontrado nada, devolvemos un espacio
@@ -132,6 +120,7 @@ public class GameObjectContainer {
         return -1; 
     }
        
+    
 	public boolean receiveInteractionsFrom(GameItem obj) {
 		boolean interactionOccurred = false;
 

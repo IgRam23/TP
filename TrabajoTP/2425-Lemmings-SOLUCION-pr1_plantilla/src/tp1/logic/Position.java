@@ -33,8 +33,5 @@ public class Position {
         return row == position.row && col == position.col;
     }
     
-    
-    
-    //preguntar si tenemos que agregar alguna funcion de lemming/walkerrole aqui (algo dijo en la primera defensa)
 }
 

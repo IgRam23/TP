@@ -18,13 +18,9 @@ public class SetRoleCommand extends Command {
     private static final String HELP = "\n" + LemmingRoleFactory.commandHelp();
 
     public SetRoleCommand() {
-        super(NAME, SHORTCUT, DETAILS, HELP);  // Constructor de la clase base
+        super(NAME, SHORTCUT, DETAILS, HELP);  
     }
 
-    /*public void setParameters(String roleInput, Position position) {
-        this.roleInput = roleInput;
-        this.position = position;
-    }*/
 
     @Override
     public void execute(GameModel game, GameView view) {
@@ -41,6 +37,7 @@ public class SetRoleCommand extends Command {
         }
         
         game.update();
+        game.nextCycle();
         
 		view.showGame();
     }
@@ -62,8 +59,9 @@ public class SetRoleCommand extends Command {
         int col;
              	
             
-        letra =commandWords[2].charAt(0);
-        if(letra < 'a' || letra > 'j') {
+        letra = Character.toLowerCase(commandWords[2].charAt(0));
+        
+        if(letra < 'a' || letra > 'j')  {
         	position = null;
         }else {
         	col = letra - 'a';

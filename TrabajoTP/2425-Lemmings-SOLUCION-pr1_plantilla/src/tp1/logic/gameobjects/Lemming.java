@@ -54,26 +54,6 @@ public class Lemming extends GameObject{
     @Override
   	public String getIcon() {
     	return rol.getIcon(this);
-    	/*
-    	if(this.rol.getRoleType() == "WalkerRole") {
-    		if (this.dir == Direction.RIGHT)
-      			return Messages.LEMMING_RIGHT; 
-      		else if (this.dir == Direction.LEFT)
-      			return Messages.LEMMING_LEFT;
-      		else if (this.dir == Direction.DOWN) {
-      			if(this.dir_anterior == Direction.LEFT) {
-      				return Messages.LEMMING_LEFT;
-      			}
-      			else if(this.dir_anterior == Direction.RIGHT) {
-      				return Messages.LEMMING_RIGHT;
-      			}
-      		}
-    		
-    	} else if(this.rol.getRoleType() == "Parachuter") {
-    		return Messages.LEMMING_PARACHUTE;
-    	}  		
-    	
-  		return Messages.EMPTY; */
   	}
     
     //Mata a un lemming
@@ -184,9 +164,6 @@ public class Lemming extends GameObject{
 	    if (this.isAlive) {
 	        game.incrementLemmingsExit(); 
 	        this.isAlive = false; 
-	        /*if (game.numLemmingsExit() >= game.numLemmingsToWin()) {
-	            game.setFinished(true);    
-	        }*/
 	    }
     }
 	
@@ -216,10 +193,6 @@ public class Lemming extends GameObject{
 	    return false;
 	}
 	
-	
-	
-	
-	//ns si es correcto
 	public void increaseFallDistance() {
 		this.fallDistance++;
 	}

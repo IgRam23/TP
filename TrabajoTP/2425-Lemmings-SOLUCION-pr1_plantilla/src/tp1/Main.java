@@ -1,6 +1,6 @@
 package tp1;  
 
-import java.util.Locale; 
+import java.util.Locale;  
 
 import tp1.control.Controller;
 import tp1.logic.Game;

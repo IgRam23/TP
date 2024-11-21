@@ -12,10 +12,7 @@ public class WalkerRole extends AbstractRole {
 	private static final String ICON_RIGHT = Messages.LEMMING_RIGHT;
 	private static final String ICON_LEFT = Messages.LEMMING_LEFT;
 	
-//	public WalkerRole(Position pos) {
-//		this.pos = pos;
-//	}
-	
+
 	@Override
 	public void start(Lemming lemming) {
 		
@@ -37,8 +34,6 @@ public class WalkerRole extends AbstractRole {
 	public void play(Lemming lemming) {
 		lemming.walkOrFall();
 	}
-	
- 
 	
     @Override
 	//Revisa la caida del lemming, y si es > MAX_FALL, el lemming muere

@@ -13,10 +13,6 @@ public class DownCaverRole extends AbstractRole {
 	
 	private boolean hasCaved;
 
-	/*public DownCaverRole(Position pos) {
-		this.pos = pos;
-	}*/
-	
     @Override
     public void start(Lemming lemming) {
         if(lemming.isInAir()) {
@@ -26,7 +22,6 @@ public class DownCaverRole extends AbstractRole {
     
     @Override
     public void play(Lemming lemming) {
-    //	Position below = lemming.move(Direction.DOWN );
 
     	if(!lemming.isInAir() && hasCaved){
     		lemming.fall(); // Si la pared es dura, vuelve a ser WalkerRole
@@ -67,7 +62,6 @@ public class DownCaverRole extends AbstractRole {
 		if(lemming.isInPosition(wall.getPos().up())) {
 			wall.killWall();
 			hasCaved = true;
-			//lemming.move(Direction.DOWN);
 			return true;
 		}
 		

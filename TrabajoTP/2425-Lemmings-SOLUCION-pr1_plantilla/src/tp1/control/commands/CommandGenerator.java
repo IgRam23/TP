@@ -5,7 +5,6 @@ import java.util.List;
 
 public class CommandGenerator {
 
-	//Lista con los comandos concretos disponibles
 	private static final List<Command> availableCommands = Arrays.asList(
 			new SetRoleCommand(),
 			new UpdateCommand(),

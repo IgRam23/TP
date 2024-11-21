@@ -31,17 +31,14 @@ public class MetalWall extends Wall {
 	
     @Override
     public boolean interactWith(ExitDoor door) {
-        // Definir la lógica de interacción con una puerta si es necesario
         return false;
     }
     @Override
     public boolean interactWith(Wall wall) {
-        // Definir la lógica de interacción con una puerta si es necesario
         return false;
     }
     
     public boolean interactWith(Lemming lemming) {
-        // Definir la lógica de interacción con una puerta si es necesario
         return false;
     }
 	
