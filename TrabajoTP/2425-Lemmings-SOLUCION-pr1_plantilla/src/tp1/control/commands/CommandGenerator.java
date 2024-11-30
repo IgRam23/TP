@@ -1,6 +1,9 @@
 package tp1.control.commands;
 
-import java.util.Arrays;
+import java.util.Arrays; 
+import tp1.exceptions.*;
+import tp1.view.Messages;
+
 import java.util.List;
 
 public class CommandGenerator {
@@ -14,14 +17,14 @@ public class CommandGenerator {
 			
 	);
 
-	public static Command parse(String[] commandWords) {		
+	public static Command parse(String[] commandWords) throws CommandParseException{		
 		for (Command c: availableCommands) {
 			Command matchedCommand = c.parse(commandWords);
 			if (matchedCommand != null) {
 				return matchedCommand;
 			}
 		}
-		return null;
+		throw new CommandParseException(Messages.UNKNOWN_COMMAND.formatted(commandWords[0]));
 	}
 		
 	public static String commandHelp() {

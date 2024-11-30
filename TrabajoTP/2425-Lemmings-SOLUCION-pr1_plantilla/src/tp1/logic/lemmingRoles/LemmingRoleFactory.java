@@ -1,6 +1,9 @@
 package tp1.logic.lemmingRoles;
 
-import java.util.Arrays;
+import java.util.Arrays; 
+import tp1.exceptions.*;
+import tp1.view.Messages;
+
 import java.util.List;
 
 
@@ -11,13 +14,14 @@ public class LemmingRoleFactory {
 			new WalkerRole()
 	);
 	
-	public static LemmingRole parse(String commandWords) {		
+	public static LemmingRole parse(String commandWords) 
+							throws RoleParseException{		
 		for (LemmingRole r: availableRoles) {
 			if (r.canParse(commandWords)) {
 				return r;
 			}
 		}
-		return null;
+		throw new RoleParseException(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
 	}
     
 	public static String commandHelp() {

@@ -11,6 +11,8 @@ public interface LemmingRole {
     void start(Lemming lemming);
     void play(Lemming lemming);
     String getIcon(Lemming lemming);
+	String getName();
+    String getHelp();
     
     
     boolean receiveInteraction(GameItem other, Lemming owner);

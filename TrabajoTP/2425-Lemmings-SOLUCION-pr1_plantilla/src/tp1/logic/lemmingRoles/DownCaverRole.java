@@ -47,6 +47,17 @@ public class DownCaverRole extends AbstractRole {
     }
     
     @Override
+	public String getName() {
+		return NAME;
+	}
+
+    @Override 
+	public String getHelp() {
+		return HELP;
+	}
+    
+    
+    @Override
     public boolean canParse(String input) {
         return input.equalsIgnoreCase("DownCaver") || input.equalsIgnoreCase("DC");
     }

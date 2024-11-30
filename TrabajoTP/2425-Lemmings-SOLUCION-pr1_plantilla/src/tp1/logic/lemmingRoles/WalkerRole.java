@@ -9,8 +9,6 @@ public class WalkerRole extends AbstractRole {
 	
 	private static final String NAME = Messages.WALKER_ROL_NAME;
 	private static final String HELP = Messages.WALKER_ROL_HELP;
-	private static final String ICON_RIGHT = Messages.LEMMING_RIGHT;
-	private static final String ICON_LEFT = Messages.LEMMING_LEFT;
 	
 
 	@Override
@@ -61,10 +59,12 @@ public class WalkerRole extends AbstractRole {
   		return Messages.EMPTY; 
   	}
 
-	private String getName() {
+	@Override
+	public String getName() {
 		return NAME;
 	}
 
+	@Override
 	public String getHelp() {
 		return HELP;
 	}

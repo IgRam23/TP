@@ -1,6 +1,7 @@
  package tp1.control.commands;
 
-import tp1.logic.GameModel;
+import tp1.logic.GameModel; 
+import tp1.exceptions.*;
 import tp1.view.GameView;
 import tp1.view.Messages;
 import tp1.logic.Position;
@@ -23,36 +24,47 @@ public class SetRoleCommand extends Command {
 
 
     @Override
-    public void execute(GameModel game, GameView view) {
-
+    public void execute(GameModel game, GameView view) throws CommandExecuteException {
         if (position == null || roleInput == null) {
             view.showError(Messages.ERROR_POSITION);
             return;
         }
 
-        boolean success = game.setRoleAt(position, roleInput);
-        if (!success) {
-        	view.showError(Messages.ERROR_POSITION);
-        	return;
-        }
+        boolean success;
+        try {
+        	success = game.setRoleAt(position, roleInput); 
+        } catch (OffBoardException e) {
+        	throw new CommandExecuteException(Messages.COMMAND_EXECUTE_PROBLEM, e);
+        } 
         
+        if (!success) {
+        	view.showError(Messages.COMMAND_EXECUTE_PROBLEM); 
+            throw new CommandExecuteException("No lemming in position (" + position.getRow()
+            + "," + position.getCol() + ") admits role " + roleInput.getName());
+        }
+
         game.update();
         game.nextCycle();
+        view.showGame(); 
         
-		view.showGame();
     }
 
+
+
+
+
     @Override
-    public Command parse(String[] commandWords) {
+    public Command parse(String[] commandWords) throws CommandParseException {
 
         if (commandWords.length != 4 || !matchCommandName(commandWords[0])) { //Necesitamos 4 palabras: "sr", "Parachuter", "3", "3"
             return null;
         }
-        
-        roleInput = LemmingRoleFactory.parse(commandWords[1]);
-        if(roleInput == null) {
-        	return null;
-        }
+               
+        try {
+			roleInput = LemmingRoleFactory.parse(commandWords[1]);
+		} catch (RoleParseException e) {
+			throw new CommandParseException(Messages.UNKNOWN_ROLE, e);
+		}
                
         int row;
         char letra;
@@ -61,19 +73,15 @@ public class SetRoleCommand extends Command {
             
         letra = Character.toLowerCase(commandWords[2].charAt(0));
         
-        if(letra < 'a' || letra > 'j')  {
-        	position = null;
-        }else {
+        try {
         	col = letra - 'a';
             row = Integer.parseInt(commandWords[3]);  //El segundo parámetro es la fila (num)
-            if(row < 1 || row > 10) {
-            	position = null;
-            }else {
-            	position = new Position(row-1,col);
-            }
+        	position = new Position(row-1,col);
 
+        
+        } catch (NumberFormatException e) {
+            throw new CommandParseException(Messages.INVALID_POSITION.formatted(commandWords[2], commandWords[3]), e);
         }
-            	
 
         return this;
     }

@@ -5,6 +5,8 @@ import tp1.util.MyStringUtils;
 public class Messages {
 	
 	public static final String VERSION = "2.2";
+	
+	public static final String ERROR_POSITION = "SetRoleCommand error (Incorrect position or no object in that position admits that role)"; 
 
 	public static final String GAME_NAME = "Lemmings";
 
@@ -16,12 +18,13 @@ public class Messages {
 	public static final String INVALID_LEVEL_NUMBER = "Not valid level number";
 
 	public static final String LEVEL_NOT_A_NUMBER_ERROR = String.format("%s: %%s", LEVEL_NOT_A_NUMBER);
+	
+	public static final String COMMAND_EXECUTE_PROBLEM = "Command execute problem";
 
 	public static final String PROMPT = "Command > ";
 
 	public static final String DEBUG = "[DEBUG] Executing: %s%n";
 	public static final String ERROR = "[ERROR] Error: %s%n";
-	public static final String ERROR_POSITION = "SetRoleCommand error (Incorrect position or no object in that position admits that role)"; 
 	
 	// GAME STATUS
 	public static final String NUMBER_OF_CYCLES = "Number of cycles: %s";
@@ -116,3 +119,4 @@ public class Messages {
 	public static final String LEMMING_PARACHUTE = "🪂";
 	public static final String LEMMING_DOWN_CAVER = "´･ω･`";
 }
+

@@ -37,7 +37,6 @@ public class GameObjectContainer {
 	       
 			if (obj.isInPosition(position)) {  // Si hay un lemming en esa posición
 	            return obj.setRole(role);  // Asignamos el nuevo rol
-	            //return true;  // Rol asignado con éxito
 	        }
 		        
 		return false;

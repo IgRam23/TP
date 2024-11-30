@@ -192,6 +192,10 @@ Lemmings exit door: 1 ┃2
 
 Command > [DEBUG] Executing: 
 
+[ERROR] Error: Unknown command: 
+
+Command > [DEBUG] Executing: None
+
 Number of cycles: 8
 Lemmings in board: 2
 Dead lemmings: 3
@@ -212,7 +216,7 @@ Lemmings exit door: 1 ┃2
    └——————————————————————————————————————————————————┘
       1    2    3    4    5    6    7    8    9   10  
 
-Command > [DEBUG] Executing: None
+Command > [DEBUG] Executing: NOne
 
 Number of cycles: 9
 Lemmings in board: 0

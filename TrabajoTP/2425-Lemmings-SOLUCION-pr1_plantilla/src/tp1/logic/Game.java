@@ -1,6 +1,7 @@
 package tp1.logic;
 
-import tp1.logic.gameobjects.Lemming; 
+import tp1.logic.gameobjects.Lemming;  
+import tp1.exceptions.*; 
 import tp1.logic.gameobjects.Wall;
 import tp1.logic.gameobjects.ExitDoor;
 import tp1.logic.lemmingRoles.*;
@@ -167,7 +168,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	
 	private void initGame0() {
 		
-		LemmingRole walkerRole = LemmingRoleFactory.parse("W"); 
+		LemmingRole walkerRole = new WalkerRole();
 
 		container = new GameObjectContainer();
 
@@ -229,10 +230,10 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		}
 	
 	
-	private void initGame1() {
+	private void initGame1(){
 		
-		LemmingRole walkerRole = LemmingRoleFactory.parse("W"); 
-
+		LemmingRole walkerRole = new WalkerRole();
+	
 		container = new GameObjectContainer();
 
 		numLemmings = 0;
@@ -292,12 +293,12 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		}
 
 	
-	private void initGame2() {
+	private void initGame2(){
 
 		container = new GameObjectContainer();
 		
-		LemmingRole walkerRole = LemmingRoleFactory.parse("W"); 
-		LemmingRole parachuterRole = LemmingRoleFactory.parse("P");
+		LemmingRole walkerRole = new WalkerRole();
+		LemmingRole parachuterRole = new ParachuterRole();
 		
 		
 		numLemmings = 0;
@@ -495,10 +496,19 @@ public class Game implements GameWorld, GameStatus, GameModel{
         this.finished = finished;
     }
 	
-	@Override 
-    public boolean setRoleAt(Position position, LemmingRole role) {
-		return container.setRoleAtObject(position, role); 
+	@Override
+	public boolean setRoleAt(Position position, LemmingRole role) throws OffBoardException {
+	    if (position.getCol() >= Game.DIM_X || position.getRow() >= Game.DIM_Y || position.getCol() < 0 || position.getRow() < 0) {
+	        throw new OffBoardException("Position (" + position.getRow()
+            + "," + position.getCol() + ") off the board");
+	    }
+
+	    
+
+	    return container.setRoleAtObject(position, role);
 	}
+
+
 
     public String help() {
 		return "";

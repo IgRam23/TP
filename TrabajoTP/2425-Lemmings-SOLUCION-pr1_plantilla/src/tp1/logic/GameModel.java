@@ -1,6 +1,7 @@
 package tp1.logic;
 
 import tp1.logic.lemmingRoles.LemmingRole;
+import tp1.exceptions.*;
 
 public interface GameModel {
 	
@@ -11,5 +12,6 @@ public interface GameModel {
 	boolean isFinished();
 	
 	
-    public boolean setRoleAt(Position position, LemmingRole role);
+    public boolean setRoleAt(Position position, LemmingRole role)
+    		throws OffBoardException;    
 }

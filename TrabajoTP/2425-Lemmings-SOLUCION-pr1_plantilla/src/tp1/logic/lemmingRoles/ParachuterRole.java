@@ -40,7 +40,15 @@ public class ParachuterRole extends AbstractRole {
     	return "Parachuter";
     }
     
+    @Override
+	public String getName() {
+		return NAME;
+	}
 
+    @Override
+	public String getHelp() {
+		return HELP;
+	}
 	
     @Override
     public boolean canParse(String input) {
