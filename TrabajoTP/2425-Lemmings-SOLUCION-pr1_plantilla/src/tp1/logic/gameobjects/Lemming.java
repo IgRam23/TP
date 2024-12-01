@@ -1,5 +1,8 @@
 package tp1.logic.gameobjects;
 
+import tp1.exceptions.ObjectParseException;
+import tp1.exceptions.OffBoardException;
+import tp1.exceptions.RoleParseException;
 import tp1.logic.*; 
 
 import tp1.view.Messages;
@@ -24,6 +27,64 @@ public class Lemming extends GameObject{
         this.fallDistance = 0;
         this.rol = role;
 	}
+    
+	public  GameObject parse(String line, GameWorld game) throws ObjectParseException, OffBoardException{
+			
+		 //1. Se corresponde con un lemming: si no, null
+        //2. De la 1ª palabra se puede obtener una posición
+        //3. De la 3ª se puede obtener una dirección VÁLIDA
+        //4. De la 4ª se puede obtener un número
+        //5. De la 5ª palabra se puede obtener un rol
+        //En ese caso, devolver NUEVO lemming con esos atributos
+		
+		String[] words = line.trim().split("\\s+");
+
+		
+		
+	    // Verificar si el comando corresponde a una pared ("wall")
+	    if (!words[1].equalsIgnoreCase("Lemming")||!words[1].equalsIgnoreCase("L")) {
+	        return null; // No corresponde a este tipo de objeto
+	    }
+
+	    if (words.length < 5) {
+	        throw new ObjectParseException("Incorrect parameter count for Lemming.");
+	    }
+	    
+	    
+	    //Obtenemos la posicion
+	    String coordinates = words[0].substring(1, words[0].length() - 1);
+        String[] coords = coordinates.split(",");  // ["3", "4"]
+        int row = Integer.parseInt(coords[0]);  // 3
+        int col = Integer.parseInt(coords[1]);  // 4
+        
+        Position position = new Position(row,col);
+        
+       
+        //Obtenemos el rol
+        //LemmingRole role = LemmingRoleFactory.parse(words[4]);
+     
+      
+        Lemming lemming = new Lemming (game, position,container,rol);
+        
+        //Obtenemos la direccion
+        // lemming.dir = words[2];
+        
+        //Obtenemos la caida
+        lemming.fallDistance = Integer.parseInt(words[3]);
+       
+       
+ 
+        /*
+        if (!game.isValidPosition(position)) {
+        	        throw new OffBoardException("Position is off-board: " + position);
+        }*/
+        
+	    return lemming;
+	}
+
+    
+    
+    
     
     
     
