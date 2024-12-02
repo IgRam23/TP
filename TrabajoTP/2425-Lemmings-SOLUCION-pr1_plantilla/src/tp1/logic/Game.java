@@ -404,12 +404,15 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	            initGame0();
 	        }
 	    } else {
+	    	
 	        // Usar la configuración almacenada en `conf`.
 	        currentCycle = conf.getCycle();
 	        numLemmings = conf.numLemmingsInBoard();
 	        lemmingsDead = conf.numLemmingsDead();
 	        lemmingsExit = conf.numLemingsExit();
 	        lemmingsToWin = conf.numLemmingToWin();
+	        
+	        container.clear();
 
 	        // Cargar los objetos del juego desde la configuración.
 	        conf.getGameObjects().loadInto(); 
@@ -506,6 +509,12 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	public void incrementLemmingsExit() {
 		this.lemmingsExit++;
 		this.remaining--;
+	}
+	
+	@Override
+	public void incrementNumLemmings() {
+		this.numLemmings++;
+		this.remaining++;
 	}
 	
     //Devuelve el numero de lemmings necesarios para ganar

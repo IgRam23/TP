@@ -36,7 +36,7 @@ public class Lemming extends GameObject{
 		String[] words = line.trim().split("\\s+");
 		
 
-	    if (!words[1].equalsIgnoreCase(NAME)||!words[1].equalsIgnoreCase(SHORTCUT)) {
+	    if (!(words[1].equalsIgnoreCase(NAME) || words[1].equalsIgnoreCase(SHORTCUT))) {
 	        return null; 
 	    }
 
@@ -95,6 +95,7 @@ public class Lemming extends GameObject{
         //Obtenemos la caida
         lemming.fallDistance = Integer.parseInt(words[3]); //hace throws de la excepcion automaticamente si no se introduce un numero decimal
         
+        game.incrementNumLemmings();
         //una vez inicializados los atributos con exito
 	    return lemming;
 	}

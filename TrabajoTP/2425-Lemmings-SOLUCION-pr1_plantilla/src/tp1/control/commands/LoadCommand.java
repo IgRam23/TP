@@ -27,7 +27,7 @@ public class LoadCommand extends Command{
     	} catch(GameLoadException e) {
     		throw new CommandExecuteException(e); 
     	}
-        game.nextCycle();
+    	
         view.showGame(); 
     }
 

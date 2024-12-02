@@ -37,7 +37,6 @@ public class FileGameConfiguration implements GameConfiguration {
                 throw new GameLoadException("El fichero de configuración está vacío.");
             }
             parseGameStatus(line);
-            int cont = 0;
 
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) {
@@ -46,13 +45,13 @@ public class FileGameConfiguration implements GameConfiguration {
                 GameObject obj = GameObjectFactory.parse(line, game);
                 if (obj != null) {
                     container.add(obj);
-                    cont++;
+          
                 }
             }
 
-            if (numLemmingsInBoard != cont) {
+        /*    if (numLemmingsInBoard != game.numLemmings()) {
                 throw new GameLoadException("El número de lemmings en el estado no coincide con el número en el fichero.");
-            }
+            }*/
         } catch(IOException e) {
             throw new GameLoadException("Error al leer el fichero de configuración.", e);
         } catch (ObjectParseException | OffBoardException e) { 

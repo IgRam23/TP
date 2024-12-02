@@ -13,6 +13,7 @@ public interface GameWorld{
 	int numLemmingsToWin();
 	void addLemming(Lemming lemming);
 	void incrementDeadLemmings();
+	void incrementNumLemmings();
 	void setFinished(boolean b);
 	public boolean receiveInteractionsFrom(GameItem obj);
 	public boolean isValidPosition(Position position);

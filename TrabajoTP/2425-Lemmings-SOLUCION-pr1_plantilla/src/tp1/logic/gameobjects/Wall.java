@@ -19,7 +19,7 @@ public class Wall extends GameObject{
 		String[] words = line.trim().split("\\s+");
 
 		
-	    if (!words[1].equalsIgnoreCase(NAME)||!words[1].equalsIgnoreCase(SHORTCUT)) {
+	    if (!(words[1].equalsIgnoreCase(NAME)||words[1].equalsIgnoreCase(SHORTCUT))) {
 	        return null; 
 	    }
 	    

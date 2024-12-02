@@ -34,8 +34,9 @@ public class GameObjectContainer {
 	}
     
     public void loadInto() {
-        for (GameObject obj : objects) {
-            add(obj); 
+    	List<GameObject> tempList = new ArrayList<>(objects); 
+        for (GameObject obj : tempList) {
+            add(obj);  
         }
     }
     
@@ -100,6 +101,10 @@ public class GameObjectContainer {
             objects.remove(lemming); 
         }
         
+    }
+    
+    public void clear() {
+    	objects.clear();
     }
     
     //Comprueba si el objeto es una pared
