@@ -8,6 +8,7 @@ public class ParachuterRole extends AbstractRole {
 	
 	
 	private static final String NAME = "Parachuter";
+	private static final String SHORTCUT = "P";
 	private static final String HELP = "[P]arachuter: Lemming falls with a parachute";
 		
     @Override
@@ -52,7 +53,7 @@ public class ParachuterRole extends AbstractRole {
 	
     @Override
     public boolean canParse(String input) {
-        return input.equalsIgnoreCase("Parachuter") || input.equalsIgnoreCase("P");
+        return input.equalsIgnoreCase(NAME) || input.equalsIgnoreCase(SHORTCUT);
     }
 
 	@Override

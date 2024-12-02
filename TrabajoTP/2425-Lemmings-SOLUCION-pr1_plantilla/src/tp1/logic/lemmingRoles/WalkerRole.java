@@ -8,6 +8,7 @@ import tp1.view.Messages;
 public class WalkerRole extends AbstractRole {
 	
 	private static final String NAME = Messages.WALKER_ROL_NAME;
+	private static final String SHORTCUT = "W";
 	private static final String HELP = Messages.WALKER_ROL_HELP;
 	
 
@@ -18,7 +19,7 @@ public class WalkerRole extends AbstractRole {
 	
 	@Override
     public boolean canParse(String input) {
-        return input.equalsIgnoreCase("Walker") || input.equalsIgnoreCase("W");
+        return input.equalsIgnoreCase(NAME) || input.equalsIgnoreCase(SHORTCUT);
     } 
 	
 	

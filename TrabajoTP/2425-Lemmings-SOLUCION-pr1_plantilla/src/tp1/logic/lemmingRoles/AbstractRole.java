@@ -7,7 +7,6 @@ import tp1.logic.gameobjects.Lemming;
 import tp1.logic.gameobjects.Wall;
 
 public abstract class AbstractRole implements LemmingRole {
-	
 
     public boolean receiveInteraction(GameItem other, Lemming lemming) {
         return other.interactWith(lemming);     

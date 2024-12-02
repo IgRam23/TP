@@ -1,6 +1,11 @@
 package tp1.logic;
 
-import tp1.logic.gameobjects.Lemming;  
+import tp1.logic.gameobjects.Lemming;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import tp1.exceptions.*; 
 import tp1.logic.gameobjects.Wall;
 import tp1.logic.gameobjects.ExitDoor;
@@ -13,6 +18,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	public static final int DIM_Y = 10;  
 
     private GameObjectContainer container;
+    private GameConfiguration conf = FileGameConfiguration.NONE;
 	private int currentCycle;					
 	private int numLemmings;
 	private int remaining;
@@ -174,17 +180,17 @@ public class Game implements GameWorld, GameStatus, GameModel{
 
 		numLemmings = 0;
 		
-		container.add(new Lemming(this, new Position(9,0), container, walkerRole));
+		container.add(new Lemming(this, new Position(9,0), walkerRole, container));
 		numLemmings++;
 
 		
-		container.add(new Lemming(this, new Position(2,3), container, walkerRole));
+		container.add(new Lemming(this, new Position(2,3), walkerRole, container));
 		numLemmings++;
 		
-		container.add(new ExitDoor(this,new Position(4,5), container));
+		container.add(new ExitDoor(this,new Position(4,5)/*, container*/));
 
 
-		container.add(new Lemming(this, new Position(0,8), container, walkerRole));
+		container.add(new Lemming(this, new Position(0,8), walkerRole, container));
 		numLemmings++;
 
 		
@@ -238,19 +244,19 @@ public class Game implements GameWorld, GameStatus, GameModel{
 
 		numLemmings = 0;
 		
-		container.add(new Lemming(this, new Position(9,0), container, walkerRole));
+		container.add(new Lemming(this, new Position(9,0), walkerRole, container));
 		numLemmings++;
 
 		
-		container.add(new Lemming(this, new Position(2,3), container, walkerRole));
+		container.add(new Lemming(this, new Position(2,3), walkerRole, container));
 		numLemmings++;
-		container.add(new ExitDoor(this,new Position(4,5), container));
+		container.add(new ExitDoor(this,new Position(4,5)/*, container*/));
 
 
-		container.add(new Lemming(this, new Position(0,8), container, walkerRole));
+		container.add(new Lemming(this, new Position(0,8), walkerRole, container));
 		numLemmings++;
 
-		container.add(new Lemming(this, new Position(3,3),container, walkerRole));
+		container.add(new Lemming(this, new Position(3,3), walkerRole, container));
 
 		numLemmings++;
 		
@@ -303,26 +309,26 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		
 		numLemmings = 0;
 		
-		container.add(new Lemming(this, new Position(9,0), container, walkerRole));
+		container.add(new Lemming(this, new Position(9,0), walkerRole, container));
 		numLemmings++;
 		
-		container.add(new Lemming(this, new Position(2,3), container, walkerRole));
+		container.add(new Lemming(this, new Position(2,3), walkerRole, container));
 		numLemmings++;
 		
-		container.add(new ExitDoor(this,new Position(4,5), container));
+		container.add(new ExitDoor(this,new Position(4,5)/*, container*/));
 
 
-		container.add(new Lemming(this, new Position(0,8), container, walkerRole));
+		container.add(new Lemming(this, new Position(0,8), walkerRole, container));
 		numLemmings++;
 
-		container.add(new Lemming(this, new Position(3,3), container, walkerRole));
+		container.add(new Lemming(this, new Position(3,3), walkerRole, container));
 		
 		numLemmings++;
 		
-		container.add(new Lemming(this, new Position(6,0), container, walkerRole));
+		container.add(new Lemming(this, new Position(6,0), walkerRole, container));
 		numLemmings++;
 		
-		container.add(new Lemming(this, new Position(6,0), container, parachuterRole));
+		container.add(new Lemming(this, new Position(6,0), parachuterRole, container));
 		numLemmings++;
 		
 		remaining = numLemmings;
@@ -379,24 +385,68 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	
 	//Resetea el juego
 	@Override
-	public void reset() { 
-	    currentCycle = 0;
-	    lemmingsDead = 0;
-	    lemmingsExit = 0;
-	    numLemmings = 0;
-	    finished = false;
-	    
-	    if(nivel == 0) {
-	    	initGame0();
-	    } else if(nivel == 1) {
-		    initGame1();  
-	    } else if(nivel == 2){
-	    	initGame2(); 
-	    } else {
-	    	initGame0();
-	    }
-    }
+	public void reset() {
+	    // Si no hay configuración inicial cargada desde un archivo, usar inicialización estándar.
+	    if (conf == FileGameConfiguration.NONE) {
+	        currentCycle = 0;
+	        lemmingsDead = 0;
+	        lemmingsExit = 0;
+	        numLemmings = 0;
+	        finished = false;
 
+	        if (nivel == 0) {
+	            initGame0();
+	        } else if (nivel == 1) {
+	            initGame1();
+	        } else if (nivel == 2) {
+	            initGame2();
+	        } else {
+	            initGame0();
+	        }
+	    } else {
+	        // Usar la configuración almacenada en `conf`.
+	        currentCycle = conf.getCycle();
+	        numLemmings = conf.numLemmingsInBoard();
+	        lemmingsDead = conf.numLemmingsDead();
+	        lemmingsExit = conf.numLemingsExit();
+	        lemmingsToWin = conf.numLemmingToWin();
+
+	        // Cargar los objetos del juego desde la configuración.
+	        conf.getGameObjects().loadInto(); 
+	    }
+	}
+
+	@Override 
+	//Carga el juego desde un fichero
+	public void load(String fileName) throws GameLoadException {
+		try {
+			FileGameConfiguration gameConfig = new FileGameConfiguration(fileName, this);
+		    this.conf = gameConfig;
+		    reset();
+		} catch(GameLoadException e){
+			throw new GameLoadException(e); 
+		}
+	    
+	}
+	
+	@Override
+	public void save(String fileName) throws GameLoadException{
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+	        writer.write(String.format("%d %d %d %d %d%n", 
+	            this.currentCycle,                      
+	            this.numLemmings,      
+	            this.lemmingsDead,        
+	            this.lemmingsExit,     
+	            this.lemmingsToWin    
+	        ));
+	        
+	        container.write(writer); 
+	    } catch (IOException e) {
+	        throw new GameLoadException("Error writing to file: " + fileName, e);
+	    }
+	}
+
+	
 	//Actualiza el juego
 	@Override
 	public void update() {
@@ -444,6 +494,11 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	@Override 
 	public int numLemmingsExit() {
 		return lemmingsExit; 
+	}
+	
+	@Override
+	public int numLemmings() {
+		return numLemmings;
 	}
 	
 	//Aumenta el numero de lemmings que salen por la puerta y resta uno al numero de lemmings que quedan en la partida
@@ -498,16 +553,25 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	
 	@Override
 	public boolean setRoleAt(Position position, LemmingRole role) throws OffBoardException {
-	    if (position.getCol() >= Game.DIM_X || position.getRow() >= Game.DIM_Y || position.getCol() < 0 || position.getRow() < 0) {
+	    if (!isValidPosition(position)) {
 	        throw new OffBoardException("Position (" + position.getRow()
             + "," + position.getCol() + ") off the board");
 	    }
-
-	    
-
 	    return container.setRoleAtObject(position, role);
 	}
 
+	@Override
+	public boolean isValidLevel(int level) {
+		if(level >= 0 && level < 3) {
+			return true;
+		}
+		return false;		
+	}
+	
+	@Override
+	public void setLevel(int level) {
+		nivel = level;
+	}
 
 
     public String help() {
@@ -519,6 +583,13 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		return false;
 	}
     
+	@Override
+	public boolean isValidPosition(Position position) {
+		if (position.getCol() >= Game.DIM_X || position.getRow() >= Game.DIM_Y || position.getCol() < 0 || position.getRow() < 0) {
+			return false;
+		}
+		return true;
+	}
     
 
 }

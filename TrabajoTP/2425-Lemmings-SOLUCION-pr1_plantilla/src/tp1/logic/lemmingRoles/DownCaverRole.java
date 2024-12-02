@@ -9,6 +9,7 @@ import tp1.view.Messages;
 public class DownCaverRole extends AbstractRole {
 	
 	private static final String NAME = "DownCaver";
+	private static final String SHORTCUT = "DC";
 	private static final String HELP = "[D]own [C]aver: Lemming caves downwards";
 	
 	private boolean hasCaved;
@@ -59,7 +60,7 @@ public class DownCaverRole extends AbstractRole {
     
     @Override
     public boolean canParse(String input) {
-        return input.equalsIgnoreCase("DownCaver") || input.equalsIgnoreCase("DC");
+        return input.equalsIgnoreCase(NAME) || input.equalsIgnoreCase(SHORTCUT);
     }
 	
 	@Override

@@ -22,7 +22,6 @@ public class SetRoleCommand extends Command {
         super(NAME, SHORTCUT, DETAILS, HELP);  
     }
 
-
     @Override
     public void execute(GameModel game, GameView view) throws CommandExecuteException {
         if (position == null || roleInput == null) {
@@ -49,10 +48,6 @@ public class SetRoleCommand extends Command {
         
     }
 
-
-
-
-
     @Override
     public Command parse(String[] commandWords) throws CommandParseException {
 
@@ -74,9 +69,9 @@ public class SetRoleCommand extends Command {
         letra = Character.toLowerCase(commandWords[2].charAt(0));
         
         try {
-        	col = letra - 'a';
-            row = Integer.parseInt(commandWords[3]);  //El segundo parámetro es la fila (num)
-        	position = new Position(row-1,col);
+        	row = letra - 'a';
+            col = Integer.parseInt(commandWords[3]);  //El segundo parámetro es la fila (num)
+        	position = new Position(col-1,row);
 
         
         } catch (NumberFormatException e) {

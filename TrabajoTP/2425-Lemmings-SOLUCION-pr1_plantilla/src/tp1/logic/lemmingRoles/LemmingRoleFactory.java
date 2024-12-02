@@ -26,9 +26,15 @@ public class LemmingRoleFactory {
     
 	public static String commandHelp() {
 		StringBuilder commands = new StringBuilder();
+		int cont = 0;
 		
 		for (LemmingRole c: availableRoles) {
-			commands.append("       " + c.helpText()).append("\n");
+			cont++;
+			if(cont == 3) {
+				commands.append("       " + c.helpText());
+			} else {
+				commands.append("       " + c.helpText()).append("\n");
+			}
 		}
 		
 		return commands.toString();

@@ -27,8 +27,8 @@ public abstract class GameObject implements GameItem{
 		return isAlive;
 	}
 	
-	public abstract GameObject parse(String line, GameWorld game) throws ObjectParseException, OffBoardException;
-	
+	public abstract GameObject parse(String line, GameWorld game) 
+			throws ObjectParseException, OffBoardException;
 	
 	public boolean setRole(LemmingRole newRole) {return false;}
 	
@@ -39,18 +39,5 @@ public abstract class GameObject implements GameItem{
 	public boolean isSolid() {
 		return false;
 	}
-	
-	public boolean isExit() {
-		return false;
-	}
-	/*
-	private static Position getPositionFrom(String line) throws ObjectParseException, OffBoardException {..}
-	private static String getObjectNameFrom(String line) throws ObjectParseException {...}
-	private static Direction getLemmingDirectionFrom(String line) throws ObjectParseException {...}
-	private static int getLemmingHeigthFrom(String line) throws ObjectParseException {...}
-	private static LemmingRole getLemmingRoleFrom(String line) throws ObjectParseException {...}*/
-	
-	
-	
 	
 }

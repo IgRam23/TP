@@ -11,6 +11,9 @@ import tp1.logic.lemmingRoles.*;
 
 public class Lemming extends GameObject{
 	
+	private static final String NAME = "LEMMING";
+	private static final String SHORTCUT = "L";
+	
 	private Direction dir;
 	private Direction dir_anterior;
 	private boolean isAlive;
@@ -18,76 +21,84 @@ public class Lemming extends GameObject{
 	private int fallDistance;
 	private GameObjectContainer container;
 	
-    public Lemming(GameWorld game, Position pos, GameObjectContainer container, LemmingRole role){
+    public Lemming(GameWorld game, Position pos, LemmingRole role, GameObjectContainer container){
     	super(game, pos);
-    	this.container = container;
         this.dir = Direction.RIGHT;
         this.dir_anterior = Direction.RIGHT;
         this.isAlive = true; // Inicialmente, el lemming está vivo
         this.fallDistance = 0;
         this.rol = role;
+        this.container =container;
 	}
     
 	public  GameObject parse(String line, GameWorld game) throws ObjectParseException, OffBoardException{
-			
-		 //1. Se corresponde con un lemming: si no, null
-        //2. De la 1ª palabra se puede obtener una posición
-        //3. De la 3ª se puede obtener una dirección VÁLIDA
-        //4. De la 4ª se puede obtener un número
-        //5. De la 5ª palabra se puede obtener un rol
-        //En ese caso, devolver NUEVO lemming con esos atributos
 		
 		String[] words = line.trim().split("\\s+");
+		
 
-		
-		
-	    // Verificar si el comando corresponde a una pared ("wall")
-	    if (!words[1].equalsIgnoreCase("Lemming")||!words[1].equalsIgnoreCase("L")) {
-	        return null; // No corresponde a este tipo de objeto
+	    if (!words[1].equalsIgnoreCase(NAME)||!words[1].equalsIgnoreCase(SHORTCUT)) {
+	        return null; 
 	    }
 
-	    if (words.length < 5) {
+	    if (words.length != 5) {
 	        throw new ObjectParseException("Incorrect parameter count for Lemming.");
 	    }
 	    
-	    
+	    //nosotros obtenemos en los pasos 1 y 2 posicion y rol para poder crear un lemming de primeras
+	    //luego ya vamos comprobando sus atributos direccion, falldistance 
+	 
 	    //Obtenemos la posicion
-	    String coordinates = words[0].substring(1, words[0].length() - 1);
-        String[] coords = coordinates.split(",");  // ["3", "4"]
-        int row = Integer.parseInt(coords[0]);  // 3
-        int col = Integer.parseInt(coords[1]);  // 4
+	    String coordinates = words[0];
+        if (!(coordinates.startsWith("(") && coordinates.endsWith(")"))) {
+            throw new ObjectParseException("Invalid position format for Lemming: " + line);
+        }
         
-        Position position = new Position(row,col);
+        coordinates = coordinates.substring(1, coordinates.length() - 1); 
+        String[] coords = coordinates.split(","); // ["3", "2"]
+        if (coords.length != 2) {
+            throw new ObjectParseException("Invalid position format for Lemming: " + line);
+        }
+        int row = Integer.parseInt(coords[0].trim());
+        int col = Integer.parseInt(coords[1].trim());
+        Position position = new Position(col, row);
+        try {          
+            if (!game.isValidPosition(position)) {
+                throw new OffBoardException("Object position is off board: '" + line + "'");
+            }
+
+        } catch (NumberFormatException e) {
+            throw new ObjectParseException("Invalid numeric values in position for Lemming: " + line, e);
+        }
         
        
         //Obtenemos el rol
-        //LemmingRole role = LemmingRoleFactory.parse(words[4]);
-     
-      
-        Lemming lemming = new Lemming (game, position,container,rol);
+        try {
+			this.rol = LemmingRoleFactory.parse(words[4]); 
+		} catch (RoleParseException e) {
+			throw new ObjectParseException(Messages.COMMAND_EXECUTE_PROBLEM + e);
+		} 
+        
+        GameObjectContainer cont = this.container;
+        Lemming lemming = new Lemming (game, position, rol, cont);
         
         //Obtenemos la direccion
-        // lemming.dir = words[2];
+        if(words[2].equalsIgnoreCase("RIGHT")){
+        	lemming.dir = Direction.RIGHT; 
+        } else if (words[2].equalsIgnoreCase("LEFT")) {
+        	lemming.dir = Direction.LEFT;
+        } else if (words[2].equalsIgnoreCase("UP") || words[2].equalsIgnoreCase("DOWN") || words[2].equalsIgnoreCase("NONE")){
+        	throw new ObjectParseException("Invalid lemming direction:" + line);
+        } else {
+        	throw new ObjectParseException("Unknown object direction:" + line);
+        }
         
         //Obtenemos la caida
-        lemming.fallDistance = Integer.parseInt(words[3]);
-       
-       
- 
-        /*
-        if (!game.isValidPosition(position)) {
-        	        throw new OffBoardException("Position is off-board: " + position);
-        }*/
+        lemming.fallDistance = Integer.parseInt(words[3]); //hace throws de la excepcion automaticamente si no se introduce un numero decimal
         
+        //una vez inicializados los atributos con exito
 	    return lemming;
 	}
 
-    
-    
-    
-    
-    
-    
     public void disableRole() {
     	this.rol = new WalkerRole();
     }
@@ -158,11 +169,8 @@ public class Lemming extends GameObject{
 		return(container.isSolidAt(pos_debajo, this));
 	}
 	
+
 	
-	//Devuelve un booleano indicando si el lemming se encuentra en la posicion de salida 
-	public boolean isInExit() {
-	    return container.isExitAt(pos); 
-	}
 	public void fall(){
 		fallDistance++;
         if (pos.getRow() + 1 >= Game.DIM_Y) { //comprobamos si la posición abajo está fuera del tablero para ver si hay que llamar a die()
@@ -179,11 +187,7 @@ public class Lemming extends GameObject{
 	//Establece la direccion en la que se tiene que mover el lemming
 	public void walkOrFall() { 
 		
-		if(isInExit()) {
-			exit();
-			return;
-		}
-		else if (isInAir()) { //si esta en el aire 
+		if (isInAir()) { //si esta en el aire 
 			fall();
 			
 		}
@@ -199,7 +203,11 @@ public class Lemming extends GameObject{
 			return;
         }
 		
+	    container.receiveInteractionsFrom(this); 
+
 		pos = move(dir);  
+		
+
 	} 
 	   
     //Mueve al lemming
@@ -245,8 +253,11 @@ public class Lemming extends GameObject{
 	
 	@Override
 	public boolean interactWith(ExitDoor door) {
-		return false;
-	}
+		if(this.pos.equals(door.pos)) { 
+			exit();
+        	return true;
+    	}
+    	return false;	}
 	
 	@Override
 	public boolean interactWith(Lemming lemming) {
@@ -282,4 +293,17 @@ public class Lemming extends GameObject{
  		
  		this.fallDistance = newFall;
  	}
+     
+     //Para el fichero de salida del comando save
+     @Override
+     public String toString() {
+         return String.format("(%d,%d) Lemming %s %d %s", 
+             pos.getRow(),         
+             pos.getCol(),         
+             dir.toString(),       
+             fallDistance,         
+             rol.getName()        
+         );
+     }
+
 }

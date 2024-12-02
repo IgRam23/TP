@@ -2,11 +2,16 @@ package tp1.logic.gameobjects;
 
 import tp1.exceptions.ObjectParseException;
 import tp1.exceptions.OffBoardException;
+import tp1.logic.GameObjectContainer;
 import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
 public class MetalWall extends Wall {
+	
+	private static final String NAME = "MetalWall";
+	private static final String SHORTCUT = "MW";
+	
 
 	public MetalWall (GameWorld game, Position pos){
 		super(game, pos);
@@ -17,31 +22,41 @@ public class MetalWall extends Wall {
 		
 		String[] words = line.trim().split("\\s+");
 		
-	    // Verificar si el comando corresponde a una pared ("wall")
-	    if (!words[1].equalsIgnoreCase("MetalWall")||!words[1].equalsIgnoreCase("MW")) {
-	        return null; // No corresponde a este tipo de objeto
+	    if (!words[1].equalsIgnoreCase(NAME)||!words[1].equalsIgnoreCase(SHORTCUT)) {
+	        return null; 
 	    }
 
-		if (words.length < 2) {
+		if (words.length != 2) {
 	        throw new ObjectParseException("Incorrect parameter count for Wall.");
 	    }
 	    
-	    String coordinates = words[0].substring(1, words[0].length() - 1);
-        String[] coords = coordinates.split(",");  // ["3", "4"]
-        int row = Integer.parseInt(coords[0]);  // 3
-        int col = Integer.parseInt(coords[1]);  // 4
+	    String coordinates = words[0];
+        if (!(coordinates.startsWith("(") && coordinates.endsWith(")"))) {
+            throw new ObjectParseException("Invalid position format for MetalWall: " + line);
+        }
         
-        Position position = new Position(row,col);
+        coordinates = coordinates.substring(1, coordinates.length() - 1); 
+        String[] coords = coordinates.split(","); // ["3", "2"]
+        if (coords.length != 2) {
+            throw new ObjectParseException("Invalid position format for MetalWall: " + line);
+        }
+
+        try {
+            int row = Integer.parseInt(coords[0].trim());
+            int col = Integer.parseInt(coords[1].trim());
+            Position position = new Position(col, row); //recordar que el constructor esta al reves
+            
+            if (!game.isValidPosition(position)) {
+                throw new OffBoardException("Object position is off board: '" + line + "'");
+            }
+
+            return new MetalWall(game, position);
+
+        } catch (NumberFormatException e) {
+            throw new ObjectParseException("Invalid numeric values in position for MetalWall: " + line, e);
+        }
         
-        /*
-        if (!game.isValidPosition(position)) {
-        	        throw new OffBoardException("Position is off-board: " + position);
-        }*/
-        
-	    return new MetalWall(game, position);
 	}
-	
-	
 	
 	@Override
 	public boolean isSolid() {
@@ -75,16 +90,13 @@ public class MetalWall extends Wall {
         return false;
     }
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//Para el fichero de salida del comando save
+    @Override
+    public String toString() {
+        return String.format("(%d,%d) MetalWall", 
+            pos.getRow(), 
+            pos.getCol()
+        );
+    }
 	
 }

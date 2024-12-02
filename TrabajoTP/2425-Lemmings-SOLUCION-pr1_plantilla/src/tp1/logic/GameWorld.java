@@ -9,10 +9,11 @@ public interface GameWorld{
 	void lemmingHasDied();
 	void incrementLemmingsExit();
 	int numLemmingsExit();
+	int numLemmings();    
 	int numLemmingsToWin();
 	void addLemming(Lemming lemming);
 	void incrementDeadLemmings();
 	void setFinished(boolean b);
 	public boolean receiveInteractionsFrom(GameItem obj);
-	
+	public boolean isValidPosition(Position position);
 }

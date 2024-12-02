@@ -1,5 +1,7 @@
 package tp1.logic;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,20 @@ public class GameObjectContainer {
         }
     	removeDead();
 	}
+    
+    public void loadInto() {
+        for (GameObject obj : objects) {
+            add(obj); 
+        }
+    }
+    
+    public void write(BufferedWriter writer) throws IOException { 
+    	for (GameObject obj : objects) {
+            writer.write(obj.toString());
+            writer.newLine();
+        }
+    }
+    
     
     public boolean setRoleAtObject(Position position, LemmingRole role) {
 		
@@ -95,17 +111,6 @@ public class GameObjectContainer {
         }
         return false; 
     }
-
-    //Comprueba si el objeto es una puerta de salida
-    public boolean isExitAt(Position pos) {
-        for (GameObject obj : objects) {
-            if (obj.isInPosition(pos) && obj.isExit()) {
-                return true; 
-            }
-        }
-        return false; 
-    }
-    
     
     //Devuelve el índice del lemming que ocupa la posición en la lista de objetos (si lo hay), sino devuelve -1
     public int isLemming(Position p, int ind) {

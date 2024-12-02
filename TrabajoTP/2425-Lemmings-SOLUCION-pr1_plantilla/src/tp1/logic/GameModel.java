@@ -10,8 +10,13 @@ public interface GameModel {
 	public void setFinished(boolean b);
 	void nextCycle();
 	boolean isFinished();
-	
+	void load(String fileName) throws GameLoadException;
+	void save(String fileName) throws GameLoadException;
 	
     public boolean setRoleAt(Position position, LemmingRole role)
-    		throws OffBoardException;    
+    		throws OffBoardException;
+    
+   public boolean isValidLevel(int level);
+   public void setLevel(int level);
+   
 }
