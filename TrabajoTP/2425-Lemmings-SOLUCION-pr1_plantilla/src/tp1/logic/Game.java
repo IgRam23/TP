@@ -187,7 +187,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		container.add(new Lemming(this, new Position(2,3), walkerRole, container));
 		numLemmings++;
 		
-		container.add(new ExitDoor(this,new Position(4,5)/*, container*/));
+		container.add(new ExitDoor(this,new Position(4,5)));
 
 
 		container.add(new Lemming(this, new Position(0,8), walkerRole, container));
@@ -386,13 +386,18 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	//Resetea el juego
 	@Override
 	public void reset() {
+
+  	    currentCycle = 0;
+        lemmingsDead = 0;
+        lemmingsExit = 0;
+        numLemmings = 0;
+        remaining = 0;
+        finished = false;
+
+		
 	    // Si no hay configuración inicial cargada desde un archivo, usar inicialización estándar.
 	    if (conf == FileGameConfiguration.NONE) {
-	        currentCycle = 0;
-	        lemmingsDead = 0;
-	        lemmingsExit = 0;
-	        numLemmings = 0;
-	        finished = false;
+	      
 
 	        if (nivel == 0) {
 	            initGame0();
@@ -405,18 +410,21 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	        }
 	    } else {
 	    	
-	        // Usar la configuración almacenada en `conf`.
+	    	
+		//	container.clear();
+
+	        this.container = conf.getGameObjects(); 
+	    	
 	        currentCycle = conf.getCycle();
 	        numLemmings = conf.numLemmingsInBoard();
 	        lemmingsDead = conf.numLemmingsDead();
 	        lemmingsExit = conf.numLemingsExit();
 	        lemmingsToWin = conf.numLemmingToWin();
+	        remaining = numLemmings;
 	        
-	        container.clear();
 
-	        // Cargar los objetos del juego desde la configuración.
-	        conf.getGameObjects().loadInto(); 
-	    }
+	        
+	        }
 	}
 
 	@Override 
@@ -426,8 +434,9 @@ public class Game implements GameWorld, GameStatus, GameModel{
 			FileGameConfiguration gameConfig = new FileGameConfiguration(fileName, this);
 		    this.conf = gameConfig;
 		    reset();
+		  //  this.conf = FileGameConfiguration.NONE;
 		} catch(GameLoadException e){
-			throw new GameLoadException(e); 
+			throw new GameLoadException(e.getMessage()); 
 		}
 	    
 	}
@@ -445,7 +454,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	        
 	        container.write(writer); 
 	    } catch (IOException e) {
-	        throw new GameLoadException("Error writing to file: " + fileName, e);
+	        throw new GameLoadException(e.getMessage());
 	    }
 	}
 

@@ -79,6 +79,8 @@ public class Lemming extends GameObject{
 		} 
         
         GameObjectContainer cont = this.container;
+               
+        
         Lemming lemming = new Lemming (game, position, rol, cont);
         
         //Obtenemos la direccion

@@ -33,12 +33,7 @@ public class GameObjectContainer {
     	removeDead();
 	}
     
-    public void loadInto() {
-    	List<GameObject> tempList = new ArrayList<>(objects); 
-        for (GameObject obj : tempList) {
-            add(obj);  
-        }
-    }
+  
     
     public void write(BufferedWriter writer) throws IOException { 
     	for (GameObject obj : objects) {

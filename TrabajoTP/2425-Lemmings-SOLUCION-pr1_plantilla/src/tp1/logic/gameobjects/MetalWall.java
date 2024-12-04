@@ -12,6 +12,8 @@ public class MetalWall extends Wall {
 	private static final String NAME = "MetalWall";
 	private static final String SHORTCUT = "MW";
 	
+	private GameObjectContainer cont;
+	
 
 	public MetalWall (GameWorld game, Position pos){
 		super(game, pos);
@@ -49,6 +51,7 @@ public class MetalWall extends Wall {
             if (!game.isValidPosition(position)) {
                 throw new OffBoardException("Object position is off board: '" + line + "'");
             }
+                       
 
             return new MetalWall(game, position);
 

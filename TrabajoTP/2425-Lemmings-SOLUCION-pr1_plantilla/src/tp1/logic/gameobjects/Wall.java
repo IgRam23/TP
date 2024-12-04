@@ -8,6 +8,8 @@ public class Wall extends GameObject{
 
 	private static final String NAME = "WALL";
 	private static final String SHORTCUT = "W";	
+	
+	private GameObjectContainer cont;
 		
 	public Wall (GameWorld game, Position pos){
 		super(game, pos);
@@ -45,7 +47,7 @@ public class Wall extends GameObject{
             if (!game.isValidPosition(position)) {
                 throw new OffBoardException("Object position is off board: '" + line + "'");
             }
-
+            
             return new Wall(game, position);
 
         } catch (NumberFormatException e) {

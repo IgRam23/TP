@@ -59,5 +59,3 @@ public class ResetCommand extends Command{
 	
 	}
 
-//el save y cargar los tests
-//terminar practica 3 

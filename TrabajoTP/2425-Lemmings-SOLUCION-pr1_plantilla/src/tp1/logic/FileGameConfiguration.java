@@ -4,6 +4,7 @@ import tp1.logic.gameobjects.GameObject;
 import tp1.exceptions.*;
 import tp1.logic.gameobjects.GameObjectFactory;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -23,9 +24,10 @@ public class FileGameConfiguration implements GameConfiguration {
     private int numLemmingsToWin;
     private GameObjectContainer container;
 
-    public FileGameConfiguration(String fileName, GameWorld game) throws GameLoadException {
+    
+    public FileGameConfiguration(String fileName, GameWorld game) throws GameLoadException {   
         container = new GameObjectContainer();
-        loadConfiguration(fileName, game);
+        loadConfiguration(fileName, game); 
     }
 
     private void loadConfiguration(String fileName, GameWorld game) throws GameLoadException {
@@ -35,7 +37,7 @@ public class FileGameConfiguration implements GameConfiguration {
             line = br.readLine();
             if (line == null) {
                 throw new GameLoadException("El fichero de configuración está vacío.");
-            }
+            } 
             parseGameStatus(line);
 
             while ((line = br.readLine()) != null) {
@@ -45,17 +47,18 @@ public class FileGameConfiguration implements GameConfiguration {
                 GameObject obj = GameObjectFactory.parse(line, game);
                 if (obj != null) {
                     container.add(obj);
-          
                 }
             }
 
         /*    if (numLemmingsInBoard != game.numLemmings()) {
                 throw new GameLoadException("El número de lemmings en el estado no coincide con el número en el fichero.");
             }*/
+        }catch(FileNotFoundException e) {
+        	throw new GameLoadException();
         } catch(IOException e) {
-            throw new GameLoadException("Error al leer el fichero de configuración.", e);
+            throw new GameLoadException(e.getMessage());
         } catch (ObjectParseException | OffBoardException e) { 
-            throw new GameLoadException("Error al parsear el fichero de configuración:"+ e.getMessage(), e);
+            throw new GameLoadException("Unknown game object: \"");
         }
     }
 
@@ -71,7 +74,7 @@ public class FileGameConfiguration implements GameConfiguration {
             numLemmingsExit = Integer.parseInt(parts[3]);
             numLemmingsToWin = Integer.parseInt(parts[4]);
         } catch (NumberFormatException e) {
-            throw new GameLoadException("Error al convertir los valores del estado del juego a enteros.", e);
+            throw new GameLoadException(e.getMessage());
         }
     }
 
@@ -102,6 +105,7 @@ public class FileGameConfiguration implements GameConfiguration {
 
     @Override
     public GameObjectContainer getGameObjects() {
+   	
         return container;
     }
 

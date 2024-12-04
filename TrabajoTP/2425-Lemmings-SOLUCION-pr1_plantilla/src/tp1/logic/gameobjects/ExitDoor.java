@@ -10,7 +10,7 @@ public class ExitDoor extends GameObject{
 	private static final String NAME = "ExitDoor";
 	private static final String SHORTCUT = "ED";
 	
-	//private GameObjectContainer cont;  en principio funciona sin que exitdoor dependa de GameObjectContainer pero
+	private GameObjectContainer cont;  //en principio funciona sin que exitdoor dependa de GameObjectContainer pero
 											//no lo quiero quitar del todo por si acaso
 	
 	public ExitDoor(GameWorld game, Position pos/*, GameObjectContainer container*/){
@@ -50,8 +50,9 @@ public class ExitDoor extends GameObject{
             if (!game.isValidPosition(position)) {
                 throw new OffBoardException("Object position is off board: '" + line + "'");
             }
-
-            return new ExitDoor(game, position);
+            
+            return new ExitDoor(game, position); 
+            
 
         } catch (NumberFormatException e) {
             throw new ObjectParseException("Invalid numeric values in position for ExitDoor: " + line, e);
