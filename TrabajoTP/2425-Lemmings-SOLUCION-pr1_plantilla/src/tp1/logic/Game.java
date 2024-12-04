@@ -180,17 +180,17 @@ public class Game implements GameWorld, GameStatus, GameModel{
 
 		numLemmings = 0;
 		
-		container.add(new Lemming(this, new Position(9,0), walkerRole, container));
+		container.add(new Lemming(this, new Position(9,0), walkerRole));
 		numLemmings++;
 
 		
-		container.add(new Lemming(this, new Position(2,3), walkerRole, container));
+		container.add(new Lemming(this, new Position(2,3), walkerRole));
 		numLemmings++;
 		
 		container.add(new ExitDoor(this,new Position(4,5)));
 
 
-		container.add(new Lemming(this, new Position(0,8), walkerRole, container));
+		container.add(new Lemming(this, new Position(0,8), walkerRole));
 		numLemmings++;
 
 		
@@ -244,19 +244,19 @@ public class Game implements GameWorld, GameStatus, GameModel{
 
 		numLemmings = 0;
 		
-		container.add(new Lemming(this, new Position(9,0), walkerRole, container));
+		container.add(new Lemming(this, new Position(9,0), walkerRole));
 		numLemmings++;
 
 		
-		container.add(new Lemming(this, new Position(2,3), walkerRole, container));
+		container.add(new Lemming(this, new Position(2,3), walkerRole));
 		numLemmings++;
 		container.add(new ExitDoor(this,new Position(4,5)/*, container*/));
 
 
-		container.add(new Lemming(this, new Position(0,8), walkerRole, container));
+		container.add(new Lemming(this, new Position(0,8), walkerRole));
 		numLemmings++;
 
-		container.add(new Lemming(this, new Position(3,3), walkerRole, container));
+		container.add(new Lemming(this, new Position(3,3), walkerRole));
 
 		numLemmings++;
 		
@@ -309,26 +309,26 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		
 		numLemmings = 0;
 		
-		container.add(new Lemming(this, new Position(9,0), walkerRole, container));
+		container.add(new Lemming(this, new Position(9,0), walkerRole));
 		numLemmings++;
 		
-		container.add(new Lemming(this, new Position(2,3), walkerRole, container));
+		container.add(new Lemming(this, new Position(2,3), walkerRole));
 		numLemmings++;
 		
 		container.add(new ExitDoor(this,new Position(4,5)/*, container*/));
 
 
-		container.add(new Lemming(this, new Position(0,8), walkerRole, container));
+		container.add(new Lemming(this, new Position(0,8), walkerRole));
 		numLemmings++;
 
-		container.add(new Lemming(this, new Position(3,3), walkerRole, container));
+		container.add(new Lemming(this, new Position(3,3), walkerRole));
 		
 		numLemmings++;
 		
-		container.add(new Lemming(this, new Position(6,0), walkerRole, container));
+		container.add(new Lemming(this, new Position(6,0), walkerRole));
 		numLemmings++;
 		
-		container.add(new Lemming(this, new Position(6,0), parachuterRole, container));
+		container.add(new Lemming(this, new Position(6,0), parachuterRole));
 		numLemmings++;
 		
 		remaining = numLemmings;
@@ -398,7 +398,6 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	    // Si no hay configuración inicial cargada desde un archivo, usar inicialización estándar.
 	    if (conf == FileGameConfiguration.NONE) {
 	      
-
 	        if (nivel == 0) {
 	            initGame0();
 	        } else if (nivel == 1) {
@@ -411,10 +410,8 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	    } else {
 	    	
 	    	
-		//	container.clear();
+			//container.clear();
 
-	        this.container = conf.getGameObjects(); 
-	    	
 	        currentCycle = conf.getCycle();
 	        numLemmings = conf.numLemmingsInBoard();
 	        lemmingsDead = conf.numLemmingsDead();
@@ -422,6 +419,9 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	        lemmingsToWin = conf.numLemmingToWin();
 	        remaining = numLemmings;
 	        
+	        container = conf.getGameObjects(); 
+	        
+	       // container.initialize(this);
 
 	        
 	        }
@@ -431,9 +431,10 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	//Carga el juego desde un fichero
 	public void load(String fileName) throws GameLoadException {
 		try {
-			FileGameConfiguration gameConfig = new FileGameConfiguration(fileName, this);
-		    this.conf = gameConfig;
-		    reset();
+			
+			conf = new FileGameConfiguration(fileName, this);
+		   
+		   // reset();
 		  //  this.conf = FileGameConfiguration.NONE;
 		} catch(GameLoadException e){
 			throw new GameLoadException(e.getMessage()); 
@@ -598,7 +599,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
     
 	@Override 
 	public boolean receiveInteractionsFrom(GameItem obj){
-		return false;
+		return container.receiveInteractionsFrom(obj);
 	}
     
 	@Override
@@ -609,5 +610,10 @@ public class Game implements GameWorld, GameStatus, GameModel{
 		return true;
 	}
     
+	public boolean isSolidAt(Position pos_abajo, Lemming lemming) {
+		return container.isSolidAt(pos_abajo, lemming);
+		
+		
+	}
 
 }

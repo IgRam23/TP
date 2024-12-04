@@ -50,9 +50,10 @@ public class FileGameConfiguration implements GameConfiguration {
                 }
             }
 
-        /*    if (numLemmingsInBoard != game.numLemmings()) {
+            
+            if (numLemmingsInBoard != container.numLemmings()) {
                 throw new GameLoadException("El número de lemmings en el estado no coincide con el número en el fichero.");
-            }*/
+            }
         }catch(FileNotFoundException e) {
         	throw new GameLoadException();
         } catch(IOException e) {

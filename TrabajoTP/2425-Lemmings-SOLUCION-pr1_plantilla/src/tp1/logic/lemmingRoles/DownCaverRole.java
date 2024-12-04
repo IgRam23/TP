@@ -25,7 +25,8 @@ public class DownCaverRole extends AbstractRole {
     public void play(Lemming lemming) {
 
     	if(!lemming.isInAir() && hasCaved){
-    		lemming.fall(); // Si la pared es dura, vuelve a ser WalkerRole
+    		lemming.fall();
+    		lemming.changeFall(0);// Si la pared es dura, vuelve a ser WalkerRole
             lemming.move(lemming.getDirection());
     		hasCaved = false;
     	}

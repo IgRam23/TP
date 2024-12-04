@@ -14,10 +14,10 @@ package tp1.logic.gameobjects;
 		private static final Position pos = null;
 		private static final GameWorld game = null;
 		private static final LemmingRole role = null;
-		private static final GameObjectContainer cont = null;
+		
 		
 		private static final List<GameObject> availableObjects = Arrays.asList(
-				new Lemming(game, pos, role, cont),
+				new Lemming(game, pos, role),
 				new Wall(game, pos),
 				new ExitDoor(game, pos),
 				new MetalWall(game, pos) 

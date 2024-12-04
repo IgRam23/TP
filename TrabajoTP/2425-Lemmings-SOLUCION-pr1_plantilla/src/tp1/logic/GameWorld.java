@@ -17,4 +17,6 @@ public interface GameWorld{
 	void setFinished(boolean b);
 	public boolean receiveInteractionsFrom(GameItem obj);
 	public boolean isValidPosition(Position position);
+	boolean isSolidAt(Position pos_abajo, Lemming lemming);
+	
 }

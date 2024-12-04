@@ -23,6 +23,7 @@ public class LoadCommand extends Command{
     	
     	try {
         	game.load(fileName);   
+        	game.reset();
 
     	} catch(GameLoadException e) {
     		throw new CommandExecuteException("Invalid file \"%s\" configuration".formatted(fileName), e); 
@@ -35,7 +36,7 @@ public class LoadCommand extends Command{
     public Command parse(String[] commandWords) throws CommandParseException {
     	
         if (commandWords.length == 2 && matchCommandName(commandWords[0])) {
-            fileName = commandWords[1];                 //guarda el nombre del archivo para usarlo en execute
+            fileName = commandWords[1] + ".txt";                //guarda el nombre del archivo para usarlo en execute
             return this;
             
         } else if (matchCommandName(commandWords[0])) {

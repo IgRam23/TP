@@ -19,16 +19,16 @@ public class Lemming extends GameObject{
 	private boolean isAlive;
 	private LemmingRole rol;
 	private int fallDistance;
-	private GameObjectContainer container;
+	//private GameObjectContainer container;
 	
-    public Lemming(GameWorld game, Position pos, LemmingRole role, GameObjectContainer container){
+    public Lemming(GameWorld game, Position pos, LemmingRole role){
     	super(game, pos);
         this.dir = Direction.RIGHT;
         this.dir_anterior = Direction.RIGHT;
         this.isAlive = true; // Inicialmente, el lemming está vivo
         this.fallDistance = 0;
         this.rol = role;
-        this.container =container;
+       // this.container =container;
 	}
     
 	public  GameObject parse(String line, GameWorld game) throws ObjectParseException, OffBoardException{
@@ -58,18 +58,21 @@ public class Lemming extends GameObject{
         if (coords.length != 2) {
             throw new ObjectParseException("Invalid position format for Lemming: " + line);
         }
-        int row = Integer.parseInt(coords[0].trim());
-        int col = Integer.parseInt(coords[1].trim());
-        Position position = new Position(col, row);
-        try {          
-            if (!game.isValidPosition(position)) {
-                throw new OffBoardException("Object position is off board: '" + line + "'");
-            }
+        
+        Position position;
+        
+        try {
+        	int row = Integer.parseInt(coords[0].trim());
+            int col = Integer.parseInt(coords[1].trim());
+            position = new Position(col, row); 
 
         } catch (NumberFormatException e) {
             throw new ObjectParseException("Invalid numeric values in position for Lemming: " + line, e);
         }
         
+        if (!game.isValidPosition(position)) {
+            throw new OffBoardException("Object position is off board: '" + line + "'");
+        }
        
         //Obtenemos el rol
         try {
@@ -78,10 +81,9 @@ public class Lemming extends GameObject{
 			throw new ObjectParseException(Messages.COMMAND_EXECUTE_PROBLEM + e);
 		} 
         
-        GameObjectContainer cont = this.container;
+       // GameObjectContainer cont = this.container;
                
-        
-        Lemming lemming = new Lemming (game, position, rol, cont);
+        Lemming lemming = new Lemming (game, position, rol);
         
         //Obtenemos la direccion
         if(words[2].equalsIgnoreCase("RIGHT")){
@@ -152,24 +154,24 @@ public class Lemming extends GameObject{
 	//Devuelve un booleano indicando si el lemming esta en el aire
 	public boolean isInAir() {
 		Position pos_abajo = new Position(pos.getCol(), pos.getRow() + 1);
-	    return !container.isSolidAt(pos_abajo, this); 
+	    return !game.isSolidAt(pos_abajo, this); 
 	}
 	
 	//Devuelve un booleano indicando si el lemming tiene que cambiar de direccion (se va a chocar con una pared)
 	public boolean isInWall() {
 	    if (dir == Direction.RIGHT) {
 	        Position pos_derech = new Position(pos.getCol() + 1, pos.getRow());
-	        return (pos_derech.getCol() >= Game.DIM_X || container.isSolidAt(pos_derech, this));
+	        return (pos_derech.getCol() >= Game.DIM_X || game.isSolidAt(pos_derech, this));
 	    } else if (dir == Direction.LEFT) { 
 	        Position pos_izq = new Position(pos.getCol() - 1, pos.getRow());
-	        return (pos_izq.getCol() < 0 || container.isSolidAt(pos_izq, this));
+	        return (pos_izq.getCol() < 0 || game.isSolidAt(pos_izq, this));
 	    }
 	    return false; // No hay pared si no se está moviendo
 	}
 	
 	public boolean isInSoftFloor() {
 		Position pos_debajo = new Position(pos.getCol(), pos.getRow() - 1);
-		return(container.isSolidAt(pos_debajo, this));
+		return(game.isSolidAt(pos_debajo, this));
 	}
 	
 
@@ -198,6 +200,7 @@ public class Lemming extends GameObject{
 			rol.handleFall(this);
 			
 			dir = dir_anterior;
+			fallDistance = 0;
 		}
 		
 		if (isInWall()) { //si se va a chocar con una pared
@@ -206,7 +209,7 @@ public class Lemming extends GameObject{
 			return;
         }
 		
-	    container.receiveInteractionsFrom(this); 
+	    game.receiveInteractionsFrom(this); 
 
 		pos = move(dir);  
 		
@@ -218,7 +221,7 @@ public class Lemming extends GameObject{
 		int newCol = pos.getCol() + dir.getX(); 
         int newRow = pos.getRow() + dir.getY(); 
         
-        if(newCol > 0 && newCol < Game.DIM_X ) {
+        if(newCol >= 0 && newCol < Game.DIM_X ) {
         	 pos = new Position(newCol, newRow); 
         }else {
         	if(dir == Direction.RIGHT) {

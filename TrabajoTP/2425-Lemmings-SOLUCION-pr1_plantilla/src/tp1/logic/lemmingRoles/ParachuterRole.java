@@ -14,7 +14,10 @@ public class ParachuterRole extends AbstractRole {
     @Override
     public void start(Lemming lemming) {
         if (!lemming.isInAir()) {
-            lemming.disableRole(); // Si no está en el aire, vuelve a ser caminante
+        	lemming.changeFall(0);
+            lemming.disableRole();
+           // lemming.move(lemming.getDirection());
+            //lemming.update();// Si no está en el aire, vuelve a ser caminante
         }	
     }
 
@@ -25,8 +28,10 @@ public class ParachuterRole extends AbstractRole {
             lemming.changeFall(0);
             lemming.move(lemming.getDirection());
         } else {
+        	lemming.changeFall(0);
             lemming.disableRole(); // Al tocar el suelo, vuelve a ser caminante
             lemming.update();
+           // lemming.move(lemming.getDirection());
         }
     }
 

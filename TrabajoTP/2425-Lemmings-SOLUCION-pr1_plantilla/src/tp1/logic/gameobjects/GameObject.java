@@ -1,6 +1,7 @@
 package tp1.logic.gameobjects;
 
 import tp1.exceptions.*;
+import tp1.logic.Game;
 import tp1.logic.GameWorld;
 import tp1.logic.lemmingRoles.LemmingRole;
 import tp1.logic.Position;
@@ -38,6 +39,12 @@ public abstract class GameObject implements GameItem{
 	
 	public boolean isSolid() {
 		return false;
+	}
+
+
+	public void initializeObject(Game game2) {
+		this.game = game2;
+		
 	}
 	
 }
