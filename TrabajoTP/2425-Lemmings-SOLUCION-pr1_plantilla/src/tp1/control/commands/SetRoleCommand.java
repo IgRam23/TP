@@ -15,8 +15,8 @@ public class SetRoleCommand extends Command {
 
     private static final String NAME = "setRole";  
     private static final String SHORTCUT = "sr";   
-    private static final String DETAILS = "[s]et[R]ole ROLE ROW COL: sets the lemming in position (ROW,COL) to role ROLE";
-    private static final String HELP = "\n" + LemmingRoleFactory.commandHelp();
+    private static final String DETAILS = "[s]et[R]ole ROLE ROW COL";
+    private static final String HELP = "sets the lemming in position (ROW,COL) to role ROLE" + "\n" + LemmingRoleFactory.commandHelp();
 
     public SetRoleCommand() {
         super(NAME, SHORTCUT, DETAILS, HELP);  

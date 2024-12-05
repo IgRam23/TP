@@ -20,13 +20,17 @@ public class CommandGenerator {
 
 	public static Command parse(String[] commandWords) throws CommandParseException{		
 		for (Command c: availableCommands) {
-			Command matchedCommand = c.parse(commandWords);
-			if (matchedCommand != null) {
-				return matchedCommand;
-			}
+			if(commandWords.length == 0 ||commandWords.length == 1 || commandWords.length == 2 ||commandWords.length == 4) {
+				Command matchedCommand = c.parse(commandWords);
+				if (matchedCommand != null) { 
+					return matchedCommand;   
+				}
+			} else {
+				throw new CommandParseException(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER + Messages.LINE_SEPARATOR); 			}			
 		}
-		throw new CommandParseException(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER + Messages.LINE_SEPARATOR);
+		throw new CommandParseException(Messages.UNKNOWN_COMMAND.formatted(commandWords[0]));  
 	}
+	
 		
 	public static String commandHelp() {
 		StringBuilder commands = new StringBuilder();
