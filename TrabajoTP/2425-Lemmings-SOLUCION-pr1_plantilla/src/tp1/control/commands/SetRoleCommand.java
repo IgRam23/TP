@@ -37,9 +37,8 @@ public class SetRoleCommand extends Command {
         } 
         
         if (!success) {
-        	view.showError(Messages.COMMAND_EXECUTE_PROBLEM); 
             throw new CommandExecuteException("No lemming in position (" + position.getRow()
-            + "," + position.getCol() + ") admits role " + roleInput.getName());
+            + "," + position.getCol() + ") admits role " + roleInput.getName() + Messages.LINE_SEPARATOR);
         }
 
         game.update();
@@ -58,7 +57,7 @@ public class SetRoleCommand extends Command {
         try {
 			roleInput = LemmingRoleFactory.parse(commandWords[1]);
 		} catch (RoleParseException e) {
-			throw new CommandParseException(Messages.UNKNOWN_ROLE, e);
+			throw new CommandParseException(Messages.INVALID_PAR_COMMAND, e);
 		}
                
         int row;
@@ -66,10 +65,10 @@ public class SetRoleCommand extends Command {
         int col;
              	
             
-        letra = Character.toLowerCase(commandWords[2].charAt(0));
+        letra = commandWords[2].charAt(0);
         
         try {
-        	row = letra - 'a';
+        	row = letra - 'A';
             col = Integer.parseInt(commandWords[3]);  //El segundo parámetro es la fila (num)
         	position = new Position(col-1,row);
 

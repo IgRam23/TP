@@ -27,5 +27,7 @@ public interface LemmingRole {
 	
 	String getRoleType();
 	String helpText();
+	
+	public boolean igual(Object obj);
 }
 

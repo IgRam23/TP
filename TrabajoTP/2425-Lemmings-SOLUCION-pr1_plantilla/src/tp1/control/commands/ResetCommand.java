@@ -3,6 +3,7 @@ package tp1.control.commands;
 import tp1.exceptions.*; 
 import tp1.logic.GameModel;
 import tp1.view.GameView;
+import tp1.view.Messages;
 
 public class ResetCommand extends Command{
 	
@@ -19,15 +20,26 @@ public class ResetCommand extends Command{
 
 	@Override
 	public void execute(GameModel game, GameView view) throws CommandExecuteException{
-		
-		if(level == -1) {
-			game.reset(); 
-		} else if(game.isValidLevel(level)) {
-			game.setLevel(level);
-			game.reset();
+		if(game.hasGameConfiguration()) {
+			String filename = game.fileName();
+			try {
+	        	game.load(filename);   
+	        	game.reset();
+
+	    	} catch(GameLoadException e) {
+	    		throw new CommandExecuteException("Invalid file \"%s\" configuration".formatted(filename), e); 
+	    	}
 		} else {
-			throw new CommandExecuteException("Not valid level number");
+			if(level == -1) {
+				game.reset(); 
+			} else if(game.isValidLevel(level)) {
+				game.setLevel(level);
+				game.reset();
+			} else {
+				throw new CommandExecuteException("Not valid level number" + Messages.LINE_SEPARATOR);
+			}
 		}
+		
 		view.showGame();
 		
 	}

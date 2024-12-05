@@ -3,6 +3,8 @@ package tp1.logic;
 import tp1.logic.gameobjects.GameObject;
 import tp1.exceptions.*;
 import tp1.logic.gameobjects.GameObjectFactory;
+import tp1.view.Messages;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -31,8 +33,9 @@ public class FileGameConfiguration implements GameConfiguration {
     }
 
     private void loadConfiguration(String fileName, GameWorld game) throws GameLoadException {
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            String line;
+        String line = "";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName + ".txt"))) {
 
             line = br.readLine();
             if (line == null) {
@@ -47,26 +50,26 @@ public class FileGameConfiguration implements GameConfiguration {
                 GameObject obj = GameObjectFactory.parse(line, game);
                 if (obj != null) {
                     container.add(obj);
+                } else {
+                	throw new ObjectParseException(Messages.UNKNOWN_GAME_OBJECT.formatted((line))); 
                 }
             }
 
-            
-            if (numLemmingsInBoard != container.numLemmings()) {
-                throw new GameLoadException("El número de lemmings en el estado no coincide con el número en el fichero.");
-            }
         }catch(FileNotFoundException e) {
-        	throw new GameLoadException();
+        	throw new GameLoadException(Messages.FILE_NOT_FOUND.formatted(fileName) + Messages.LINE_SEPARATOR);
         } catch(IOException e) {
             throw new GameLoadException(e.getMessage());
-        } catch (ObjectParseException | OffBoardException e) { 
-            throw new GameLoadException("Unknown game object: \"");
+        }catch(OffBoardException e) {
+        	throw new GameLoadException("Object position is off board: \"%s\"".formatted(line) + Messages.LINE_SEPARATOR);
+        } catch (ObjectParseException e) { 
+            throw new GameLoadException(e.getLocalizedMessage());
         }
     }
 
     private void parseGameStatus(String line) throws GameLoadException {
         String[] parts = line.trim().split("\\s+");
         if (parts.length != 5) {
-            throw new GameLoadException("La primera línea debe contener exactamente 5 números enteros.");
+            throw new GameLoadException(Messages.INVALID_GAME_STATUS.formatted(line) + Messages.LINE_SEPARATOR);
         }
         try {
             cycle = Integer.parseInt(parts[0]);

@@ -1,4 +1,4 @@
- package tp1.logic.lemmingRoles;
+package tp1.logic.lemmingRoles;
 
 
 import tp1.logic.gameobjects.ExitDoor;
@@ -39,5 +39,14 @@ public abstract class AbstractRole implements LemmingRole {
     public String getRoleType() {
     	return "WalkerRole";
     }
+    
+    @Override
+    public boolean igual(Object obj) {
+        if (this == obj) return true; 
+        if (obj == null || getClass() != obj.getClass()) return false; // Diferente tipo
+        LemmingRole role = (LemmingRole) obj;
+        return this.getName().equals(role.getName()); 
+    }
+
 }
 

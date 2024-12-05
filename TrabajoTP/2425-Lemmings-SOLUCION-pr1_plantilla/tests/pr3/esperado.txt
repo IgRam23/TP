@@ -1,53 +1,24 @@
-Lemmings 2.2
+Lemmings 3.0
 
 Number of cycles: 0
-Lemmings in board: 4
+Lemmings in board: 6
 Dead lemmings: 0
 Lemmings exit door: 0 ┃2
 
       1    2    3    4    5    6    7    8    9   10  
    ┌——————————————————————————————————————————————————┐
-  A┃                                               B  ┃A
+  A┃                               B🪂             B  ┃A
   B┃                                        ▓▓▓▓▓▓▓▓▓▓┃B
   C┃                                                  ┃C
   D┃            B    B                                ┃D
   E┃          ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                         ┃E
-  F┃                     🚪            ▓▓▓▓▓          ┃F
-  G┃                    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓          ┃G
+  F┃               ▓▓▓▓▓ 🚪            ▓▓▓▓▓          ┃F
+  G┃               XXXXX▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓          ┃G
   H┃                                                  ┃H
   I┃  B                                     ▓▓▓▓▓     ┃I
   J┃▓▓▓▓▓▓▓▓▓▓                              ▓▓▓▓▓▓▓▓▓▓┃J
    └——————————————————————————————————————————————————┘
       1    2    3    4    5    6    7    8    9   10  
 
-Command > [DEBUG] Executing: load conf
+Command > [DEBUG] Executing: setRole p a 7
 
-[ERROR] Error: Invalid file "conf.txt" configuration
-[ERROR] Error: null
-Command > [DEBUG] Executing: load conf_2
-
-[ERROR] Error: Invalid file "conf_2.txt" configuration
-[ERROR] Error: La primera línea debe contener exactamente 5 números enteros.
-Command > [DEBUG] Executing: load conf_3
-
-[ERROR] Error: Invalid file "conf_3.txt" configuration
-[ERROR] Error: Unknown game object: "
-Command > [DEBUG] Executing: load conf_4
-
-[ERROR] Error: Invalid file "conf_4.txt" configuration
-[ERROR] Error: Unknown game object: "
-Command > [DEBUG] Executing: load conf_5
-
-[ERROR] Error: Invalid file "conf_5.txt" configuration
-[ERROR] Error: Unknown game object: "
-Command > [DEBUG] Executing: load conf_6
-
-[ERROR] Error: Invalid file "conf_6.txt" configuration
-[ERROR] Error: Unknown game object: "
-Command > [DEBUG] Executing: load conf_7		
-
-[ERROR] Error: Invalid file "conf_7.txt" configuration
-[ERROR] Error: Unknown game object: "
-Command > [DEBUG] Executing: load conf_8
-
-The level must be a number: 1

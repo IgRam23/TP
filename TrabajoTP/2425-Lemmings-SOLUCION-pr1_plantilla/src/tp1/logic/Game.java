@@ -10,6 +10,7 @@ import tp1.exceptions.*;
 import tp1.logic.gameobjects.Wall;
 import tp1.logic.gameobjects.ExitDoor;
 import tp1.logic.lemmingRoles.*;
+import tp1.view.Messages;
 import tp1.logic.gameobjects.*;
 
 public class Game implements GameWorld, GameStatus, GameModel{
@@ -19,6 +20,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
 
     private GameObjectContainer container;
     private GameConfiguration conf = FileGameConfiguration.NONE;
+    private String filename;
 	private int currentCycle;					
 	private int numLemmings;
 	private int remaining;
@@ -431,11 +433,9 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	//Carga el juego desde un fichero
 	public void load(String fileName) throws GameLoadException {
 		try {
-			
 			conf = new FileGameConfiguration(fileName, this);
-		   
-		   // reset();
-		  //  this.conf = FileGameConfiguration.NONE;
+			this.filename = fileName;
+		
 		} catch(GameLoadException e){
 			throw new GameLoadException(e.getMessage()); 
 		}
@@ -444,7 +444,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	
 	@Override
 	public void save(String fileName) throws GameLoadException{
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".txt"))) {
 	        writer.write(String.format("%d %d %d %d %d%n", 
 	            this.currentCycle,                      
 	            this.numLemmings,      
@@ -574,7 +574,7 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	public boolean setRoleAt(Position position, LemmingRole role) throws OffBoardException {
 	    if (!isValidPosition(position)) {
 	        throw new OffBoardException("Position (" + position.getRow()
-            + "," + position.getCol() + ") off the board");
+            + "," + position.getCol() + ") is off board" + Messages.LINE_SEPARATOR);
 	    }
 	    return container.setRoleAtObject(position, role);
 	}
@@ -613,7 +613,20 @@ public class Game implements GameWorld, GameStatus, GameModel{
 	public boolean isSolidAt(Position pos_abajo, Lemming lemming) {
 		return container.isSolidAt(pos_abajo, lemming);
 		
-		
+	}
+	
+	@Override
+	public boolean hasGameConfiguration() {
+		if (conf == FileGameConfiguration.NONE) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	@Override
+	public String fileName() {
+		return this.filename;
 	}
 
 }

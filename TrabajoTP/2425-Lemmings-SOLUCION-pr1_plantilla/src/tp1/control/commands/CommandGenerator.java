@@ -25,7 +25,7 @@ public class CommandGenerator {
 				return matchedCommand;
 			}
 		}
-		throw new CommandParseException(Messages.UNKNOWN_COMMAND.formatted(commandWords[0]));
+		throw new CommandParseException(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER + Messages.LINE_SEPARATOR);
 	}
 		
 	public static String commandHelp() {

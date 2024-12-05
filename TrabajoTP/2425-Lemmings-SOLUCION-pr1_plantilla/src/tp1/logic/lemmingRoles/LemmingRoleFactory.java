@@ -21,7 +21,7 @@ public class LemmingRoleFactory {
 				return r;
 			}
 		}
-		throw new RoleParseException(Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
+		throw new RoleParseException(Messages.UNKNOWN_ROLE + commandWords + Messages.LINE_SEPARATOR);
 	}
     
 	public static String commandHelp() {

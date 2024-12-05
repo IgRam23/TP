@@ -4,7 +4,7 @@ import tp1.util.MyStringUtils;
 
 public class Messages {
 	
-	public static final String VERSION = "2.2";
+	public static final String VERSION = "3.0";
 	
 	public static final String ERROR_POSITION = "SetRoleCommand error (Incorrect position or no object in that position admits that role)"; 
 
@@ -36,7 +36,7 @@ public class Messages {
 	public static final String GAME_OVER = "Game over";
 	public static final String PLAYER_QUITS = "Player leaves the game";
 	public static final String PLAYER_WINS = "Player wins!";
-	public static final String PLAYER_LOOSES = "Player loses...";
+	public static final String PLAYER_LOOSES = "Player lose...";
 
 	// Position format
 	public static final String POSITION = "(%s,%s)";
@@ -52,23 +52,30 @@ public class Messages {
 //Commands
 	// Errores de factorías:
 	public static final String UNKNOWN_COMMAND = "Unknown command: %s";
-	public static final String UNKNOWN_GAME_OBJECT = "Unknown game object: %s";
-	public static final String UNKNOWN_ROLE = "Unknown role: %s";
+	public static final String UNKNOWN_GAME_OBJECT = "Unknown game object: \"%s\"";
+	public static final String UNKNOWN_ROLE = "Unknown role: ";
 	// Errores de commandos:
 	public static final String COMMAND_PARAMETERS_MISSING = "Missing parameters";
 	public static final String COMMAND_INCORRECT_PARAMETER_NUMBER = "Incorrect parameter number";
 	// Errores de ficheros:
 	public static final String FILE_NOT_FOUND = "File not found: \"%s\"";
 	public static final String READ_ERROR = "Undetermined error reading file \"%s\"";
+	public static final String FILE_SAVED = "   File \"%s\" correctly saved";
+
 	// Errores de parseo de otras cosas:
 	public static final String INVALID_POSITION = "Invalid position: %s";
 	public static final String INVALID_COMMAND = "Invalid command: %s";
 	public static final String INVALID_DIRECTION = "Invalid direction: %s";
 	public static final String INVALID_HEIGHT = "Invalid height: %s";
-	public static final String INVALID_GAME_STATUS = "Invalid game status";
+	public static final String INVALID_GAME_STATUS = "Invalid game status \"%s\"";
 	public static final String INVALID_INIT_CONF = "Invalid init configuration because %s";
 	public static final String ERROR_INVALID_INIT_CONF = "Unknown invalid init configuration";
 	public static final String ERROR_PARSING_GAME_OBJECT = "Not a correct game object because: %s";
+	public static final String INVALID_LEMMING_ROLE = "Invalid lemming role: \"%s\"";
+	public static final String INVALID_OBJECT_POSITION = "Invalid object position: \"%s\"";
+	public static final String OFF_BOARD ="Object position is off board: \"%s\"";
+
+
 
 	
 	public static final String HELP_AVAILABLE_COMMANDS = "Available commands:";
@@ -118,5 +125,10 @@ public class Messages {
 	public static final String LEMMING_LEFT = "ᗺ";
 	public static final String LEMMING_PARACHUTE = "🪂";
 	public static final String LEMMING_DOWN_CAVER = "´･ω･`";
+	
+	
+	//EXCEPCIONES
+	public static final String INVALID_PAR_COMMAND = "Invalid command parameters";
+
 }
 

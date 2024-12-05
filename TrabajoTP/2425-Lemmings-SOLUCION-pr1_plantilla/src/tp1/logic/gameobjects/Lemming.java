@@ -67,18 +67,18 @@ public class Lemming extends GameObject{
             position = new Position(col, row); 
 
         } catch (NumberFormatException e) {
-            throw new ObjectParseException("Invalid numeric values in position for Lemming: " + line, e);
+            throw new ObjectParseException(Messages.INVALID_OBJECT_POSITION.formatted(line) + Messages.LINE_SEPARATOR);
         }
         
         if (!game.isValidPosition(position)) {
-            throw new OffBoardException("Object position is off board: '" + line + "'");
+            throw new OffBoardException(Messages.OFF_BOARD.formatted(line) + Messages.LINE_SEPARATOR);
         }
        
         //Obtenemos el rol
         try {
 			this.rol = LemmingRoleFactory.parse(words[4]); 
 		} catch (RoleParseException e) {
-			throw new ObjectParseException(Messages.COMMAND_EXECUTE_PROBLEM + e);
+			throw new ObjectParseException(Messages.INVALID_LEMMING_ROLE.formatted(line));
 		} 
         
        // GameObjectContainer cont = this.container;
@@ -90,14 +90,19 @@ public class Lemming extends GameObject{
         	lemming.dir = Direction.RIGHT; 
         } else if (words[2].equalsIgnoreCase("LEFT")) {
         	lemming.dir = Direction.LEFT;
+
         } else if (words[2].equalsIgnoreCase("UP") || words[2].equalsIgnoreCase("DOWN") || words[2].equalsIgnoreCase("NONE")){
-        	throw new ObjectParseException("Invalid lemming direction:" + line);
+        	throw new ObjectParseException("Invalid lemming direction: \"%s\"".formatted(line) + Messages.LINE_SEPARATOR);
         } else {
-        	throw new ObjectParseException("Unknown object direction:" + line);
+        	throw new ObjectParseException("Unknown object direction: \"%s\"".formatted(line) + Messages.LINE_SEPARATOR);
         }
         
         //Obtenemos la caida
         lemming.fallDistance = Integer.parseInt(words[3]); //hace throws de la excepcion automaticamente si no se introduce un numero decimal
+       /* if(lemming.fallDistance > 0) {
+        	lemming.dir_anterior = lemming.dir;
+        	lemming.dir = Direction.DOWN;
+        }*/
         
         game.incrementNumLemmings();
         //una vez inicializados los atributos con exito
@@ -118,12 +123,12 @@ public class Lemming extends GameObject{
 
     @Override
     public boolean setRole(LemmingRole newRole) {
-    	if(newRole != null && newRole != rol) {
-    		rol = newRole;
-    		rol.start(this);
-    		return true;
+    	if(newRole == null || newRole.igual(this.rol)) {
+    		return false;
     	}
-    	return false; 
+    	rol = newRole;
+		rol.start(this);
+		return true; 
     } 
     
 
@@ -303,6 +308,9 @@ public class Lemming extends GameObject{
      //Para el fichero de salida del comando save
      @Override
      public String toString() {
+    	 if(dir == Direction.DOWN) {
+    		 dir = dir_anterior;
+    	 }
          return String.format("(%d,%d) Lemming %s %d %s", 
              pos.getRow(),         
              pos.getCol(),         

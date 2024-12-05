@@ -9,6 +9,7 @@ import tp1.exceptions.CommandParseException;
 import tp1.exceptions.GameLoadException;
 import tp1.logic.GameModel;
 import tp1.view.GameView;
+import tp1.view.Messages;
 
 public class SaveCommand extends Command{
 	
@@ -32,6 +33,8 @@ public class SaveCommand extends Command{
 	    	} catch (GameLoadException e) {
 	            throw new CommandExecuteException ("Error while saving the game to the file: " + fileName, e);
 	        }
+	    	
+	    	view.showMessage(Messages.FILE_SAVED.formatted(fileName) + Messages.LINE_SEPARATOR);
 	    }
 
 	    @Override

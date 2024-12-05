@@ -123,23 +123,7 @@ public class GameObjectContainer {
         }
         return -1; 
     }
-    
-    public int numLemmings() {
-    	
-    	int cont = 0;
-    	for (GameObject obj : objects) {
-            if (!obj.isSolid() && obj.isAlive()) {
-                cont++;
-            }
-    	}
-    	return cont;
-    }
-    
-    
-    
-    
-    
-    
+   
     
 	public boolean receiveInteractionsFrom(GameItem obj) {
 		boolean interactionOccurred = false;

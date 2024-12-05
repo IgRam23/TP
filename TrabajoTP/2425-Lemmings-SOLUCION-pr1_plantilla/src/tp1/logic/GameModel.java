@@ -12,6 +12,8 @@ public interface GameModel {
 	boolean isFinished();
 	void load(String fileName) throws GameLoadException;
 	void save(String fileName) throws GameLoadException;
+	boolean hasGameConfiguration();
+	public String fileName();
 	
     public boolean setRoleAt(Position position, LemmingRole role)
     		throws OffBoardException;

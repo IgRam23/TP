@@ -7,6 +7,7 @@ package tp1.logic.gameobjects;
 	import tp1.logic.GameWorld;
 	import tp1.logic.Position;
 	import tp1.logic.lemmingRoles.LemmingRole;
+import tp1.view.Messages;
 	
 	
 	public class GameObjectFactory {
@@ -24,16 +25,18 @@ package tp1.logic.gameobjects;
 		);
 		
 	    public static GameObject parse(String line, GameWorld game)  throws ObjectParseException, OffBoardException {	
-			for(GameObject object : availableObjects) {
+			
 				 try {
+					 for(GameObject object : availableObjects) {
 		                GameObject parsedObject = object.parse(line, game);
 		                if (parsedObject != null) {
 		                    return parsedObject; 
 		                }
+					 }
+					 return null;
 		            } catch (ObjectParseException | OffBoardException e) { 
-		            //no lanzamos nada porque hay que seguir con el bucle hasta hacer un return
+		    			throw new ObjectParseException(e.getMessage());
 		            }
-			}
-			throw new ObjectParseException("No matching GameObject found for input line: " + line);
+			
 		}
 	}
